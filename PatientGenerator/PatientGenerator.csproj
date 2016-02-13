@@ -40,6 +40,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MARC.HI.EHRS.SVC.Core">
+      <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MohawkCollege.Util.Console.Parameters">
+      <HintPath>..\Solution Items\MohawkCollege.Util.Console.Parameters.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleParameters.cs" />
     <Compile Include="PatientGenerator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -62,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="PatientGenerator.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />

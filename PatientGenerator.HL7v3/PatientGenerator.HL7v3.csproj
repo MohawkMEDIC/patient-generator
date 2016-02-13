@@ -31,6 +31,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MARC.Everest">
+      <HintPath>..\Solution Items\MARC.Everest.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.Everest.Connectors.WCF">
+      <HintPath>..\Solution Items\MARC.Everest.Connectors.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.Everest.Formatters.XML.Datatypes.R1">
+      <HintPath>..\Solution Items\MARC.Everest.Formatters.XML.Datatypes.R1.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.Everest.Formatters.XML.ITS1">
+      <HintPath>..\Solution Items\MARC.Everest.Formatters.XML.ITS1.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.Everest.RMIM.CA.R020402">
+      <HintPath>..\Solution Items\MARC.Everest.RMIM.CA.R020402.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.Everest.RMIM.UV.CDAr2">
+      <HintPath>..\Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll</HintPath>
+    </Reference>
+    <Reference Include="MARC.HI.EHRS.SVC.Core">
+      <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,7 +63,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="EverestUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PatientGenerator.HL7v3.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
+      <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
+      <Name>PatientGenerator.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
