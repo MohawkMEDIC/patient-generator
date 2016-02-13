@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}</ProjectGuid>
+    <ProjectGuid>{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatientGenerator.HL7v2</RootNamespace>
-    <AssemblyName>PatientGenerator.HL7v2</AssemblyName>
+    <RootNamespace>PatientGenerator.FHIR</RootNamespace>
+    <AssemblyName>PatientGenerator.FHIR</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

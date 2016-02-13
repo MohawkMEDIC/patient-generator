@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator", "Patient
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A39D1C59-2133-421E-AB62-86330EC64C25}"
 	ProjectSection(SolutionItems) = preProject
+		Solution Items\Hl7.Fhir.Core.dll = Solution Items\Hl7.Fhir.Core.dll
+		Solution Items\Hl7.Fhir.Specification.dll = Solution Items\Hl7.Fhir.Specification.dll
 		Solution Items\MARC.Everest.Connectors.WCF.dll = Solution Items\MARC.Everest.Connectors.WCF.dll
 		Solution Items\MARC.Everest.dll = Solution Items\MARC.Everest.dll
 		Solution Items\MARC.Everest.Formatters.XML.Datatypes.R1.dll = Solution Items\MARC.Everest.Formatters.XML.Datatypes.R1.dll
@@ -14,10 +16,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Solution Items\MARC.Everest.RMIM.CA.R020402.dll = Solution Items\MARC.Everest.RMIM.CA.R020402.dll
 		Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll = Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll
 		Solution Items\MARC.HI.EHRS.SVC.Core.dll = Solution Items\MARC.HI.EHRS.SVC.Core.dll
+		Solution Items\Newtonsoft.Json.dll = Solution Items\Newtonsoft.Json.dll
 		Solution Items\NHapi.Base.dll = Solution Items\NHapi.Base.dll
 		Solution Items\NHapi.Model.V231.dll = Solution Items\NHapi.Model.V231.dll
 		Solution Items\NHapi.Model.V25.dll = Solution Items\NHapi.Model.V25.dll
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Core", "PatientGenerator.Core\PatientGenerator.Core.csproj", "{189EB28F-D9E3-4786-92FB-9883135FB9BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.HL7v2", "PatientGenerator.HL7v2\PatientGenerator.HL7v2.csproj", "{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.HL7v3", "PatientGenerator.HL7v3\PatientGenerator.HL7v3.csproj", "{62197E4D-6E55-49A1-87F1-4222E84BE9D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.FHIR", "PatientGenerator.FHIR\PatientGenerator.FHIR.csproj", "{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +40,22 @@ Global
 		{D54F9495-588E-412D-A599-8B11DF63A071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D54F9495-588E-412D-A599-8B11DF63A071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D54F9495-588E-412D-A599-8B11DF63A071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{189EB28F-D9E3-4786-92FB-9883135FB9BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{189EB28F-D9E3-4786-92FB-9883135FB9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{189EB28F-D9E3-4786-92FB-9883135FB9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{189EB28F-D9E3-4786-92FB-9883135FB9BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F190C571-477B-4BB3-8CF8-ACD08BA67DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62197E4D-6E55-49A1-87F1-4222E84BE9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62197E4D-6E55-49A1-87F1-4222E84BE9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62197E4D-6E55-49A1-87F1-4222E84BE9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62197E4D-6E55-49A1-87F1-4222E84BE9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
