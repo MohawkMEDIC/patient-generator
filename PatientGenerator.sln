@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.HL7v3", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.FHIR", "PatientGenerator.FHIR\PatientGenerator.FHIR.csproj", "{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Tests", "PatientGenerator.Tests\PatientGenerator.Tests.csproj", "{A929E6D8-2920-4581-A482-B688D866B7CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921724D9-55D2-49D5-AA6B-D6D95A5BA28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A929E6D8-2920-4581-A482-B688D866B7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A929E6D8-2920-4581-A482-B688D866B7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A929E6D8-2920-4581-A482-B688D866B7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A929E6D8-2920-4581-A482-B688D866B7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

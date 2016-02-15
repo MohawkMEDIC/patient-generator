@@ -24,10 +24,10 @@ namespace PatientGenerator.HL7v2
 			message.MSH.MessageType.MessageCode.Value = "ADT"; // Message Structure Code (Query By Parameter)
 			message.MSH.MessageType.TriggerEvent.Value = "A01"; // Trigger event (Event Query 22)
 			message.MSH.ProcessingID.ProcessingID.Value = "P"; // Production
-			message.MSH.ReceivingApplication.NamespaceID.Value = "CRTEST"; // Client Registry
-			message.MSH.ReceivingFacility.NamespaceID.Value = "CR1"; // SAMPLE
-			message.MSH.SendingApplication.NamespaceID.Value = "MOSCAR"; // What goes here?
-			message.MSH.SendingFacility.NamespaceID.Value = "McMaster"; // You're at the college ... right?
+			message.MSH.ReceivingApplication.NamespaceID.Value = "CR"; // Client Registry
+			message.MSH.ReceivingFacility.NamespaceID.Value = "AeHIN"; // SAMPLE
+			message.MSH.SendingApplication.NamespaceID.Value = "SEEDER"; // What goes here?
+			message.MSH.SendingFacility.NamespaceID.Value = "SEEDING"; // You're at the college ... right?
 			message.MSH.VersionID.VersionID.Value = "2.3.1";
 
 			PID pid = message.PID;
@@ -35,7 +35,7 @@ namespace PatientGenerator.HL7v2
 			var cx = pid.GetPatientIdentifierList(0);
 
 			cx.IDNumber.Value = Guid.NewGuid().ToString("N");
-			cx.AssigningAuthority.UniversalID.Value = "1.3.6.1.4.1.33349.3.1.3.201402.1.0.0";
+			cx.AssigningAuthority.UniversalID.Value = "1.3.6.1.4.1.33349.3.1.2.99121.283";
 			cx.AssigningAuthority.UniversalIDType.Value = "ISO";
 
 			pid.AdministrativeSex.Value = "M";
@@ -47,7 +47,7 @@ namespace PatientGenerator.HL7v2
 			pid.GetPatientAddress(0).StateOrProvince.Value = "Ontario";
 			pid.GetPatientAddress(0).Country.Value = "Canada";
 
-			MllpMessageSender sender = new MllpMessageSender(new Uri("mllp://crtest.marc-hi.ca:2100"));
+			MllpMessageSender sender = new MllpMessageSender(new Uri("mllp://cr.aehin.marc-hi.ca:2100"));
 
 			PipeParser parser = new PipeParser();
 

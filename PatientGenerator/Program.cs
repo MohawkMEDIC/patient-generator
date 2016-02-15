@@ -3,10 +3,12 @@ using MohawkCollege.Util.Console.Parameters;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.ServiceProcess;
 
 namespace PatientGenerator
 {
+	[Guid("21F35B18-E417-4F8E-B9C7-73E98B7C71B8")]
 	internal static class Program
 	{
 		/// <summary>
@@ -23,8 +25,8 @@ namespace PatientGenerator
 			bool hasConsole = true;
 
 			// Dump some info
-			Trace.TraceInformation("OpenIZ Startup : v{0}", entryAsm.GetName().Version);
-			Trace.TraceInformation("OpenIZ Working Directory : {0}", entryAsm.Location);
+			Trace.TraceInformation("Patient Generator Startup : v{0}", entryAsm.GetName().Version);
+			Trace.TraceInformation("Patient Generator Working Directory : {0}", entryAsm.Location);
 			Trace.TraceInformation("Operating System: {0} {1}", Environment.OSVersion.Platform, Environment.OSVersion.VersionString);
 			Trace.TraceInformation("CLI Version: {0}", Environment.Version);
 
@@ -39,7 +41,7 @@ namespace PatientGenerator
 				}
 				else if (parameters.ConsoleMode)
 				{
-					Console.WriteLine("Patient Generator {0} ({1})", entryAsm.GetName().Version, entryAsm.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion);
+					Console.WriteLine("Patient Generator {0}", entryAsm.GetName().Version);
 					Console.WriteLine("{0}", entryAsm.GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright);
 
 					ServiceUtil.Start(typeof(Program).GUID);

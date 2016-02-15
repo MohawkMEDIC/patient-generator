@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62197E4D-6E55-49A1-87F1-4222E84BE9D0}</ProjectGuid>
+    <ProjectGuid>{A929E6D8-2920-4581-A482-B688D866B7CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatientGenerator.HL7v3</RootNamespace>
-    <AssemblyName>PatientGenerator.HL7v3</AssemblyName>
+    <RootNamespace>PatientGenerator.Tests</RootNamespace>
+    <AssemblyName>PatientGenerator.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,24 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MARC.Everest">
-      <HintPath>..\Solution Items\MARC.Everest.dll</HintPath>
-    </Reference>
-    <Reference Include="MARC.Everest.Connectors.WCF">
-      <HintPath>..\Solution Items\MARC.Everest.Connectors.WCF.dll</HintPath>
-    </Reference>
-    <Reference Include="MARC.Everest.Formatters.XML.Datatypes.R1">
-      <HintPath>..\Solution Items\MARC.Everest.Formatters.XML.Datatypes.R1.dll</HintPath>
-    </Reference>
-    <Reference Include="MARC.Everest.Formatters.XML.ITS1">
-      <HintPath>..\Solution Items\MARC.Everest.Formatters.XML.ITS1.dll</HintPath>
-    </Reference>
-    <Reference Include="MARC.Everest.RMIM.CA.R020402">
-      <HintPath>..\Solution Items\MARC.Everest.RMIM.CA.R020402.dll</HintPath>
-    </Reference>
-    <Reference Include="MARC.Everest.RMIM.UV.CDAr2">
-      <HintPath>..\Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,17 +42,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EverestUtil.cs" />
+    <Compile Include="HL7v2Tests.cs" />
+    <Compile Include="HL7v3Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PatientGenerator.HL7v3.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
       <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
       <Name>PatientGenerator.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.FHIR\PatientGenerator.FHIR.csproj">
+      <Project>{921724d9-55d2-49d5-aa6b-d6d95a5ba28a}</Project>
+      <Name>PatientGenerator.FHIR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.HL7v2\PatientGenerator.HL7v2.csproj">
+      <Project>{f190c571-477b-4bb3-8cf8-acd08ba67de8}</Project>
+      <Name>PatientGenerator.HL7v2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.HL7v3\PatientGenerator.HL7v3.csproj">
+      <Project>{62197e4d-6e55-49a1-87f1-4222e84be9d0}</Project>
+      <Name>PatientGenerator.HL7v3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator\PatientGenerator.csproj">
+      <Project>{d54f9495-588e-412d-a599-8b11df63a071}</Project>
+      <Name>PatientGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -37,7 +37,7 @@ namespace PatientGenerator.HL7v2
 		{
 			// Encode the message
 			var parser = new PipeParser();
-			string strMessage = String.Empty;
+			string strMessage = string.Empty;
 			var id = Guid.NewGuid().ToString();
 
 			strMessage = parser.Encode(message);

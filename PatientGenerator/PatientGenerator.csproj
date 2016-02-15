@@ -40,10 +40,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MARC.HI.EHRS.SVC.Core">
+    <Reference Include="MARC.HI.EHRS.SVC.Core, Version=2.0.0.36817, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MohawkCollege.Util.Console.Parameters">
+    <Reference Include="MohawkCollege.Util.Console.Parameters, Version=0.2.4765.527, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Solution Items\MohawkCollege.Util.Console.Parameters.dll</HintPath>
     </Reference>
     <Reference Include="System" />
