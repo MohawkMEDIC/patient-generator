@@ -1,12 +1,18 @@
-﻿using MARC.Everest.Connectors.WCF;
+﻿using MARC.Everest.Connectors;
+using MARC.Everest.Connectors.WCF;
+using MARC.Everest.DataTypes;
+using MARC.Everest.DataTypes.Interfaces;
 using MARC.Everest.Formatters.XML.Datatypes.R1;
 using MARC.Everest.Formatters.XML.ITS1;
 using MARC.Everest.Interfaces;
+using MARC.Everest.RMIM.CA.R020402.Interactions;
+using MARC.Everest.RMIM.CA.R020402.Vocabulary;
 using MARC.Everest.Xml;
 using PatientGenerator.Core;
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace PatientGenerator.HL7v3
@@ -15,121 +21,102 @@ namespace PatientGenerator.HL7v3
 	{
 		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
 		{
-			//PRPA_IN101201CA registerPatientRequest = new PRPA_IN101201CA(
-			//	Guid.NewGuid(),
-			//	patient.DateOfBirth,
-			//	ResponseMode.Immediate,
-			//	PRPA_IN101201CA.GetInteractionId(),
-			//	PRPA_IN101201CA.GetProfileId(),
-			//	ProcessingID.Production,
-			//	AcknowledgementCondition.Always,
-			//	new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Receiver(
-			//		new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device2(
-			//			new II("1.3.6.1.4.1.33349.3.1.1.20.4", "MARC-W1-1")
-			//		)
-			//	),
-			//	new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
-			//		new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
-			//			new II("1.3.6.1.4.1.33349.3.1.3.201303.0.0.0", "A4H_OSCAR_B")
-			//		)
-			//	)
-			//);
+			DateTime dob = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28));
 
-			//registerPatientRequest.controlActEvent = PRPA_IN101201CA.CreateControlActEvent(
-			//	Guid.NewGuid(),
-			//	PRPA_IN101201CA.GetTriggerEvent(),
-			//	new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Author(),
-			//	new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject2<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
-			//		true,
-			//		new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.RegistrationRequest<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
-			//			new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject4<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
-			//				new MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity(
-			//						null,
-			//						RoleStatus.Active,
-			//						null,
-			//						x_VeryBasicConfidentialityKind.Normal,
-			//					new MARC.Everest.RMIM.CA.R020402.PRPA_MT101002CA.Person(
-			//						new LIST<PN>(new PN[] {
-			//							new PN(EntityNameUse.Legal, new ENXP[] {
-			//								new ENXP(patient.FirstName, EntityNamePartType.Given),
-			//								new ENXP(patient.MiddleName, EntityNamePartType.Given),
-			//								new ENXP(patient.LastName, EntityNamePartType.Family)
-			//							})
-			//						}),
-			//						LIST<TEL>.CreateList(
-			//							new TEL(patient.Email, MARC.Everest.DataTypes.Interfaces.TelecommunicationAddressUse.MobileContact),
-			//							new TEL(patient.PhoneNo, MARC.Everest.DataTypes.Interfaces.TelecommunicationAddressUse.WorkPlace)
-			//						),
-			//						MARC.Everest.Connectors.Util.Convert<AdministrativeGender>(patient.Gender),
-			//						new TS(patient.DateOfBirth, DatePrecision.Day),
-			//						false,
-			//						null,
-			//						false,
-			//						null,
-			//						new LIST<AD>(
-			//							new AD[] {
-			//								new AD(
-			//									new ADXP[] {
-			//										new ADXP(patient.AddressLine, AddressPartType.StreetAddressLine),
-			//										new ADXP(patient.City, AddressPartType.City),
-			//										new ADXP(patient.PostalCode, AddressPartType.PostalCode),
-			//										new ADXP(patient.Province, AddressPartType.State),
-			//										new ADXP("Canada", AddressPartType.Country)
-			//									}
-			//								)
-			//							}
-			//						),
-			//						null,
-			//						null,
-			//						new MARC.Everest.RMIM.CA.R020402.PRPA_MT101104CA.LanguageCommunication(new CV<String>(patient.Language, "2.16.840.1.113883.6.121"), true)
-			//					)
-			//				)
-			//			),
-			//			new MARC.Everest.RMIM.CA.R020402.REPC_MT230003CA.Custodian(
-			//				new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.AssignedDevice(
-			//					new II("2.16.840.1.113883.3.239.18.61", Guid.NewGuid().ToString("N")),
-			//					new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.Repository("KNG"),
-			//					new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.RepositoryJurisdiction("KGHD")
-			//				)
-			//			)
-			//		)
-			//	)
+			PRPA_IN101201CA registerPatientRequest = new PRPA_IN101201CA(
+				Guid.NewGuid(),
+				dob,
+				ResponseMode.Immediate,
+				PRPA_IN101201CA.GetInteractionId(),
+				PRPA_IN101201CA.GetProfileId(),
+				ProcessingID.Production,
+				AcknowledgementCondition.Always,
+				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Receiver(
+					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device2(
+						new II("1.3.6.1.4.1.33349.3.1.1.20.4", "MARC-W1-1")
+					)
+				),
+				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
+					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
+						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", "Seeder")
+					)
+				)
+			);
 
-			//);
+			registerPatientRequest.controlActEvent = PRPA_IN101201CA.CreateControlActEvent(
+				Guid.NewGuid(),
+				PRPA_IN101201CA.GetTriggerEvent(),
+				new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Author(),
+				new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject2<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+					true,
+					new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.RegistrationRequest<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+						new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject4<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+							new MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity(
+									null,
+									RoleStatus.Active,
+									null,
+									x_VeryBasicConfidentialityKind.Normal,
+									new MARC.Everest.RMIM.CA.R020402.PRPA_MT101002CA.Person(
+										BuildNames(patient),
+										BuildTelecoms(patient),
+										Util.Convert<AdministrativeGender>(patient.Gender.Substring(0)),
+										new TS(dob, DatePrecision.Day),
+										false,
+										null,
+										false,
+										null,
+										BuildAddresses(patient),
+										null,
+										null,
+										new MARC.Everest.RMIM.CA.R020402.PRPA_MT101104CA.LanguageCommunication(new CV<string>("en", "2.16.840.1.113883.6.121"), true)
+									)
+							)
+						),
+						new MARC.Everest.RMIM.CA.R020402.REPC_MT230003CA.Custodian(
+							new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.AssignedDevice(
+								new II("2.16.840.1.113883.3.239.18.61", Guid.NewGuid().ToString("N")),
+								new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.Repository("KNG"),
+								new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.RepositoryJurisdiction("KGHD")
+							)
+						)
+					)
+				)
 
-			//registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(patient.DateOfBirth);
+			);
 
-			//// Author
-			//registerPatientRequest.controlActEvent.Author.Time = patient.DateOfBirth;
-			//registerPatientRequest.controlActEvent.Author.SetAuthorPerson(
-			//	new MARC.Everest.RMIM.CA.R020402.COCT_MT090102CA.AssignedEntity(
-			//		new SET<II>(new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N"))),
-			//		new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.Person(
-			//			new PN(
-			//				EntityNameUse.Legal,
-			//				new ENXP[] {
-			//					new ENXP("Fyfe", EntityNamePartType.Family),
-			//					new ENXP("Justin", EntityNamePartType.Given),
-			//					new ENXP("Dr", EntityNamePartType.Prefix)
-			//				}
-			//			),
-			//			new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.HealthCareProvider() { NullFlavor = NullFlavor.NoInformation }
-			//		)
-			//	)
-			//);
+			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(dob);
 
-			//string hcn = Guid.NewGuid().ToString("N");
-			//hcn = Regex.Replace(hcn, "[^.0-9]", "");
+			// Author
+			registerPatientRequest.controlActEvent.Author.Time = dob;
+			registerPatientRequest.controlActEvent.Author.SetAuthorPerson(
+				new MARC.Everest.RMIM.CA.R020402.COCT_MT090102CA.AssignedEntity(
+					new SET<II>(new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N"))),
+					new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.Person(
+						new PN(
+							EntityNameUse.Legal,
+							new ENXP[] {
+								new ENXP("Fyfe", EntityNamePartType.Family),
+								new ENXP("Justin", EntityNamePartType.Given),
+								new ENXP("Dr", EntityNamePartType.Prefix)
+							}
+						),
+						new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.HealthCareProvider() { NullFlavor = NullFlavor.NoInformation }
+					)
+				)
+			);
 
-			//registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = SET<II>.CreateSET(
-			//		new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N")),
-			//		new II("2.16.840.1.113883.3.239.19.14", hcn),
-			//		new II("2.16.840.1.113883.4.59", Guid.NewGuid().ToString())
-			//);
+			string hcn = Guid.NewGuid().ToString("N");
+			hcn = Regex.Replace(hcn, "[^.0-9]", "");
+			hcn = hcn.Substring(0, 9);
 
-			//return registerPatientRequest;
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = SET<II>.CreateSET(
+					new II("1.3.6.1.4.1.33349.3.1.2.99121.9992", hcn),
+					new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString())
+			);
 
-			return null;
+			LogGraphable(registerPatientRequest);
+
+			return registerPatientRequest;
 		}
 
 		/// <summary>
@@ -170,7 +157,7 @@ namespace PatientGenerator.HL7v3
 		{
 			bool retVal = true;
 
-			WcfClientConnector client = new WcfClientConnector(String.Format("endpointName={0}", endpointName));
+			WcfClientConnector client = new WcfClientConnector(string.Format("endpointName={0}", endpointName));
 
 			XmlIts1Formatter formatter = new XmlIts1Formatter
 			{
@@ -189,14 +176,14 @@ namespace PatientGenerator.HL7v3
 
 			var sendResult = client.Send(graphable);
 
-			if (sendResult.Code != MARC.Everest.Connectors.ResultCode.Accepted && sendResult.Code != MARC.Everest.Connectors.ResultCode.AcceptedNonConformant)
+			if (sendResult.Code != ResultCode.Accepted && sendResult.Code != ResultCode.AcceptedNonConformant)
 			{
 				retVal = false;
 			}
 
 			var recvResult = client.Receive(sendResult);
 
-			if (recvResult.Code != MARC.Everest.Connectors.ResultCode.Accepted && recvResult.Code != MARC.Everest.Connectors.ResultCode.AcceptedNonConformant)
+			if (recvResult.Code != ResultCode.Accepted && recvResult.Code != ResultCode.AcceptedNonConformant)
 			{
 				retVal = false;
 			}
@@ -211,6 +198,71 @@ namespace PatientGenerator.HL7v3
 			client.Close();
 
 			return retVal;
+		}
+
+		private static LIST<AD> BuildAddresses(DemographicOptions patient)
+		{
+			LIST<AD> addresses = new LIST<AD>();
+
+			foreach (var item in patient.Addresses)
+			{
+				addresses.Add(new AD(new ADXP[]
+				{
+					new ADXP(item.StreetAddress, AddressPartType.StreetAddressLine),
+					new ADXP(item.City, AddressPartType.City),
+					new ADXP(item.ZipPostalCode, AddressPartType.PostalCode),
+					new ADXP(item.StateProvince, AddressPartType.State),
+					new ADXP(item.Country, AddressPartType.Country)
+				}));
+			}
+
+			return addresses;
+		}
+
+		private static LIST<PN> BuildNames(DemographicOptions patient)
+		{
+			LIST<PN> personNames = new LIST<PN>();
+
+			foreach (var item in patient.Names)
+			{
+				personNames.Add(new PN(EntityNameUse.Legal, new ENXP[]
+				{
+					new ENXP(item.Prefix, EntityNamePartType.Prefix),
+					new ENXP(item.FirstName, EntityNamePartType.Given),
+					new ENXP(item.LastName, EntityNamePartType.Family)
+				}));
+			}
+
+			return personNames;
+		}
+
+		private static LIST<TEL> BuildTelecoms(DemographicOptions patient)
+		{
+			LIST<TEL> telecoms = new LIST<TEL>();
+
+			if (patient.TelecomOptions.EmailAddresses.Count == 0)
+			{
+				// TODO: supply random email address
+				telecoms.Add(new TEL("admin@example.com", TelecommunicationAddressUse.Direct));
+			}
+
+			if (patient.TelecomOptions.PhoneNumbers.Count == 0)
+			{
+				// TODO: supply random telephone number
+				telecoms.Add(new TEL("9055751212", TelecommunicationAddressUse.WorkPlace));
+			}
+
+			foreach (var email in patient.TelecomOptions.EmailAddresses)
+			{
+				telecoms.Add(new TEL(email, TelecommunicationAddressUse.Direct));
+			}
+
+			foreach (var phone in patient.TelecomOptions.PhoneNumbers)
+			{
+				telecoms.Add(new TEL(phone));
+			}
+
+			return telecoms;
 		}
 	}
 }

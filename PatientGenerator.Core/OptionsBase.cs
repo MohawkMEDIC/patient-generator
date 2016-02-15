@@ -6,6 +6,8 @@
 		{
 		}
 
+		public string AssigningAuthority { get; set; }
+
 		public string ReceivingApplication { get; set; }
 
 		public string ReceivingFacility { get; set; }
