@@ -15,15 +15,14 @@ namespace PatientGenerator.Tests
 	[TestClass]
 	public class HL7v2Tests
     {
-
-		[TestInitialize]
-		public void Initialize()
+		[TestCleanup]
+		public void Cleanup()
 		{
 
 		}
 
-		[TestCleanup]
-		public void Cleanup()
+		[TestInitialize]
+		public void Initialize()
 		{
 
 		}

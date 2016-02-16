@@ -45,7 +45,7 @@ namespace PatientGenerator.HL7v2
 			cx.AssigningAuthority.UniversalIDType.Value = "ISO";
 
 			pid.AdministrativeSex.Value = "M";
-			pid.DateTimeOfBirth.Time.SetShortDate(patient.DateOfBirthOptions.Exact);
+			pid.DateTimeOfBirth.Time.SetShortDate(patient.DateOfBirthOptions.Exact.Value);
 
 			pid.GetPatientName(0).GivenName.Value = patient.Names.Select(x => x.FirstName).FirstOrDefault();
 			pid.GetPatientName(0).FamilyName.Surname.Value = patient.Names.Select(x => x.LastName).FirstOrDefault();

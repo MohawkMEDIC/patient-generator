@@ -36,5 +36,10 @@
 		/// The sending facility.
 		/// </summary>
 		public string SendingFacility { get; set; }
+
+		/// <summary>
+		/// When true, the application will generate patients using HL7v2 messages.
+		/// </summary>
+		public bool UseHL7v2 { get; set; }
 	}
 }

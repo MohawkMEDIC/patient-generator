@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="HL7v2Tests.cs" />
     <Compile Include="HL7v3Tests.cs" />
+    <Compile Include="MessagingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +97,10 @@
     <ProjectReference Include="..\PatientGenerator.HL7v3\PatientGenerator.HL7v3.csproj">
       <Project>{62197e4d-6e55-49a1-87f1-4222e84be9d0}</Project>
       <Name>PatientGenerator.HL7v3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.Messaging\PatientGenerator.Messaging.csproj">
+      <Project>{1ec31f97-bbd0-467e-b6a4-a0750fb61e62}</Project>
+      <Name>PatientGenerator.Messaging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

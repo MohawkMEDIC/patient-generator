@@ -60,7 +60,7 @@ namespace PatientGenerator.HL7v3
 										BuildNames(patient),
 										BuildTelecoms(patient),
 										Util.Convert<AdministrativeGender>(patient.Gender.Substring(0)),
-										new TS(patient.DateOfBirthOptions.Exact, DatePrecision.Day),
+										new TS(patient.DateOfBirthOptions.Exact.Value, DatePrecision.Day),
 										false,
 										null,
 										false,

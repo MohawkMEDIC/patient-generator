@@ -8,10 +8,10 @@ namespace PatientGenerator.Core.ComponentModel
 		{
 		}
 
-		public DateTime End { get; set; }
+		public DateTime? End { get; set; }
 
-		public DateTime Start { get; set; }
+		public DateTime? Start { get; set; }
 
-		public DateTime Exact { get; set; }
+		public DateTime? Exact { get; set; }
 	}
 }

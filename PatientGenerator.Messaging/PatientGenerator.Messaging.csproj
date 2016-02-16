@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,8 +48,17 @@
     <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
     <Compile Include="Configuration\ListenEndpoint.cs" />
     <Compile Include="Configuration\MessagingConfigurationSection.cs" />
+    <Compile Include="Model\GenerationResponse.cs" />
+    <Compile Include="Validation\ConflictingValueDetail.cs" />
+    <Compile Include="Validation\IResultDetail.cs" />
     <Compile Include="MessageHandlerService.cs" />
+    <Compile Include="MessageReceiver\GenerationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IGenerationService.cs" />
+    <Compile Include="Validation\MandatoryElementMissingResultDetail.cs" />
+    <Compile Include="Validation\ResultDetail.cs" />
+    <Compile Include="Validation\ResultDetailType.cs" />
+    <Compile Include="Validation\ValidationUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">

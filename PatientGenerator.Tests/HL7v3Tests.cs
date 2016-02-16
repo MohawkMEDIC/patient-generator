@@ -12,14 +12,14 @@ namespace PatientGenerator.Tests
 	[TestClass]
 	public class HL7v3Tests
 	{
-		[TestInitialize]
-		public void Initialize()
+		[TestCleanup]
+		public void Cleanup()
 		{
 
 		}
 
-		[TestCleanup]
-		public void Cleanup()
+		[TestInitialize]
+		public void Initialize()
 		{
 
 		}
@@ -76,7 +76,8 @@ namespace PatientGenerator.Tests
 						FirstName = "Larry",
 						LastName = "McDavid"
 					}
-				}
+				},
+				PersonIdentifier = Guid.NewGuid().ToString("N")
 			});
 
 			Assert.IsTrue(EverestUtil.Sendv3Messages(message, "cr"));
