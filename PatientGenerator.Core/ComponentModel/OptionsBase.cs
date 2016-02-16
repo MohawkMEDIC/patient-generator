@@ -1,4 +1,4 @@
-﻿namespace PatientGenerator.Core
+﻿namespace PatientGenerator.Core.ComponentModel
 {
 	/// <summary>
 	/// Represents a base class for options.

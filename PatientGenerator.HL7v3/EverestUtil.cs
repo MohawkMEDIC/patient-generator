@@ -9,6 +9,7 @@ using MARC.Everest.RMIM.CA.R020402.Interactions;
 using MARC.Everest.RMIM.CA.R020402.Vocabulary;
 using MARC.Everest.Xml;
 using PatientGenerator.Core;
+using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -18,7 +19,7 @@ using System.Xml;
 
 namespace PatientGenerator.HL7v3
 {
-	public class EverestUtil
+	public static class EverestUtil
 	{
 		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
 		{
@@ -32,12 +33,12 @@ namespace PatientGenerator.HL7v3
 				AcknowledgementCondition.Always,
 				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Receiver(
 					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device2(
-						new II("1.3.6.1.4.1.33349.3.1.1.20.4", "MARC-W1-1")
+						new II("1.3.6.1.4.1.33349.3.1.1.20.4", patient.ReceivingFacility)
 					)
 				),
 				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
 					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
-						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", "SEEDER")
+						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", patient.SendingFacility)
 					)
 				)
 			);

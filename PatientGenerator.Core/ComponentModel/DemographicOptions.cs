@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PatientGenerator.Core
+namespace PatientGenerator.Core.ComponentModel
 {
 	public class DemographicOptions : OptionsBase
 	{

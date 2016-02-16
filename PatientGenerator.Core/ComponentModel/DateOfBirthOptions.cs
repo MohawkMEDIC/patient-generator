@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PatientGenerator.Core
+namespace PatientGenerator.Core.ComponentModel
 {
 	public class DateOfBirthOptions
 	{

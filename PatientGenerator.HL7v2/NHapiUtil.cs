@@ -3,6 +3,7 @@ using NHapi.Base.Parser;
 using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Segment;
 using PatientGenerator.Core;
+using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2.Configuration;
 using System;
 using System.Collections.Generic;

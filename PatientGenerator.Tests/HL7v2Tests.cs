@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHapi.Model.V231.Message;
 using NHapi.Model.V231.Segment;
+using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2;
 using System;
 using System.Collections.Generic;
@@ -30,12 +31,12 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void SendMessageTest()
 		{
-			var response = NHapiUtil.GenerateCandidateRegistry(new Core.DemographicOptions
+			var response = NHapiUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
-				Addresses = new List<Core.AddressOptions>
+				Addresses = new List<AddressOptions>
 				{
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "Brampton",
 						Country = "Canada",
@@ -43,27 +44,27 @@ namespace PatientGenerator.Tests
 						StateProvince = "Ontario",
 						ZipPostalCode = "L6X0C3"
 					},
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "New York City",
 						Country = "United States of America",
 						StreetAddress = "250 Madison Ave.",
 						StateProvince = "New York",
 					},
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "Friedberg",
 						Country = "Germany",
 						StreetAddress = "Grüner Weg 6",
 					}
 				},
-				DateOfBirthOptions = new Core.DateOfBirthOptions
+				DateOfBirthOptions = new DateOfBirthOptions
 				{
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
-				Names = new List<Core.NameOptions>
+				Names = new List<NameOptions>
 				{
-					new Core.NameOptions
+					new NameOptions
 					{
 						FirstName = "Samantha",
 						LastName = "Richtofen"
@@ -86,12 +87,12 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void SendMessageInvalidOidTest()
 		{
-			var response = NHapiUtil.GenerateCandidateRegistry(new Core.DemographicOptions
+			var response = NHapiUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
 				AssigningAuthority = "this is not a valid assigning authority value",
-				Addresses = new List<Core.AddressOptions>
+				Addresses = new List<AddressOptions>
 				{
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "Brampton",
 						Country = "Canada",
@@ -99,27 +100,27 @@ namespace PatientGenerator.Tests
 						StateProvince = "Ontario",
 						ZipPostalCode = "L6X0C3"
 					},
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "New York City",
 						Country = "United States of America",
 						StreetAddress = "250 Madison Ave.",
 						StateProvince = "New York",
 					},
-					new Core.AddressOptions
+					new AddressOptions
 					{
 						City = "Friedberg",
 						Country = "Germany",
 						StreetAddress = "Grüner Weg 6",
 					}
 				},
-				DateOfBirthOptions = new Core.DateOfBirthOptions
+				DateOfBirthOptions = new DateOfBirthOptions
 				{
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
-				Names = new List<Core.NameOptions>
+				Names = new List<NameOptions>
 				{
-					new Core.NameOptions
+					new NameOptions
 					{
 						FirstName = "Lawrence",
 						LastName = "Taylor"

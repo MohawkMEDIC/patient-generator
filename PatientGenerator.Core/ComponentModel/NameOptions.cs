@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PatientGenerator.Core
+namespace PatientGenerator.Core.ComponentModel
 {
 	/// <summary>
 	/// Represents name options for a patient.

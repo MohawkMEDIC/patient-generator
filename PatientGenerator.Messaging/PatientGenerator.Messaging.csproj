@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\ListenEndpoint.cs" />
+    <Compile Include="Configuration\MessagingConfigurationSection.cs" />
     <Compile Include="MessageHandlerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
