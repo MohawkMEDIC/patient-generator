@@ -49,7 +49,7 @@
     <Compile Include="Configuration\ListenEndpoint.cs" />
     <Compile Include="Configuration\MessagingConfigurationSection.cs" />
     <Compile Include="Model\GenerationResponse.cs" />
-    <Compile Include="Validation\ConflictingValueDetail.cs" />
+    <Compile Include="Validation\ConflictingValueResultDetail.cs" />
     <Compile Include="Validation\IResultDetail.cs" />
     <Compile Include="MessageHandlerService.cs" />
     <Compile Include="MessageReceiver\GenerationService.cs" />

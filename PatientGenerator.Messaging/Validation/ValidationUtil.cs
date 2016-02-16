@@ -20,7 +20,7 @@ namespace PatientGenerator.Messaging.Validation
 
 			if ((options.DateOfBirthOptions?.Start != null && options.DateOfBirthOptions?.End != null) && options.DateOfBirthOptions?.Exact != null)
 			{
-				details.Add(new ConflictingValueDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated. Either Start and End OR Exact"));
+				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated. Either Start and End OR Exact"));
 			}
 
 			if (options.UseHL7v2)
