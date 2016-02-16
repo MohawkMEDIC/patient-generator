@@ -6,6 +6,11 @@ namespace PatientGenerator.Core
 	{
 		public DemographicOptions()
 		{
+			Addresses = new List<AddressOptions>();
+			DateOfBirthOptions = new DateOfBirthOptions();
+			Names = new List<NameOptions>();
+			OtherIdentifiers = new List<Dictionary<string, string>>();
+			TelecomOptions = new TelecomOptions();
 		}
 
 		public List<AddressOptions> Addresses { get; set; }

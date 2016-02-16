@@ -41,6 +41,7 @@
       <HintPath>..\Solution Items\NHapi.Model.V25.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\HL7v2ConfigurationSection.cs" />
+    <Compile Include="Configuration\LlpEndpoint.cs" />
     <Compile Include="NHapiUtil.cs" />
     <Compile Include="MllpMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

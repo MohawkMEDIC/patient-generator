@@ -40,14 +40,6 @@ namespace PatientGenerator.Tests
 					},
 					new Core.AddressOptions
 					{
-						City = "Amritsar",
-						Country = "India",
-						StreetAddress = "42 Mal Road",
-						StateProvince = "Punjab",
-						ZipPostalCode = "143502"
-					},
-					new Core.AddressOptions
-					{
 						City = "New York City",
 						Country = "United States of America",
 						StreetAddress = "250 Madison Ave.",
@@ -59,6 +51,7 @@ namespace PatientGenerator.Tests
 						City = "Friedberg",
 						Country = "Germany",
 						StreetAddress = "Grüner Weg 6",
+						StateProvince = "Tempa",
 						ZipPostalCode = "61169"
 					},
 					new Core.AddressOptions
@@ -70,17 +63,17 @@ namespace PatientGenerator.Tests
 						ZipPostalCode = "93905"
 					}
 				},
+				DateOfBirthOptions = new Core.DateOfBirthOptions
+				{
+					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
+				},
+				Gender = "M",
 				Names = new List<Core.NameOptions>
 				{
 					new Core.NameOptions
 					{
-						FirstName = "Barry",
-						LastName = "Sanders"
-					},
-					new Core.NameOptions
-					{
-						FirstName = "Paul",
-						LastName = "Brown"
+						FirstName = "Walter",
+						LastName = "Payton"
 					}
 				}
 			});

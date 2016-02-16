@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D54F9495-588E-412D-A599-8B11DF63A071}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{1EC31F97-BBD0-467E-B6A4-A0750FB61E62}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatientGenerator</RootNamespace>
-    <AssemblyName>PatientGenerator</AssemblyName>
+    <RootNamespace>PatientGenerator.Messaging</RootNamespace>
+    <AssemblyName>PatientGenerator.Messaging</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,70 +30,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MARC.HI.EHRS.SVC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MARC.HI.EHRS.SVC.Core">
       <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
     </Reference>
-    <Reference Include="MohawkCollege.Util.Console.Parameters">
-      <HintPath>..\Solution Items\MohawkCollege.Util.Console.Parameters.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleParameters.cs" />
-    <Compile Include="PatientGenerator.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PatientGenerator.Designer.cs">
-      <DependentUpon>PatientGenerator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="MessageHandlerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="PatientGenerator.licenseheader" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
       <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
       <Name>PatientGenerator.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator.FHIR\PatientGenerator.FHIR.csproj">
-      <Project>{921724d9-55d2-49d5-aa6b-d6d95a5ba28a}</Project>
-      <Name>PatientGenerator.FHIR</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator.HL7v2\PatientGenerator.HL7v2.csproj">
-      <Project>{f190c571-477b-4bb3-8cf8-acd08ba67de8}</Project>
-      <Name>PatientGenerator.HL7v2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator.HL7v3\PatientGenerator.HL7v3.csproj">
-      <Project>{62197e4d-6e55-49a1-87f1-4222e84be9d0}</Project>
-      <Name>PatientGenerator.HL7v3</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator.Messaging\PatientGenerator.Messaging.csproj">
-      <Project>{1ec31f97-bbd0-467e-b6a4-a0750fb61e62}</Project>
-      <Name>PatientGenerator.Messaging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

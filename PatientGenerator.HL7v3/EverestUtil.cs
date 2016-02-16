@@ -11,6 +11,7 @@ using MARC.Everest.Xml;
 using PatientGenerator.Core;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -21,11 +22,9 @@ namespace PatientGenerator.HL7v3
 	{
 		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
 		{
-			DateTime dob = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28));
-
 			PRPA_IN101201CA registerPatientRequest = new PRPA_IN101201CA(
 				Guid.NewGuid(),
-				dob,
+				DateTime.Now,
 				ResponseMode.Immediate,
 				PRPA_IN101201CA.GetInteractionId(),
 				PRPA_IN101201CA.GetProfileId(),
@@ -38,7 +37,7 @@ namespace PatientGenerator.HL7v3
 				),
 				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
 					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
-						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", "Seeder")
+						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", "SEEDER")
 					)
 				)
 			);
@@ -60,7 +59,7 @@ namespace PatientGenerator.HL7v3
 										BuildNames(patient),
 										BuildTelecoms(patient),
 										Util.Convert<AdministrativeGender>(patient.Gender.Substring(0)),
-										new TS(dob, DatePrecision.Day),
+										new TS(patient.DateOfBirthOptions.Exact, DatePrecision.Day),
 										false,
 										null,
 										false,
@@ -68,7 +67,7 @@ namespace PatientGenerator.HL7v3
 										BuildAddresses(patient),
 										null,
 										null,
-										new MARC.Everest.RMIM.CA.R020402.PRPA_MT101104CA.LanguageCommunication(new CV<string>("en", "2.16.840.1.113883.6.121"), true)
+										new MARC.Everest.RMIM.CA.R020402.PRPA_MT101104CA.LanguageCommunication(new CV<string>("eng", "2.16.840.1.113883.6.121"), true)
 									)
 							)
 						),
@@ -84,10 +83,10 @@ namespace PatientGenerator.HL7v3
 
 			);
 
-			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(dob);
+			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(DateTime.Now);
 
 			// Author
-			registerPatientRequest.controlActEvent.Author.Time = dob;
+			registerPatientRequest.controlActEvent.Author.Time = patient.DateOfBirthOptions.Exact;
 			registerPatientRequest.controlActEvent.Author.SetAuthorPerson(
 				new MARC.Everest.RMIM.CA.R020402.COCT_MT090102CA.AssignedEntity(
 					new SET<II>(new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N"))),
@@ -111,8 +110,11 @@ namespace PatientGenerator.HL7v3
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = SET<II>.CreateSET(
 					new II("1.3.6.1.4.1.33349.3.1.2.99121.9992", hcn),
+					new II("1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")),
 					new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString())
 			);
+
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 
 			LogGraphable(registerPatientRequest);
 
@@ -176,6 +178,10 @@ namespace PatientGenerator.HL7v3
 
 			var sendResult = client.Send(graphable);
 
+			//var temp = sendResult.Code == ResultCode.Accepted ||
+			//	sendResult.Code == ResultCode.AcceptedNonConformant &&
+			//	sendResult.Details.Count(o => o.Type == ResultDetailType.Error) == 0;
+
 			if (sendResult.Code != ResultCode.Accepted && sendResult.Code != ResultCode.AcceptedNonConformant)
 			{
 				retVal = false;
@@ -206,13 +212,64 @@ namespace PatientGenerator.HL7v3
 
 			foreach (var item in patient.Addresses)
 			{
+				ADXP city;
+				ADXP country;
+				ADXP postal;
+				ADXP state;
+				ADXP street;
+
+				if (item.City == null)
+				{
+					city = new ADXP { NullFlavor = NullFlavor.NoInformation };
+				}
+				else
+				{
+					city = new ADXP(item.City, AddressPartType.City);
+				}
+
+				if (item.Country == null)
+				{
+					country = new ADXP { NullFlavor = NullFlavor.NoInformation };
+				}
+				else
+				{
+					country = new ADXP(item.Country, AddressPartType.Country);
+				}
+
+				if (item.ZipPostalCode == null)
+				{
+					postal = new ADXP { NullFlavor = NullFlavor.NoInformation };
+				}
+				else
+				{
+					postal = new ADXP(item.ZipPostalCode, AddressPartType.PostalCode);
+				}
+
+				if (item.StateProvince == null)
+				{
+					state = new ADXP { NullFlavor = NullFlavor.NoInformation };
+				}
+				else
+				{
+					state = new ADXP(item.StateProvince, AddressPartType.State);
+				}
+
+				if (item.StreetAddress == null)
+				{
+					street = new ADXP { NullFlavor = NullFlavor.NoInformation };
+				}
+				else
+				{
+					street = new ADXP(item.StreetAddress, AddressPartType.StreetAddressLine);
+				}
+
 				addresses.Add(new AD(new ADXP[]
 				{
-					new ADXP(item.StreetAddress, AddressPartType.StreetAddressLine),
-					new ADXP(item.City, AddressPartType.City),
-					new ADXP(item.ZipPostalCode, AddressPartType.PostalCode),
-					new ADXP(item.StateProvince, AddressPartType.State),
-					new ADXP(item.Country, AddressPartType.Country)
+					city,
+					country,
+					postal,
+					state,
+					street
 				}));
 			}
 
@@ -227,7 +284,7 @@ namespace PatientGenerator.HL7v3
 			{
 				personNames.Add(new PN(EntityNameUse.Legal, new ENXP[]
 				{
-					new ENXP(item.Prefix, EntityNamePartType.Prefix),
+					//new ENXP(item.Prefix, EntityNamePartType.Prefix),
 					new ENXP(item.FirstName, EntityNamePartType.Given),
 					new ENXP(item.LastName, EntityNamePartType.Family)
 				}));

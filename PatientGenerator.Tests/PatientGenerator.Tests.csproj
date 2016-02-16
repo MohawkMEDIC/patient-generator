@@ -55,6 +55,17 @@
       <HintPath>..\Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NHapi.Base, Version=2.3.0.0, Culture=neutral, PublicKeyToken=d0d8ea960a3440eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Solution Items\NHapi.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="NHapi.Model.V231">
+      <HintPath>..\Solution Items\NHapi.Model.V231.dll</HintPath>
+    </Reference>
+    <Reference Include="NHapi.Model.V25, Version=2.3.0.0, Culture=neutral, PublicKeyToken=d0d8ea960a3440eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Solution Items\NHapi.Model.V25.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -85,10 +96,6 @@
     <ProjectReference Include="..\PatientGenerator.HL7v3\PatientGenerator.HL7v3.csproj">
       <Project>{62197e4d-6e55-49a1-87f1-4222e84be9d0}</Project>
       <Name>PatientGenerator.HL7v3</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator\PatientGenerator.csproj">
-      <Project>{d54f9495-588e-412d-a599-8b11df63a071}</Project>
-      <Name>PatientGenerator</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -9,12 +9,12 @@ using System.ServiceProcess;
 namespace PatientGenerator
 {
 	[Guid("21F35B18-E417-4F8E-B9C7-73E98B7C71B8")]
-	internal static class Program
+	class Program
 	{
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		private static void Main(string[] args)
+		internal static void Main(string[] args)
 		{
 			// Parser
 			ParameterParser<ConsoleParameters> parser = new ParameterParser<ConsoleParameters>();
