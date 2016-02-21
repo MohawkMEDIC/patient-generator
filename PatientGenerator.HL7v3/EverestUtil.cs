@@ -104,7 +104,6 @@ namespace PatientGenerator.HL7v3
 						)
 					)
 				)
-
 			);
 
 			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(DateTime.Now);
@@ -140,7 +139,9 @@ namespace PatientGenerator.HL7v3
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 
+#if DEBUG
 			LogGraphable(registerPatientRequest);
+#endif
 
 			return registerPatientRequest;
 		}
@@ -151,7 +152,7 @@ namespace PatientGenerator.HL7v3
 		/// <param name="graphable">The IGraphable message to log.</param>
 		public static void LogGraphable(IGraphable graphable)
 		{
-			System.Xml.XmlWriter writer = null;
+			XmlWriter writer = null;
 
 			XmlIts1Formatter formatter = new XmlIts1Formatter
 			{
@@ -172,7 +173,7 @@ namespace PatientGenerator.HL7v3
 
 			stateWriter.Flush();
 
-			Debug.WriteLine(sb.ToString());
+			Trace.TraceInformation(sb.ToString());
 		}
 
 		/// <summary>

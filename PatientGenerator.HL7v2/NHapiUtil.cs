@@ -77,21 +77,36 @@ namespace PatientGenerator.HL7v2
 				pid.GetPatientAddress(i).Country.Value = patient.Addresses.ToArray()[i].Country;
 			}
 
-			MllpMessageSender sender = new MllpMessageSender(new Uri(configuration.Endpoints.FirstOrDefault().Address));
+			return message;
+		}
 
-			PipeParser parser = new PipeParser();
+		public static IEnumerable<IMessage> Sendv2Messages(IMessage message)
+		{
+			List<IMessage> messages = new List<IMessage>();
 
-			var parsedMessage = parser.Encode(message);
+			foreach (var endpoint in configuration.Endpoints)
+			{
+				MllpMessageSender sender = new MllpMessageSender(new Uri(endpoint.Address));
 
-			Debug.WriteLine(parsedMessage.ToString());
+				PipeParser parser = new PipeParser();
 
-			IMessage response = sender.SendAndReceive(message);
+				var parsedMessage = parser.Encode(message);
 
-			var parsedResponse = parser.Encode(response);
+#if DEBUG
+				Trace.TraceInformation(parsedMessage.ToString());
+#endif
 
-			Debug.WriteLine(parsedResponse.ToString());
+				IMessage response = sender.SendAndReceive(message);
 
-			return response;
+				var parsedResponse = parser.Encode(response);
+
+#if DEBUG
+				Trace.TraceInformation(parsedResponse.ToString());
+#endif
+				messages.Add(response);
+			}
+
+			return messages;
 		}
 	}
 }

@@ -16,6 +16,9 @@
  * User: Nityan
  * Date: 2016-2-21
  */
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
+using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,65 @@ namespace PatientGenerator.FHIR
 {
 	public static class FhirUtil
 	{
+		public static void GenerateCandidateRegistry(DemographicOptions options)
+		{
+			Patient patient = new Patient();
 
+			patient.Active = true;
+			patient.Address = new List<Address>();
+
+			foreach (var address in options.Addresses)
+			{
+				patient.Address.Add(new Address
+				{
+					City = address.City,
+					Country = address.Country,
+					Line = new List<string>
+					{
+						address.StreetAddress
+					},
+					State = address.StateProvince,
+					Zip = address.ZipPostalCode
+				});
+			}
+
+			if (options.DateOfBirthOptions.Exact.HasValue)
+			{
+				patient.BirthDate = options.DateOfBirthOptions?.Exact.ToString();
+			}
+			else if (options.DateOfBirthOptions.Start.HasValue && options.DateOfBirthOptions.End.HasValue)
+			{
+				int startYear = options.DateOfBirthOptions.Start.Value.Year;
+				int endYear = options.DateOfBirthOptions.End.Value.Year;
+
+				int startMonth = options.DateOfBirthOptions.Start.Value.Month;
+				int endMonth = options.DateOfBirthOptions.End.Value.Month;
+
+				int startDay = options.DateOfBirthOptions.Start.Value.Day;
+				int endDay = options.DateOfBirthOptions.End.Value.Day;
+
+				patient.BirthDate = new DateTime(new Random().Next(startYear, endYear), new Random().Next(startMonth, endMonth), new Random().Next(startDay, endDay)).ToString();
+			}
+			else
+			{
+				patient.BirthDate = new DateTime(new Random().Next(1900, 2015), new Random().Next(1, 12), new Random().Next(1, 28)).ToString();
+			}
+
+			patient.Name = new List<HumanName>();
+		}
+
+		public static void SendFhirMessages(Patient patient)
+		{
+			FhirClient client = new FhirClient(new Uri(""));
+
+			OperationOutcome outcome = null;
+
+			client.TryValidateCreate(patient, out outcome);
+
+			if (outcome.Success())
+			{
+				var result = client.Create(patient, null, true);
+			}
+		}
 	}
 }

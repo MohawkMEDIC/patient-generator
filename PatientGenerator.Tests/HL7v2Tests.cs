@@ -94,11 +94,16 @@ namespace PatientGenerator.Tests
 				SendingFacility = "SEEDING"
 			});
 
-			Assert.IsInstanceOfType(response, typeof(ACK));
+			var messages = NHapiUtil.Sendv2Messages(response);
 
-			ACK ack = (ACK)response;
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(response, typeof(ACK));
 
-			Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AA");
+				ACK ack = (ACK)response;
+
+				Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AA");
+			}
 		}
 
 		[TestMethod]
