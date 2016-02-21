@@ -14,11 +14,18 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-12
+ * Date: 2016-2-21
  */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace PatientGenerator.FHIR
 {
-	public class Class1
+	public static class FhirUtil
 	{
+
 	}
 }

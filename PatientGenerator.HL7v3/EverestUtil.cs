@@ -39,6 +39,11 @@ namespace PatientGenerator.HL7v3
 {
 	public static class EverestUtil
 	{
+		/// <summary>
+		/// Generates a HL7v3 PRPA_IN101201CA register patient request.
+		/// </summary>
+		/// <param name="patient">The patient options to be used when creating the demographics for the patient.</param>
+		/// <returns>Returns a PRPA_IN101201CA as an IGraphable.</returns>
 		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
 		{
 			PRPA_IN101201CA registerPatientRequest = new PRPA_IN101201CA(
@@ -225,6 +230,11 @@ namespace PatientGenerator.HL7v3
 			return retVal;
 		}
 
+		/// <summary>
+		/// Builds a list of addresses for a patient.
+		/// </summary>
+		/// <param name="patient">The patient for which to build the addresses.</param>
+		/// <returns>Returns a list of addresses for a patient. LIST<AD> </returns>
 		private static LIST<AD> BuildAddresses(DemographicOptions patient)
 		{
 			LIST<AD> addresses = new LIST<AD>();
@@ -295,6 +305,11 @@ namespace PatientGenerator.HL7v3
 			return addresses;
 		}
 
+		/// <summary>
+		/// Builds a list of name for a patient.
+		/// </summary>
+		/// <param name="patient">The patient for which to build the names.</param>
+		/// <returns>Returns a list of name for a patient. LIST<PN> </returns>
 		private static LIST<PN> BuildNames(DemographicOptions patient)
 		{
 			LIST<PN> personNames = new LIST<PN>();
@@ -312,6 +327,11 @@ namespace PatientGenerator.HL7v3
 			return personNames;
 		}
 
+		/// <summary>
+		/// Builds a list of telecoms for a patient.
+		/// </summary>
+		/// <param name="patient">The patient for which to build the telecoms.</param>
+		/// <returns>Returns a list of telecoms for a patient. LIST<TEL> </returns>
 		private static LIST<TEL> BuildTelecoms(DemographicOptions patient)
 		{
 			LIST<TEL> telecoms = new LIST<TEL>();

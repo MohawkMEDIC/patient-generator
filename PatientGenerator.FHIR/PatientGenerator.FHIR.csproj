@@ -47,7 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\FhirConfigurationSection.cs" />
+    <Compile Include="Configuration\FhirEndpoint.cs" />
+    <Compile Include="FhirUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,16 +20,31 @@ using System;
 
 namespace PatientGenerator.Core.ComponentModel
 {
+	/// <summary>
+	/// Date of birth options for a patient.
+	/// </summary>
 	public class DateOfBirthOptions
 	{
+		/// <summary>
+		/// Initializes a new instance of the DateOfBirthOptions class.
+		/// </summary>
 		public DateOfBirthOptions()
 		{
 		}
 
+		/// <summary>
+		/// The end range for the date of birth.
+		/// </summary>
 		public DateTime? End { get; set; }
 
+		/// <summary>
+		/// The start range for the date of birth.
+		/// </summary>
 		public DateTime? Start { get; set; }
 
+		/// <summary>
+		/// The exact date of birth to use for the patient.
+		/// </summary>
 		public DateTime? Exact { get; set; }
 	}
 }
