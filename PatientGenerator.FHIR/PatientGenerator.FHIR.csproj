@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hl7.Fhir.Core">
+      <HintPath>..\Solution Items\Hl7.Fhir.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Specification">
+      <HintPath>..\Solution Items\Hl7.Fhir.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
