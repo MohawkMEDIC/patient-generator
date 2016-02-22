@@ -21,9 +21,6 @@ using Hl7.Fhir.Rest;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatientGenerator.FHIR
 {
@@ -73,7 +70,22 @@ namespace PatientGenerator.FHIR
 				patient.BirthDate = new DateTime(new Random().Next(1900, 2015), new Random().Next(1, 12), new Random().Next(1, 28)).ToString();
 			}
 
+			patient.Gender = new CodeableConcept();
+			patient.Gender.Text = options.Gender;
+
+			patient.Identifier = new List<Identifier>();
+
+			foreach (var identifiers in options.OtherIdentifiers)
+			{
+				foreach (var identifier	in identifiers)
+				{
+					patient.Identifier.Add(new Identifier(identifier.Key, identifier.Value));
+				}
+			}
+
 			patient.Name = new List<HumanName>();
+
+			patient.Telecom = new List<Contact>();
 		}
 
 		public static void SendFhirMessages(Patient patient)
