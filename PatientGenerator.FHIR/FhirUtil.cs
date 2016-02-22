@@ -94,15 +94,18 @@ namespace PatientGenerator.FHIR
 
 		public static void SendFhirMessages(Patient patient)
 		{
-			FhirClient client = new FhirClient(new Uri(""));
-
-			OperationOutcome outcome = null;
-
-			client.TryValidateCreate(patient, out outcome);
-
-			if (outcome.Success())
+			foreach (var endpoint in configuration.Endpoints)
 			{
-				var result = client.Create(patient, null, true);
+				FhirClient client = new FhirClient(new Uri(endpoint.Address));
+
+				OperationOutcome outcome = null;
+
+				client.TryValidateCreate(patient, out outcome);
+
+				if (outcome.Success())
+				{
+					var result = client.Create(patient, null, true);
+				}
 			}
 		}
 	}
