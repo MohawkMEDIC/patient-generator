@@ -30,7 +30,7 @@ namespace PatientGenerator.FHIR
 	{
 		private static FhirConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.fhir") as FhirConfigurationSection;
 
-		public static void GenerateCandidateRegistry(DemographicOptions options)
+		public static Patient GenerateCandidateRegistry(DemographicOptions options)
 		{
 			Patient patient = new Patient();
 
@@ -71,7 +71,8 @@ namespace PatientGenerator.FHIR
 			}
 			else
 			{
-				patient.BirthDate = new DateTime(new Random().Next(1900, 2015), new Random().Next(1, 12), new Random().Next(1, 28)).ToString();
+				/// DateTime.Now.Year - 1 is for generating people whose birthdays are always 1 year behind the current to avoid people being created with future birthdays
+				patient.BirthDate = new DateTime(new Random().Next(1900, DateTime.Now.Year - 1), new Random().Next(1, 12), new Random().Next(1, 28)).ToString();
 			}
 
 			patient.Gender = new CodeableConcept();
@@ -79,17 +80,16 @@ namespace PatientGenerator.FHIR
 
 			patient.Identifier = new List<Identifier>();
 
-			foreach (var identifiers in options.OtherIdentifiers)
+			foreach (var identifier in options.OtherIdentifiers)
 			{
-				foreach (var identifier	in identifiers)
-				{
-					patient.Identifier.Add(new Identifier(identifier.Key, identifier.Value));
-				}
+				patient.Identifier.Add(new Identifier(identifier.Key, identifier.Value));
 			}
 
 			patient.Name = new List<HumanName>();
 
 			patient.Telecom = new List<Contact>();
+
+			return patient;
 		}
 
 		public static void SendFhirMessages(Patient patient)

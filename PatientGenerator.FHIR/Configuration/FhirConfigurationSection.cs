@@ -22,13 +22,22 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.FHIR.Configuration
 {
+	/// <summary>
+	/// Represents a Fhir configuration section.
+	/// </summary>
 	public class FhirConfigurationSection
 	{
+		/// <summary>
+		/// Initializes a new instance of the FhirConfigurationSection class.
+		/// </summary>
 		public FhirConfigurationSection()
 		{
 			Endpoints = new List<FhirEndpoint>();
 		}
 
+		/// <summary>
+		/// The list of endpoints for the fhir configuration section.
+		/// </summary>
 		[XmlElement("endpoints")]
 		public List<FhirEndpoint> Endpoints { get; set; }
 	}

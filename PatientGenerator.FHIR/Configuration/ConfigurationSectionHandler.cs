@@ -22,6 +22,9 @@ using System.Xml;
 
 namespace PatientGenerator.FHIR.Configuration
 {
+	/// <summary>
+	/// Represents the Fhir configuration section handler.
+	/// </summary>
 	public class ConfigurationSectionHandler : IConfigurationSectionHandler
 	{
 		public object Create(object parent, object configContext, XmlNode section)

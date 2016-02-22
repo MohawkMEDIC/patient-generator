@@ -33,7 +33,7 @@ namespace PatientGenerator.Core.ComponentModel
 			Addresses = new List<AddressOptions>();
 			DateOfBirthOptions = new DateOfBirthOptions();
 			Names = new List<NameOptions>();
-			OtherIdentifiers = new List<Dictionary<string, string>>();
+			OtherIdentifiers = new Dictionary<string, string>();
 			TelecomOptions = new TelecomOptions();
 		}
 
@@ -63,9 +63,9 @@ namespace PatientGenerator.Core.ComponentModel
 		public string PersonIdentifier { get; set; }
 
 		/// <summary>
-		/// A list of other identifiers of alt ids for the patient.
+		/// Any other identifiers or alt ids for the patient.
 		/// </summary>
-		public List<Dictionary<string, string>> OtherIdentifiers { get; set; }
+		public Dictionary<string, string> OtherIdentifiers { get; set; }
 
 		/// <summary>
 		/// Telecom options for the patient.

@@ -21,16 +21,28 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.FHIR.Configuration
 {
+	/// <summary>
+	/// Represents a Fhir endpoint.
+	/// </summary>
 	[XmlRoot("endpoint")]
 	public class FhirEndpoint
 	{
+		/// <summary>
+		/// Initializes a new instance of the FhirEndpoint class.
+		/// </summary>
 		public FhirEndpoint()
 		{
 		}
 
+		/// <summary>
+		/// The address of the endpoint.
+		/// </summary>
 		[XmlAttribute("address")]
 		public string Address { get; set; }
 
+		/// <summary>
+		/// The name of the endpoint.
+		/// </summary>
 		[XmlAttribute("name")]
 		public string Name { get; set; }
 	}
