@@ -19,13 +19,17 @@
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.FHIR.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace PatientGenerator.FHIR
 {
 	public static class FhirUtil
 	{
+		private static FhirConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.fhir") as FhirConfigurationSection;
+
 		public static void GenerateCandidateRegistry(DemographicOptions options)
 		{
 			Patient patient = new Patient();
