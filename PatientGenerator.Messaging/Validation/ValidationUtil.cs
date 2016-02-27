@@ -17,6 +17,7 @@
  * Date: 2016-2-15
  */
 using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.Core.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;

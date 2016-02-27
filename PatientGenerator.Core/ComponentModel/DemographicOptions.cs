@@ -20,29 +20,56 @@ using System.Collections.Generic;
 
 namespace PatientGenerator.Core.ComponentModel
 {
+	/// <summary>
+	/// Represents demographic options for a patient.
+	/// </summary>
 	public class DemographicOptions : OptionsBase
 	{
+		/// <summary>
+		/// Initializes a new instance of the DemographicOptions class.
+		/// </summary>
 		public DemographicOptions()
 		{
 			Addresses = new List<AddressOptions>();
 			DateOfBirthOptions = new DateOfBirthOptions();
 			Names = new List<NameOptions>();
-			OtherIdentifiers = new List<Dictionary<string, string>>();
+			OtherIdentifiers = new Dictionary<string, string>();
 			TelecomOptions = new TelecomOptions();
 		}
 
+		/// <summary>
+		/// The address options for the patient.
+		/// </summary>
 		public List<AddressOptions> Addresses { get; set; }
 
+		/// <summary>
+		/// The date of birth options for the patient.
+		/// </summary>
 		public DateOfBirthOptions DateOfBirthOptions { get; set; }
 
+		/// <summary>
+		/// The names of the patient.
+		/// </summary>
 		public List<NameOptions> Names { get; set; }
 
+		/// <summary>
+		/// The gender of the patient.
+		/// </summary>
 		public string Gender { get; set; }
 
+		/// <summary>
+		/// The primary identifier for the patient.
+		/// </summary>
 		public string PersonIdentifier { get; set; }
 
-		public List<Dictionary<string, string>> OtherIdentifiers { get; set; }
+		/// <summary>
+		/// Any other identifiers or alt ids for the patient.
+		/// </summary>
+		public Dictionary<string, string> OtherIdentifiers { get; set; }
 
+		/// <summary>
+		/// Telecom options for the patient.
+		/// </summary>
 		public TelecomOptions TelecomOptions { get; set; }
 	}
 }

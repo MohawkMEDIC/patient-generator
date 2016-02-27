@@ -14,11 +14,24 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-12
+ * Date: 2016-2-27
  */
-namespace PatientGenerator.FHIR
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PatientGenerator.Core.Validation
 {
-	public class Class1
+	public interface IResultDetail
 	{
+		Exception Exception { get; }
+
+		string Location { get; set; }
+
+		string Message { get; }
+
+		ResultDetailType Type { get; }
 	}
 }

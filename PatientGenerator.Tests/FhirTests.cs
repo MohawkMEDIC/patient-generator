@@ -14,16 +14,13 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2016-2-21
  */
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHapi.Model.V231.Message;
-using NHapi.Model.V231.Segment;
 using PatientGenerator.Core.ComponentModel;
-using PatientGenerator.HL7v2;
+using PatientGenerator.FHIR;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +28,8 @@ using System.Threading.Tasks;
 namespace PatientGenerator.Tests
 {
 	[TestClass]
-	public class HL7v2Tests
-    {
+	public class FhirTests
+	{
 		[TestCleanup]
 		public void Cleanup()
 		{
@@ -48,7 +45,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void SendMessageTest()
 		{
-			var response = NHapiUtil.GenerateCandidateRegistry(new DemographicOptions
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
@@ -70,60 +67,6 @@ namespace PatientGenerator.Tests
 					},
 					new AddressOptions
 					{
-						City = "Friedberg",
-						Country = "Germany",
-						StreetAddress = "Grüner Weg 6",
-					}
-				},
-				DateOfBirthOptions = new DateOfBirthOptions
-				{
-					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
-				},
-				Names = new List<NameOptions>
-				{
-					new NameOptions
-					{
-						FirstName = "Samantha",
-						LastName = "Richtofen"
-					}
-				},
-				PersonIdentifier = Guid.NewGuid().ToString("N"),
-				ReceivingApplication = "CRTEST",
-				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-				SendingApplication = "SEEDER",
-				SendingFacility = "SEEDING"
-			});
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(response, typeof(ACK));
-
-				ACK ack = (ACK)response;
-
-				Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AA");
-			}
-		}
-
-		[TestMethod]
-		public void SendMessageInvalidOidTest()
-		{
-			var response = NHapiUtil.GenerateCandidateRegistry(new DemographicOptions
-			{
-				AssigningAuthority = "this is not a valid assigning authority value",
-				Addresses = new List<AddressOptions>
-				{
-					new AddressOptions
-					{
-						City = "Brampton",
-						Country = "Canada",
-						StreetAddress = "123 Main Street West",
-						StateProvince = "Ontario",
-						ZipPostalCode = "L6X0C3"
-					},
-					new AddressOptions
-					{
 						City = "New York City",
 						Country = "United States of America",
 						StreetAddress = "250 Madison Ave.",
@@ -144,8 +87,8 @@ namespace PatientGenerator.Tests
 				{
 					new NameOptions
 					{
-						FirstName = "Lawrence",
-						LastName = "Taylor"
+						FirstName = "Kimberly",
+						LastName = "Jones"
 					}
 				},
 				PersonIdentifier = Guid.NewGuid().ToString("N"),
@@ -155,11 +98,72 @@ namespace PatientGenerator.Tests
 				SendingFacility = "SEEDING"
 			});
 
-			Assert.IsInstanceOfType(response, typeof(ACK));
+			var results = FhirUtil.SendFhirMessages(patient);
 
-			ACK ack = (ACK)response;
-
-			Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AR");
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
 		}
-    }
+
+		[TestMethod]
+		public void SendMessageNoAddressTest()
+		{
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				DateOfBirthOptions = new DateOfBirthOptions
+				{
+					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
+				},
+				Names = new List<NameOptions>
+				{
+					new NameOptions
+					{
+						FirstName = "Dan",
+						LastName = "Gronkowski"
+					}
+				},
+				PersonIdentifier = Guid.NewGuid().ToString("N"),
+				ReceivingApplication = "CRTEST",
+				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+				SendingApplication = "SEEDER",
+				SendingFacility = "SEEDING"
+			});
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void SendMessageNoDateOfBirthTest()
+		{
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				Addresses = new List<AddressOptions>
+				{
+					new AddressOptions
+					{
+						City = "Houston",
+						Country = "United States of America",
+						StreetAddress = "2Two NRG Park",
+						StateProvince = "Texas",
+						ZipPostalCode = "77054"
+					},
+				},
+				Names = new List<NameOptions>
+				{
+					new NameOptions
+					{
+						FirstName = "Tom",
+						LastName = "Brady"
+					}
+				},
+				PersonIdentifier = Guid.NewGuid().ToString("N"),
+			});
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+	}
 }

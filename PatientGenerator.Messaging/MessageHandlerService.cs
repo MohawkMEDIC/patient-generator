@@ -45,13 +45,13 @@ namespace PatientGenerator.Messaging
 
 		public bool Start()
 		{
-			Debug.WriteLine("Message handler started");
+			Trace.TraceInformation("Message handler started");
 			return true;
 		}
 
 		public bool Stop()
 		{
-			Debug.WriteLine("Message handler stopped");
+			Trace.TraceInformation("Message handler stopped");
 			return true;
 		}
 	}

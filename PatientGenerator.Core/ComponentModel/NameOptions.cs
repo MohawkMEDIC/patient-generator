@@ -34,7 +34,8 @@ namespace PatientGenerator.Core.ComponentModel
 		/// </summary>
 		public NameOptions()
 		{
-
+			MiddleNames = new List<string>();
+			Suffixes = new List<string>();
 		}
 
 		/// <summary>

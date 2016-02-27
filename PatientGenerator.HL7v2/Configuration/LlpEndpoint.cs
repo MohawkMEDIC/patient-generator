@@ -16,11 +16,6 @@
  * User: Nityan
  * Date: 2016-2-15
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace PatientGenerator.HL7v2.Configuration

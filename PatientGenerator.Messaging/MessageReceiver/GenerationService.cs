@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Messaging.Validation;
 using PatientGenerator.Messaging.Model;
+using PatientGenerator.Core.Validation;
 
 namespace PatientGenerator.Messaging.MessageReceiver
 {

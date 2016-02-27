@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hl7.Fhir.Core, Version=0.11.5.28859, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Solution Items\Hl7.Fhir.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Specification">
+      <HintPath>..\Solution Items\Hl7.Fhir.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="MARC.Everest, Version=1.3.0.0, Culture=neutral, PublicKeyToken=ba5b2480018546af, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Solution Items\MARC.Everest.dll</HintPath>
@@ -76,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FhirTests.cs" />
     <Compile Include="HL7v2Tests.cs" />
     <Compile Include="HL7v3Tests.cs" />
     <Compile Include="MessagingTests.cs" />

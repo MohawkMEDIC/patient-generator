@@ -35,12 +35,12 @@ namespace PatientGenerator
 			if (ExitCode != 0)
 				Stop();
 
-			Debug.WriteLine("Service Started");
+			Trace.TraceInformation("Service Started");
 		}
 
 		protected override void OnStop()
 		{
-			Debug.WriteLine("Service Stopped");
+			Trace.TraceInformation("Service Stopped");
 			ServiceUtil.Stop();
 		}
 	}

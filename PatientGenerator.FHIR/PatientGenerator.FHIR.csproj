@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hl7.Fhir.Core">
+      <HintPath>..\Solution Items\Hl7.Fhir.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hl7.Fhir.Specification">
+      <HintPath>..\Solution Items\Hl7.Fhir.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,11 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
+    <Compile Include="Configuration\FhirConfigurationSection.cs" />
+    <Compile Include="Configuration\FhirEndpoint.cs" />
+    <Compile Include="FhirUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PatientGenerator.FHIR.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
+      <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
+      <Name>PatientGenerator.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
