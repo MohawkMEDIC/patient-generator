@@ -42,7 +42,7 @@ namespace PatientGenerator.HL7v2
 		/// <summary>
 		/// Creates a new message sender
 		/// </summary>
-		/// <param name="endpoint">The endpoint in the form : llp://ipaddress:port</param>
+		/// <param name="endpoint">The endpoint in the form : mllp://ipaddress:port</param>
 		public MllpMessageSender(Uri endpoint)
 		{
 			this.m_endpoint = endpoint;

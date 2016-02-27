@@ -47,7 +47,6 @@ namespace PatientGenerator.Tests
 		{
 			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
 				{
 					new AddressOptions
@@ -108,7 +107,6 @@ namespace PatientGenerator.Tests
 		{
 			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				DateOfBirthOptions = new DateOfBirthOptions
 				{
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
