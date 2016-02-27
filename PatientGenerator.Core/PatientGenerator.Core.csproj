@@ -51,6 +51,11 @@
     <Compile Include="ComponentModel\OptionsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentModel\TelecomOptions.cs" />
+    <Compile Include="Validation\ConflictingValueResultDetail.cs" />
+    <Compile Include="Validation\IResultDetail.cs" />
+    <Compile Include="Validation\MandatoryElementMissingResultDetail.cs" />
+    <Compile Include="Validation\ResultDetail.cs" />
+    <Compile Include="Validation\ResultDetailType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PatientGenerator.Core.licenseheader" />

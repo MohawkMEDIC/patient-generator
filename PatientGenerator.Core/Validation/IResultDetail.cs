@@ -14,7 +14,7 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2016-2-27
  */
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PatientGenerator.Messaging.Validation
+namespace PatientGenerator.Core.Validation
 {
-	public enum ResultDetailType
+	public interface IResultDetail
 	{
-		Error = 0,
-		Warning = 1,
-		Information = 2
+		Exception Exception { get; }
+
+		string Location { get; set; }
+
+		string Message { get; }
+
+		ResultDetailType Type { get; }
 	}
 }

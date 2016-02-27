@@ -23,6 +23,9 @@ using PatientGenerator.FHIR.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace PatientGenerator.FHIR
 {
@@ -54,7 +57,7 @@ namespace PatientGenerator.FHIR
 
 			if (options.DateOfBirthOptions.Exact.HasValue)
 			{
-				patient.BirthDate = options.DateOfBirthOptions?.Exact.ToString();
+				patient.BirthDate = options.DateOfBirthOptions?.Exact.Value.ToString("yyyy-MM-dd");
 			}
 			else if (options.DateOfBirthOptions.Start.HasValue && options.DateOfBirthOptions.End.HasValue)
 			{
@@ -67,12 +70,12 @@ namespace PatientGenerator.FHIR
 				int startDay = options.DateOfBirthOptions.Start.Value.Day;
 				int endDay = options.DateOfBirthOptions.End.Value.Day;
 
-				patient.BirthDate = new DateTime(new Random().Next(startYear, endYear), new Random().Next(startMonth, endMonth), new Random().Next(startDay, endDay)).ToString();
+				patient.BirthDate = new DateTime(new Random().Next(startYear, endYear), new Random().Next(startMonth, endMonth), new Random().Next(startDay, endDay)).ToString("yyyy-MM-dd");
 			}
 			else
 			{
 				/// DateTime.Now.Year - 1 is for generating people whose birthdays are always 1 year behind the current to avoid people being created with future birthdays
-				patient.BirthDate = new DateTime(new Random().Next(1900, DateTime.Now.Year - 1), new Random().Next(1, 12), new Random().Next(1, 28)).ToString();
+				patient.BirthDate = new DateTime(new Random().Next(1900, DateTime.Now.Year - 1), new Random().Next(1, 12), new Random().Next(1, 28)).ToString("yyyy-MM-dd");
 			}
 
 			patient.Gender = new CodeableConcept();
@@ -87,26 +90,80 @@ namespace PatientGenerator.FHIR
 
 			patient.Name = new List<HumanName>();
 
+			foreach (var name in options.Names)
+			{
+				HumanName humanName = new HumanName();
+
+				humanName.Family = new List<string>
+				{
+					name.LastName
+				};
+
+				humanName.Given = new List<string>
+				{
+					name.FirstName
+				};
+
+				humanName.Given.ToList().AddRange(name.MiddleNames);
+
+				patient.Name.Add(humanName);
+			}
+
 			patient.Telecom = new List<Contact>();
+
+			foreach (var email in options.TelecomOptions.EmailAddresses)
+			{
+				patient.Telecom.Add(new Contact
+				{
+					System = Contact.ContactSystem.Email,
+					Value = email
+				});
+			}
+
+			foreach (var phone in options.TelecomOptions.PhoneNumbers)
+			{
+				patient.Telecom.Add(new Contact
+				{
+					System = Contact.ContactSystem.Phone,
+					Value = phone
+				});
+			}
 
 			return patient;
 		}
 
-		public static void SendFhirMessages(Patient patient)
+		public static List<bool> SendFhirMessages(Patient patient)
 		{
+			List<bool> results = new List<bool>();
+
 			foreach (var endpoint in configuration.Endpoints)
 			{
 				FhirClient client = new FhirClient(new Uri(endpoint.Address));
+
+#if DEBUG
+				Trace.TraceInformation("Sending FHIR message to endpoint " + endpoint.ToString());
+#endif
 
 				OperationOutcome outcome = null;
 
 				client.TryValidateCreate(patient, out outcome);
 
-				if (outcome.Success())
+				if (outcome != null)
 				{
-					var result = client.Create(patient, null, true);
+					Trace.TraceWarning("Pre-validation failed for FHIR message");
+
+					foreach (var issue in outcome.Issue)
+					{
+						Trace.TraceWarning(outcome.Issue.Select(x => x.Details).Aggregate((current, next) => current + ", " + next));
+					}
 				}
+
+				results.Add(outcome == null);
+
+				client.Create(patient, null, true);
 			}
+
+			return results;
 		}
 	}
 }

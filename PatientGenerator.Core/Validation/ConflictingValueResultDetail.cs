@@ -14,7 +14,7 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2016-2-27
  */
 using System;
 using System.Collections.Generic;
@@ -22,16 +22,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PatientGenerator.Messaging.Validation
+namespace PatientGenerator.Core.Validation
 {
-	public interface IResultDetail
+	public class ConflictingValueResultDetail : ResultDetail
 	{
-		Exception Exception { get; }
+		public ConflictingValueResultDetail(string message) : base(message)
+		{
+		}
 
-		string Location { get; set; }
+		public ConflictingValueResultDetail(ResultDetailType type, string message) : base(type, message)
+		{
 
-		string Message { get; }
+		}
 
-		ResultDetailType Type { get; }
+		public ConflictingValueResultDetail(ResultDetailType type, string message, Exception exception) : base(type, message, exception)
+		{
+		}
+
+		public ConflictingValueResultDetail(ResultDetailType type, string message, string location, Exception exception) : base(type, message, location, exception)
+		{
+		}
 	}
 }

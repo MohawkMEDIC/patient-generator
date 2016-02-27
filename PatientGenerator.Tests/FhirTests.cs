@@ -45,7 +45,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void SendMessageTest()
 		{
-			var response = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
@@ -57,6 +57,13 @@ namespace PatientGenerator.Tests
 						StreetAddress = "123 Main Street West",
 						StateProvince = "Ontario",
 						ZipPostalCode = "L6X0C3"
+					},
+					new AddressOptions
+					{
+						City = "New York City",
+						Country = "United States of America",
+						StreetAddress = "250 Madison Ave.",
+						StateProvince = "New York",
 					},
 					new AddressOptions
 					{
@@ -80,8 +87,8 @@ namespace PatientGenerator.Tests
 				{
 					new NameOptions
 					{
-						FirstName = "Samantha",
-						LastName = "Richtofen"
+						FirstName = "Kimberly",
+						LastName = "Jones"
 					}
 				},
 				PersonIdentifier = Guid.NewGuid().ToString("N"),
@@ -90,6 +97,73 @@ namespace PatientGenerator.Tests
 				SendingApplication = "SEEDER",
 				SendingFacility = "SEEDING"
 			});
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void SendMessageNoAddressTest()
+		{
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				DateOfBirthOptions = new DateOfBirthOptions
+				{
+					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
+				},
+				Names = new List<NameOptions>
+				{
+					new NameOptions
+					{
+						FirstName = "Dan",
+						LastName = "Gronkowski"
+					}
+				},
+				PersonIdentifier = Guid.NewGuid().ToString("N"),
+				ReceivingApplication = "CRTEST",
+				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+				SendingApplication = "SEEDER",
+				SendingFacility = "SEEDING"
+			});
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void SendMessageNoDateOfBirthTest()
+		{
+			var patient = FhirUtil.GenerateCandidateRegistry(new DemographicOptions
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				Addresses = new List<AddressOptions>
+				{
+					new AddressOptions
+					{
+						City = "Houston",
+						Country = "United States of America",
+						StreetAddress = "2Two NRG Park",
+						StateProvince = "Texas",
+						ZipPostalCode = "77054"
+					},
+				},
+				Names = new List<NameOptions>
+				{
+					new NameOptions
+					{
+						FirstName = "Tom",
+						LastName = "Brady"
+					}
+				},
+				PersonIdentifier = Guid.NewGuid().ToString("N"),
+			});
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
 		}
 	}
 }

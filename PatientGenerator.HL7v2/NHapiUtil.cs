@@ -93,6 +93,7 @@ namespace PatientGenerator.HL7v2
 				var parsedMessage = parser.Encode(message);
 
 #if DEBUG
+				Trace.TraceInformation("Request: " + Environment.NewLine);
 				Trace.TraceInformation(parsedMessage.ToString());
 #endif
 
@@ -101,6 +102,7 @@ namespace PatientGenerator.HL7v2
 				var parsedResponse = parser.Encode(response);
 
 #if DEBUG
+				Trace.TraceInformation("Response: " + Environment.NewLine);
 				Trace.TraceInformation(parsedResponse.ToString());
 #endif
 				messages.Add(response);

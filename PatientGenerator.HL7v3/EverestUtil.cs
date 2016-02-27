@@ -207,8 +207,13 @@ namespace PatientGenerator.HL7v3
 			//	sendResult.Code == ResultCode.AcceptedNonConformant &&
 			//	sendResult.Details.Count(o => o.Type == ResultDetailType.Error) == 0;
 
+#if DEBUG
+			Trace.TraceInformation("Sending HL7v3 message to endpoint: " + client.ConnectionString);
+#endif
+
 			if (sendResult.Code != ResultCode.Accepted && sendResult.Code != ResultCode.AcceptedNonConformant)
 			{
+				Trace.TraceError("Send result: " + Enum.GetName(typeof(ResultCode), sendResult.Code));
 				retVal = false;
 			}
 
@@ -216,6 +221,7 @@ namespace PatientGenerator.HL7v3
 
 			if (recvResult.Code != ResultCode.Accepted && recvResult.Code != ResultCode.AcceptedNonConformant)
 			{
+				Trace.TraceError("Receive result: " + Enum.GetName(typeof(ResultCode), recvResult.Code));
 				retVal = false;
 			}
 
@@ -223,6 +229,7 @@ namespace PatientGenerator.HL7v3
 
 			if (result == null)
 			{
+				Trace.TraceError("Receive result structure is null");
 				retVal = false;
 			}
 
