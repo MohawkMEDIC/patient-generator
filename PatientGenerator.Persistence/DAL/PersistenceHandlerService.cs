@@ -22,6 +22,7 @@ using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Persistence.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace PatientGenerator.Persistence.DAL
@@ -55,7 +56,7 @@ namespace PatientGenerator.Persistence.DAL
 
 		private Person MapPerson(DemographicOptions options)
 		{
-			Person person = unitOfWork.PersonRepository.Create();
+			Person person = new Person();
 
 			foreach (var item in options.Addresses)
 			{
@@ -125,13 +126,16 @@ namespace PatientGenerator.Persistence.DAL
 
 				name.Suffixes = new List<NameSuffix>();
 
-				foreach (var suffix in item.Suffixes)
+				if (item.Suffixes != null)
 				{
-					name.Suffixes.Add(new NameSuffix
+					foreach (var suffix in item.Suffixes)
 					{
-						CreationTimestamp = DateTime.Now,
-						Value = suffix
-					});
+						name.Suffixes.Add(new NameSuffix
+						{
+							CreationTimestamp = DateTime.Now,
+							Value = suffix
+						});
+					}
 				}
 
 				person.Names.Add(name);
@@ -185,6 +189,9 @@ namespace PatientGenerator.Persistence.DAL
 				if (disposing)
 				{
 					unitOfWork.Dispose();
+#if DEBUG
+					Trace.TraceInformation("Unit of Work disposed");
+#endif
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
