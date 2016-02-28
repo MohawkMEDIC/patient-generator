@@ -40,6 +40,7 @@ namespace PatientGenerator.Persistence.Model
 
 		public int PersonId { get; set; }
 
+		[ForeignKey("PersonId")]
 		public virtual Person Person { get; set; }
 	}
 }

@@ -17,31 +17,21 @@
  * Date: 2016-2-27
  */
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace PatientGenerator.Persistence.Model
 {
-	public class TelecomUse
+	public enum TelecomUse
 	{
-		public TelecomUse()
-		{
-		}
-
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-
-		[Required]
-		[StringLength(50)]
-		public string Name { get; set; }
-
-		[Required]
-		public TelecomUseCode TelecomUseCode { get; set; }
-
-		public int TelecomId { get; set; }
-
-		[ForeignKey("TelecomId")]
-		public virtual Telecom Telecom { get; set; }
+		Home = 0,
+		PrimaryHome = 1,
+		VacationHome = 2,
+		WorkPlace = 3,
+		Direct = 4,
+		Public = 5,
+		BadAddress = 6,
+		TemporaryAddress = 7,
+		AnsweringService = 8,
+		EmergencyContact = 9,
+		MobileContact = 10,
+		Pager = 11
 	}
 }

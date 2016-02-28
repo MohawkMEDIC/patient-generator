@@ -35,9 +35,12 @@ namespace PatientGenerator.Persistence.Model
 
 		public virtual ICollection<NamePart> NameParts { get; set; }
 
-		public int NameUseId { get; set; }
+		[Required]
+		public NameUse NameUse { get; set; }
 
-		[ForeignKey("NameUseId")]
-		public virtual NameUse NameUse { get; set; }
+		public int PersonId { get; set; }
+
+		[ForeignKey("PersonId")]
+		public virtual Person Person { get; set; }
 	}
 }

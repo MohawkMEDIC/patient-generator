@@ -19,6 +19,7 @@
 
 using PatientGenerator.Persistence.Model;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace PatientGenerator.Persistence.DAL
 {
@@ -29,8 +30,23 @@ namespace PatientGenerator.Persistence.DAL
 		{
 		}
 
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+			modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+		}
+
 		public DbSet<Address> Addresses { get; set; }
 
+		public DbSet<AlternateIdentifier> AlternateIdentifiers { get; set; }
+
+		public DbSet<Name> Names { get; set; }
+
+		public DbSet<NamePart> NameParts { get; set; }
+
 		public DbSet<Person> Persons { get; set; }
+
+		public DbSet<Telecom> Telecoms { get; set; }
 	}
 }

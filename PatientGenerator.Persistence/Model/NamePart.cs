@@ -34,9 +34,12 @@ namespace PatientGenerator.Persistence.Model
 
 		public int Value { get; set; }
 
-		public int NamePartTypeId { get; set; }
+		[Required]
+		public NamePartType NamePartType { get; set; }
 
-		[ForeignKey("NamePartTypeId")]
-		public virtual NamePartType NamePartType { get; set; }
+		public int NameId { get; set; }
+
+		[ForeignKey("NameId")]
+		public virtual Name Name { get; set; }
 	}
 }

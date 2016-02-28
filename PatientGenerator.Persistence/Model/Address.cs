@@ -17,6 +17,7 @@
  * Date: 2016-2-27
  */
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
@@ -26,6 +27,10 @@ namespace PatientGenerator.Persistence.Model
 		public Address()
 		{
 		}
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
 
 		/// <summary>
 		/// The city of the patient's address.
@@ -52,9 +57,12 @@ namespace PatientGenerator.Persistence.Model
 		/// </summary>
 		public string ZipPostalCode { get; set; }
 
-		public int AddressUseId { get; set; }
+		[Required]
+		public AddressUse AddressUse { get; set; }
 
-		[ForeignKey("AddressUseId")]
-		public virtual AddressUse AddressUse { get; set; }
+		public int PersonId { get; set; }
+
+		[ForeignKey("PersonId")]
+		public virtual Person Person { get; set; }
 	}
 }

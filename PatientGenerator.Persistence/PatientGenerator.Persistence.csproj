@@ -61,20 +61,15 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\AddressUse.cs" />
-    <Compile Include="Model\AddressUseCode.cs" />
     <Compile Include="Model\AlternateIdentifier.cs" />
     <Compile Include="Model\NamePart.cs" />
     <Compile Include="Model\NamePartType.cs" />
-    <Compile Include="Model\NamePartTypeCode.cs" />
-    <Compile Include="Model\NameUseCode.cs" />
     <Compile Include="Model\NameUse.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Name.cs" />
     <Compile Include="Model\Telecom.cs" />
     <Compile Include="Model\TelecomType.cs" />
-    <Compile Include="Model\TelecomTypeCode.cs" />
     <Compile Include="Model\TelecomUse.cs" />
-    <Compile Include="Model\TelecomUseCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

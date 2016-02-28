@@ -17,31 +17,26 @@
  * Date: 2016-2-27
  */
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace PatientGenerator.Persistence.Model
 {
-	public class AddressUse
+	public enum AddressUse
 	{
-		public AddressUse()
-		{
-		}
-
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-
-		[Required]
-		[StringLength(50)]
-		public string Name { get; set; }
-
-		[Required]
-		public AddressUseCode AddressUseCode { get; set; }
-
-		public int AddressId { get; set; }
-
-		[ForeignKey("AddressId")]
-		public virtual Address Address { get; set; }
+		HomeAddress = 0,
+		PrimaryHome = 1,
+		VacationHome = 2,
+		WorkPlace = 3,
+		Direct = 4,
+		Public = 5,
+		BadAddress = 6,
+		PhysicalVisit = 7,
+		PostalAddress = 8,
+		TemporaryAddress = 9,
+		Alphabetic = 10,
+		Ideographic = 11,
+		Syllabic = 12,
+		Soundex = 13,
+		Phonetic = 14
 	}
 }
