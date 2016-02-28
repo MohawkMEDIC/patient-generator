@@ -17,10 +17,12 @@
  * Date: 2016-2-15
  */
 using MARC.HI.EHRS.SVC.Core.Services;
+using PatientGenerator.Messaging.MessageReceiver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +31,7 @@ namespace PatientGenerator.Messaging
 	public class MessageHandlerService : IMessageHandlerService
 	{
 		private IServiceProvider context;
+		private ServiceHost serviceHost;
 
 		public IServiceProvider Context
 		{
@@ -45,14 +48,46 @@ namespace PatientGenerator.Messaging
 
 		public bool Start()
 		{
-			Trace.TraceInformation("Message handler started");
-			return true;
+			bool status = false;
+
+			serviceHost = new ServiceHost(typeof(GenerationService));
+
+			try
+			{
+				serviceHost.Open();
+				status = true;
+
+				Trace.TraceInformation("Message handler started successfully");
+			}
+			catch (Exception e)
+			{
+				Trace.TraceError("Unable to start message handler");
+				Trace.TraceError(e.ToString());
+				status = false;
+			}
+
+			return status;
 		}
 
 		public bool Stop()
 		{
-			Trace.TraceInformation("Message handler stopped");
-			return true;
+			bool status = false;
+
+			try
+			{
+				serviceHost.Close();
+				status = true;
+
+				Trace.TraceInformation("Message handler stopped successfully");
+			}
+			catch (Exception e)
+			{
+				Trace.TraceError("Unable to stop message handler");
+				Trace.TraceError(e.ToString());
+				status = false;
+			}
+
+			return status;
 		}
 	}
 }

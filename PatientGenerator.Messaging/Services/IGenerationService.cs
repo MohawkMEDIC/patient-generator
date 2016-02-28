@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.Services
 {
-	[ServiceContract(Namespace = "http://marc-hi.ca/xmlns/patgensvc", ConfigurationName = "GenerationService.Generator")]
+	[ServiceContract(Namespace = "http://marc-hi.ca/xmlns/patgensvc")]
 	public interface IGenerationService
 	{
 		[OperationContract]
