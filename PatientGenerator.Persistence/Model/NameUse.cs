@@ -17,11 +17,27 @@
  * Date: 2016-2-27
  */
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PatientGenerator.Persistence.Model
 {
-	public enum TelecomTypeCode
+	public class NameUse
 	{
-		Email = 0,
-		Phone = 1
+		public NameUse()
+		{
+		}
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		[Required]
+		public NameUseCode NameUseCode { get; set; }
+
+		public int NameId { get; set; }
+
+		[ForeignKey("NameId")]
+		public virtual Name Name { get; set; }
 	}
 }

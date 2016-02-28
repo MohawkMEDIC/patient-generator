@@ -17,12 +17,27 @@
  * Date: 2016-2-27
  */
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PatientGenerator.Persistence.Model
 {
-	internal class Name
+	public class Name
 	{
 		public Name()
 		{
 		}
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		public virtual ICollection<NamePart> NameParts { get; set; }
+
+		public int NameUseId { get; set; }
+
+		[ForeignKey("NameUseId")]
+		public virtual NameUse NameUse { get; set; }
 	}
 }

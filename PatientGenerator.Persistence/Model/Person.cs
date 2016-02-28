@@ -24,11 +24,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal class Person
+	public class Person
 	{
 		public Person()
 		{
 		}
+
+		public string AssigningAuthority { get; set; }
 
 		[Required]
 		public DateTime CreationTimestamp { get; set; }
@@ -39,12 +41,12 @@ namespace PatientGenerator.Persistence.Model
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		public ICollection<Address> Addresses { get; set; }
+		public virtual ICollection<Address> Addresses { get; set; }
 
-		public ICollection<AlternateIdentifier> AlternateIdentifiers { get; set; }
+		public virtual ICollection<AlternateIdentifier> AlternateIdentifiers { get; set; }
 
-		public ICollection<Name> Names { get; set; }
+		public virtual ICollection<Name> Names { get; set; }
 
-		public ICollection<Telecom> Telecoms { get; set; }
+		public virtual ICollection<Telecom> Telecoms { get; set; }
 	}
 }

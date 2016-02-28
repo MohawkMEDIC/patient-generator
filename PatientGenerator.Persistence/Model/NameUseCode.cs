@@ -19,9 +19,23 @@
 
 namespace PatientGenerator.Persistence.Model
 {
-	public enum TelecomTypeCode
+	public enum NameUseCode
 	{
-		Email = 0,
-		Phone = 1
+		Legal = 0,
+		OfficialRecord = 1,
+		License = 2,
+		MaidenName = 3,
+		Indigenous = 4,
+		Pseudonym = 5,
+		Artist = 6,
+		Religious = 7,
+		Assigned = 8,
+		Alphabetic = 9,
+		Ideographic = 10,
+		Syllabic = 11,
+		Soundex = 12,
+		Phonetic = 13,
+		Anonymous = 14,
+		Search = 15
 	}
 }

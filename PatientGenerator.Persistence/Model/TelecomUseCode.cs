@@ -19,7 +19,7 @@
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal enum TelecomUseCode
+	public enum TelecomUseCode
 	{
 		Home = 0,
 		PrimaryHome = 1,

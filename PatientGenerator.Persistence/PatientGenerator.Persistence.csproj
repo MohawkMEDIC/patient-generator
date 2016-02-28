@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\EntityRepository.cs" />
+    <Compile Include="DAL\EntityUnitOfWork.cs" />
+    <Compile Include="DAL\IRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\PatientGeneratorDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
@@ -62,6 +66,8 @@
     <Compile Include="Model\NamePart.cs" />
     <Compile Include="Model\NamePartType.cs" />
     <Compile Include="Model\NamePartTypeCode.cs" />
+    <Compile Include="Model\NameUseCode.cs" />
+    <Compile Include="Model\NameUse.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Name.cs" />
     <Compile Include="Model\Telecom.cs" />

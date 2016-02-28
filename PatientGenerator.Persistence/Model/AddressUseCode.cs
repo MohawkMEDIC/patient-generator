@@ -19,7 +19,7 @@
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal enum AddressUseCode
+	public enum AddressUseCode
 	{
 		HomeAddress = 0,
 		PrimaryHome = 1,

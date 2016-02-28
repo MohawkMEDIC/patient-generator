@@ -21,7 +21,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal class Address
+	public class Address
 	{
 		public Address()
 		{

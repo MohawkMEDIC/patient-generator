@@ -17,11 +17,15 @@
  * Date: 2016-2-27
  */
 
-namespace PatientGenerator.Persistence.Model
+using System;
+
+namespace PatientGenerator.Persistence.DAL
 {
-	public enum TelecomTypeCode
+	public interface IUnitOfWork : IDisposable
 	{
-		Email = 0,
-		Phone = 1
+		/// <summary>
+		/// Save any pending changes to the database.
+		/// </summary>
+		void Save();
 	}
 }

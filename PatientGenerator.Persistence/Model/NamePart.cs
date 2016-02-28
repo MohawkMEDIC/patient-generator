@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal class NamePart
+	public class NamePart
 	{
 		public NamePart()
 		{
@@ -33,5 +33,10 @@ namespace PatientGenerator.Persistence.Model
 		public int Id { get; set; }
 
 		public int Value { get; set; }
+
+		public int NamePartTypeId { get; set; }
+
+		[ForeignKey("NamePartTypeId")]
+		public virtual NamePartType NamePartType { get; set; }
 	}
 }

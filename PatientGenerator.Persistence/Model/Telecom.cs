@@ -23,7 +23,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal class Telecom
+	public class Telecom
 	{
 		public Telecom()
 		{

@@ -19,7 +19,7 @@
 
 namespace PatientGenerator.Persistence.Model
 {
-	internal enum NamePartTypeCode
+	public enum NamePartTypeCode
 	{
 		Family = 0,
 		Given = 1,

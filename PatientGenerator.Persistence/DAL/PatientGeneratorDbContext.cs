@@ -17,6 +17,7 @@
  * Date: 2016-2-27
  */
 
+using PatientGenerator.Persistence.Model;
 using System.Data.Entity;
 
 namespace PatientGenerator.Persistence.DAL
@@ -27,5 +28,9 @@ namespace PatientGenerator.Persistence.DAL
 			: base("PatientGeneratorDbConnection")
 		{
 		}
+
+		public DbSet<Address> Addresses { get; set; }
+
+		public DbSet<Person> Persons { get; set; }
 	}
 }

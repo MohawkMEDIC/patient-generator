@@ -17,9 +17,29 @@
  * Date: 2016-2-27
  */
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PatientGenerator.Persistence.Model
 {
-	internal class AlternateIdentifier
+	public class AlternateIdentifier
 	{
+		public AlternateIdentifier()
+		{
+		}
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		[Required]
+		public string Key { get; set; }
+
+		[Required]
+		public string Value { get; set; }
+
+		public int PersonId { get; set; }
+
+		public virtual Person Person { get; set; }
 	}
 }
