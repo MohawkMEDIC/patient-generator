@@ -23,8 +23,16 @@ using System.Collections.Generic;
 
 namespace PatientGenerator.Messaging.Validation
 {
+	/// <summary>
+	/// Provides a utility for validating messages.
+	/// </summary>
 	public static class ValidationUtil
 	{
+		/// <summary>
+		/// Validates a message.
+		/// </summary>
+		/// <param name="options">The message to be validated.</param>
+		/// <returns>Returns an IEnumerable<IResultDetail> containing validation errors.</returns>
 		public static IEnumerable<IResultDetail> ValidateMessage(DemographicOptions options)
 		{
 			List<IResultDetail> details = new List<IResultDetail>();

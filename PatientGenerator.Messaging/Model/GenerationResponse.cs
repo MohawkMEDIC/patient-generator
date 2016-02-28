@@ -21,14 +21,26 @@ using System.Collections.Generic;
 
 namespace PatientGenerator.Messaging.Model
 {
+	/// <summary>
+	/// Represents a generation response.
+	/// </summary>
 	public class GenerationResponse
 	{
+		/// <summary>
+		/// Initializes a new instance of the GenerationResponse class.
+		/// </summary>
 		public GenerationResponse()
 		{
 		}
 
+		/// <summary>
+		/// The messages, if any.
+		/// </summary>
 		public List<string> Messages { get; set; }
 
+		/// <summary>
+		/// When true, a problem occurred when generating patients.
+		/// </summary>
 		public bool HasErrors { get; set; }
 	}
 }

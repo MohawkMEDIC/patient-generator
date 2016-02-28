@@ -22,6 +22,9 @@ using System.Xml;
 
 namespace PatientGenerator.Messaging.Configuration
 {
+	/// <summary>
+	/// Represents the configuration section handler for the messaging configuration.
+	/// </summary>
 	public class ConfigurationSectionHandler : IConfigurationSectionHandler
 	{
 		public object Create(object parent, object configContext, XmlNode section)

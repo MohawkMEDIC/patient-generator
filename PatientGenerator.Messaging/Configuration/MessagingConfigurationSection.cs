@@ -22,13 +22,22 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.Messaging.Configuration
 {
+	/// <summary>
+	/// Represents the messaging configuration section.
+	/// </summary>
 	public class MessagingConfigurationSection
 	{
+		/// <summary>
+		/// Initializes a new instance of the MessageConfigurationSection class.
+		/// </summary>
 		public MessagingConfigurationSection()
 		{
 			Endpoints = new List<ListenEndpoint>();
 		}
 
+		/// <summary>
+		/// The list of listen endpoints.
+		/// </summary>
 		[XmlElement("endpoints")]
 		public List<ListenEndpoint> Endpoints { get; set; }
 	}

@@ -27,20 +27,32 @@ using PatientGenerator.Messaging.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.MessageReceiver
 {
+	/// <summary>
+	/// Provides operations to generate patients.
+	/// </summary>
 	public class GenerationService : IGenerationService, IDisposable
 	{
 		private HostContext hostContext;
 		private IPersistenceService persistenceService;
 
+		/// <summary>
+		/// Initializes a new instance of the GenerationService class.
+		/// </summary>
 		public GenerationService()
 		{
 			hostContext = new HostContext();
 			persistenceService = hostContext.GetService(typeof(IPersistenceService)) as IPersistenceService;
 		}
 
+		/// <summary>
+		/// Generates patients using the provided options.
+		/// </summary>
+		/// <param name="options">The options to use to generate patients.</param>
+		/// <returns>Returns a GenerationResponse.</returns>
 		public GenerationResponse GeneratePatients(DemographicOptions options)
 		{
 			GenerationResponse response = new GenerationResponse();
@@ -56,6 +68,31 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				// no validation errors, save the options
 				persistenceService?.Save(options);
+			}
+
+			return response;
+		}
+
+		/// <summary>
+		/// Generates patients using the provided options.
+		/// </summary>
+		/// <param name="options">The options to use to generate patients.</param>
+		/// <returns>Returns a GenerationResponse.</returns>
+		public async Task<GenerationResponse> GeneratePatientsAsync(DemographicOptions options)
+		{
+			GenerationResponse response = new GenerationResponse();
+
+			IEnumerable<IResultDetail> details = ValidationUtil.ValidateMessage(options);
+
+			if (details.Count(x => x.Type == ResultDetailType.Error) > 0)
+			{
+				response.Messages = details.Select(x => x.ToString()).ToList();
+				response.HasErrors = true;
+			}
+			else
+			{
+				// no validation errors, save the options
+				await persistenceService?.SaveAsync(options);
 			}
 
 			return response;

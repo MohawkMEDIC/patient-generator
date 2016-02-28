@@ -21,16 +21,28 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.Messaging.Configuration
 {
+	/// <summary>
+	/// Represents a listen endpoint.
+	/// </summary>
 	[XmlRoot("endpoint")]
 	public class ListenEndpoint
 	{
+		/// <summary>
+		/// Initializes a new instance of the ListenEndpoint class.
+		/// </summary>
 		public ListenEndpoint()
 		{
 		}
 
+		/// <summary>
+		/// The address of the endpoint.
+		/// </summary>
 		[XmlAttribute("address")]
 		public string Address { get; set; }
 
+		/// <summary>
+		/// The name of the endpoint.
+		/// </summary>
 		[XmlAttribute("name")]
 		public string Name { get; set; }
 	}

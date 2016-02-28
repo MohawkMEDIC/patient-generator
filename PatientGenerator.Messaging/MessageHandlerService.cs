@@ -25,11 +25,24 @@ using System.ServiceModel;
 
 namespace PatientGenerator.Messaging
 {
+	/// <summary>
+	/// The message handler service.
+	/// </summary>
 	public class MessageHandlerService : IMessageHandlerService
 	{
+		/// <summary>
+		/// The IServiceProvider, an inherited member of the IUsesHostContext interface.
+		/// </summary>
 		private IServiceProvider context;
+
+		/// <summary>
+		/// The ServiceHost for WCF services.
+		/// </summary>
 		private ServiceHost serviceHost;
 
+		/// <summary>
+		/// The IServiceProvider context.
+		/// </summary>
 		public IServiceProvider Context
 		{
 			get
@@ -43,6 +56,10 @@ namespace PatientGenerator.Messaging
 			}
 		}
 
+		/// <summary>
+		/// Starts the message handler service.
+		/// </summary>
+		/// <returns>Returns true if the service(s) started successfully.</returns>
 		public bool Start()
 		{
 			bool status = false;
@@ -66,6 +83,10 @@ namespace PatientGenerator.Messaging
 			return status;
 		}
 
+		/// <summary>
+		/// Stops the message handler service.
+		/// </summary>
+		/// <returns>Returns true if the service(s) stopped successfully.</returns>
 		public bool Stop()
 		{
 			bool status = false;

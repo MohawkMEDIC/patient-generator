@@ -20,13 +20,30 @@
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Messaging.Model;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.Services
 {
+	/// <summary>
+	/// Represents a patient generation service interface.
+	/// </summary>
 	[ServiceContract(Namespace = "http://marc-hi.ca/xmlns/patgensvc")]
 	public interface IGenerationService
 	{
+		/// <summary>
+		/// Generates patients using the provided options.
+		/// </summary>
+		/// <param name="options">The options to use to generate patients.</param>
+		/// <returns>Returns a GenerationResponse.</returns>
 		[OperationContract]
 		GenerationResponse GeneratePatients(DemographicOptions options);
+
+		/// <summary>
+		/// Generates patients using the provided options.
+		/// </summary>
+		/// <param name="options">The options to use to generate patients.</param>
+		/// <returns>Returns a GenerationResponse.</returns>
+		[OperationContract]
+		Task<GenerationResponse> GeneratePatientsAsync(DemographicOptions options);
 	}
 }
