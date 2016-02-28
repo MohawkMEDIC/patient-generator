@@ -108,6 +108,10 @@
       <Project>{1ec31f97-bbd0-467e-b6a4-a0750fb61e62}</Project>
       <Name>PatientGenerator.Messaging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.Persistence\PatientGenerator.Persistence.csproj">
+      <Project>{028c97d6-f419-478f-a226-a269516dce1a}</Project>
+      <Name>PatientGenerator.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

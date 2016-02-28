@@ -49,6 +49,8 @@
     <Compile Include="ComponentModel\DemographicOptions.cs" />
     <Compile Include="ComponentModel\NameOptions.cs" />
     <Compile Include="ComponentModel\OptionsBase.cs" />
+    <Compile Include="IPersistenceService.cs" />
+    <Compile Include="ModelMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentModel\TelecomOptions.cs" />
     <Compile Include="Validation\ConflictingValueResultDetail.cs" />

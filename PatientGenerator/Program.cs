@@ -26,7 +26,7 @@ using System.ServiceProcess;
 
 namespace PatientGenerator
 {
-	[Guid("21F35B18-E417-4F8E-B9C7-73E98B7C71B8")]
+	[Guid("D50C83BB-37D9-4B55-B79A-FE016D6DB81F")]
 	class Program
 	{
 		/// <summary>
