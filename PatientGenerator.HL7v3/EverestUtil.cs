@@ -165,7 +165,7 @@ namespace PatientGenerator.HL7v3
 		/// Logs an IGraphable message.
 		/// </summary>
 		/// <param name="graphable">The IGraphable message to log.</param>
-		public static void LogGraphable(IGraphable graphable)
+		internal static void LogGraphable(IGraphable graphable)
 		{
 			XmlWriter writer = null;
 

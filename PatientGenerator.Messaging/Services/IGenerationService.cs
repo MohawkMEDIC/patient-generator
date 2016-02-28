@@ -35,7 +35,7 @@ namespace PatientGenerator.Messaging.Services
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract]
+		[OperationContract(Name = "GeneratePatients")]
 		GenerationResponse GeneratePatients(DemographicOptions options);
 
 		/// <summary>
@@ -43,7 +43,7 @@ namespace PatientGenerator.Messaging.Services
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract]
+		[OperationContract(Name = "GeneratePatientsAsync")]
 		Task<GenerationResponse> GeneratePatientsAsync(DemographicOptions options);
 	}
 }

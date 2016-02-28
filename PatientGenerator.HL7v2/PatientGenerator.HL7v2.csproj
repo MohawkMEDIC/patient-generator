@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MARC.HI.EHRS.SVC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
+    </Reference>
     <Reference Include="NHapi.Base">
       <HintPath>..\Solution Items\NHapi.Base.dll</HintPath>
     </Reference>
@@ -54,6 +58,7 @@
     <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
     <Compile Include="Configuration\HL7v2ConfigurationSection.cs" />
     <Compile Include="Configuration\LlpEndpoint.cs" />
+    <Compile Include="HL7v2SenderService.cs" />
     <Compile Include="NHapiUtil.cs" />
     <Compile Include="MllpMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

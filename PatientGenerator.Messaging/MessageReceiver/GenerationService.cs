@@ -37,6 +37,9 @@ namespace PatientGenerator.Messaging.MessageReceiver
 	public class GenerationService : IGenerationService, IDisposable
 	{
 		private HostContext hostContext;
+		private IFhirSenderService fhirSenderService;
+		private IHL7v2SenderService hl7v2SenderService;
+		private IHL7v3SenderService hl7v3SenderService;
 		private IPersistenceService persistenceService;
 
 		/// <summary>
@@ -45,6 +48,10 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		public GenerationService()
 		{
 			hostContext = new HostContext();
+
+			fhirSenderService = hostContext.GetService(typeof(IFhirSenderService)) as IFhirSenderService;
+			hl7v2SenderService = hostContext.GetService(typeof(IHL7v2SenderService)) as IHL7v2SenderService;
+			hl7v3SenderService = hostContext.GetService(typeof(IHL7v3SenderService)) as IHL7v3SenderService;
 			persistenceService = hostContext.GetService(typeof(IPersistenceService)) as IPersistenceService;
 		}
 
@@ -68,6 +75,16 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				// no validation errors, save the options
 				persistenceService?.Save(options);
+
+				// send to fhir endpoints 
+				fhirSenderService?.Send(options);
+
+				// send to hl7v2 endpoints 
+				hl7v2SenderService?.Send(options);
+
+				// send to hl7v3 endpoints 
+				hl7v3SenderService?.Send(options);
+
 			}
 
 			return response;
@@ -93,6 +110,15 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				// no validation errors, save the options
 				await persistenceService?.SaveAsync(options);
+
+				// send to fhir endpoints 
+				await fhirSenderService?.SendAsync(options);
+
+				// send to hl7v2 endpoints 
+				await hl7v2SenderService?.SendAsync(options);
+
+				// send to hl7v3 endpoints 
+				await hl7v3SenderService?.SendAsync(options);
 			}
 
 			return response;

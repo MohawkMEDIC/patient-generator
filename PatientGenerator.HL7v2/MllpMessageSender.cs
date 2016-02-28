@@ -30,7 +30,7 @@ namespace PatientGenerator.HL7v2
 	/// <summary>
 	/// MLLP Message Sender
 	/// </summary>
-	public class MllpMessageSender
+	internal class MllpMessageSender
 	{
 		// Endpoint
 		private Uri m_endpoint = null;
