@@ -23,9 +23,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace PatientGenerator.Persistence.DAL
 {
-	public class PatientGeneratorDbContext : DbContext
+	public class ApplicationDbContext : DbContext
 	{
-		public PatientGeneratorDbContext()
+		public ApplicationDbContext()
 			: base("PatientGeneratorDbConnection")
 		{
 		}

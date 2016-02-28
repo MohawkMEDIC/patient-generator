@@ -97,6 +97,8 @@ namespace PatientGenerator.HL7v2
 				Trace.TraceInformation(parsedMessage.ToString());
 #endif
 
+				Trace.TraceInformation("Sending to endpoint: " + endpoint.ToString());
+
 				IMessage response = sender.SendAndReceive(message);
 
 				var parsedResponse = parser.Encode(response);

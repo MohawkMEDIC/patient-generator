@@ -26,14 +26,20 @@ using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Messaging.Validation;
 using PatientGenerator.Messaging.Model;
 using PatientGenerator.Core.Validation;
+using PatientGenerator.Core;
+using MARC.HI.EHRS.SVC.Core;
 
 namespace PatientGenerator.Messaging.MessageReceiver
 {
 	public class GenerationService : IGenerationService, IDisposable
 	{
+		private HostContext hostContext;
+		private IPersistenceService persistenceService;
+
 		public GenerationService()
 		{
-
+			hostContext = new HostContext();
+			persistenceService = hostContext.GetService(typeof(IPersistenceService)) as IPersistenceService;
 		}
 
 		public GenerationResponse GeneratePatients(DemographicOptions options)
@@ -46,6 +52,11 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				response.Messages = details.Select(x => x.ToString()).ToList();
 				response.HasErrors = true;
+			}
+			else
+			{
+				// no validation errors, save the options
+				persistenceService?.Save(options);
 			}
 
 			return response;
@@ -61,7 +72,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				if (disposing)
 				{
-					// TODO: dispose managed state (managed objects).
+					hostContext.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

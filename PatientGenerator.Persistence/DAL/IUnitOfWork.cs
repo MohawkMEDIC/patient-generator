@@ -17,15 +17,35 @@
  * Date: 2016-2-27
  */
 
+using PatientGenerator.Persistence.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Persistence.DAL
 {
 	public interface IUnitOfWork : IDisposable
 	{
+		#region Repositories
+
+		IRepository<Address> AddressRepository { get; }
+
+		IRepository<AlternateIdentifier> AlternateIdentifierRepository { get; }
+
+		IRepository<Name> NameRepository { get; }
+
+		IRepository<NamePart> NamePartRepository { get; }
+
+		IRepository<Person> PersonRepository { get; }
+
+		IRepository<Telecom> TelecomRepository { get; }
+
+		#endregion
+
 		/// <summary>
 		/// Save any pending changes to the database.
 		/// </summary>
-		void Save();
+		bool Save();
+
+		Task SaveAsync();
 	}
 }

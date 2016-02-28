@@ -21,14 +21,14 @@ namespace PatientGenerator.Persistence.Migrations
 {
 	using System.Data.Entity.Migrations;
 
-	internal sealed class Configuration : DbMigrationsConfiguration<PatientGenerator.Persistence.DAL.PatientGeneratorDbContext>
+	internal sealed class Configuration : DbMigrationsConfiguration<PatientGenerator.Persistence.DAL.ApplicationDbContext>
 	{
 		public Configuration()
 		{
 			AutomaticMigrationsEnabled = true;
 		}
 
-		protected override void Seed(PatientGenerator.Persistence.DAL.PatientGeneratorDbContext context)
+		protected override void Seed(PatientGenerator.Persistence.DAL.ApplicationDbContext context)
 		{
 			//  This method will be called after migrating to the latest version.
 

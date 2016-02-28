@@ -17,6 +17,7 @@
  * Date: 2016-2-27
  */
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -41,6 +42,9 @@ namespace PatientGenerator.Persistence.Model
 		/// The country of the patient's address.
 		/// </summary>
 		public string Country { get; set; }
+
+		[Required]
+		public DateTime CreationTimestamp { get; set; }
 
 		/// <summary>
 		/// The State/Province of the patient's address.

@@ -17,6 +17,7 @@
  * Date: 2016-2-27
  */
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,6 +29,9 @@ namespace PatientGenerator.Persistence.Model
 		public Name()
 		{
 		}
+
+		[Required]
+		public DateTime CreationTimestamp { get; set; }
 
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

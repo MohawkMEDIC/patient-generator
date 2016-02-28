@@ -98,11 +98,15 @@ namespace PatientGenerator.Tests
 
 			foreach (var message in messages)
 			{
-				Assert.IsInstanceOfType(response, typeof(ACK));
+				Assert.IsInstanceOfType(message, typeof(ACK));
 
-				ACK ack = (ACK)response;
+				ACK ack = (ACK)message;
 
-				Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AA");
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual(msa.AcknowledgementCode.Value, "AA");
 			}
 		}
 
@@ -155,11 +159,22 @@ namespace PatientGenerator.Tests
 				SendingFacility = "SEEDING"
 			});
 
-			Assert.IsInstanceOfType(response, typeof(ACK));
+			var messages = NHapiUtil.Sendv2Messages(response);
 
-			ACK ack = (ACK)response;
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
 
-			Assert.AreEqual(((MSA)ack.Message.GetStructure("MSA")).AcknowledgementCode.Value, "AR");
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual(msa.AcknowledgementCode.Value, "AR");
+			}
+
+
 		}
     }
 }

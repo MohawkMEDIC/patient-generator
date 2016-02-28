@@ -17,26 +17,128 @@
  * Date: 2016-2-27
  */
 
+using System;
+using PatientGenerator.Persistence.Model;
+using System.Threading.Tasks;
+
 namespace PatientGenerator.Persistence.DAL
 {
 	public class EntityUnitOfWork : IUnitOfWork
 	{
-		private PatientGeneratorDbContext context;
+		private ApplicationDbContext context;
+
+		private IRepository<Address> addressRepository;
+		private IRepository<AlternateIdentifier> alternateIdentifierRepository;
+		private IRepository<Name> nameRepository;
+		private IRepository<NamePart> namePartRepository;
+		private IRepository<Person> personRepository;
+		private IRepository<Telecom> telecomRepository;
 
 		public EntityUnitOfWork()
-			: this(new PatientGeneratorDbContext())
+			: this(new ApplicationDbContext())
 		{
 		}
 
-		public EntityUnitOfWork(PatientGeneratorDbContext context)
+		public EntityUnitOfWork(ApplicationDbContext context)
 		{
 			this.context = context;
 		}
 
-		public void Save()
+		#region IUnitOfWork
+
+		public IRepository<Address> AddressRepository
 		{
-			context.SaveChanges();
+			get
+			{
+				if (this.addressRepository == null)
+				{
+					this.addressRepository = new EntityRepository<Address>(context);
+				}
+
+				return this.addressRepository;
+			}
 		}
+
+		public IRepository<AlternateIdentifier> AlternateIdentifierRepository
+		{
+			get
+			{
+				if (this.alternateIdentifierRepository == null)
+				{
+					this.alternateIdentifierRepository = new EntityRepository<AlternateIdentifier>(context);
+				}
+
+				return this.alternateIdentifierRepository;
+			}
+		}
+
+		public IRepository<Name> NameRepository
+		{
+			get
+			{
+				if (this.nameRepository == null)
+				{
+					this.nameRepository = new EntityRepository<Name>(context);
+				}
+
+				return this.nameRepository;
+			}
+		}
+
+		public IRepository<NamePart> NamePartRepository
+		{
+			get
+			{
+				if (this.namePartRepository == null)
+				{
+					this.namePartRepository = new EntityRepository<NamePart>(context);
+				}
+
+				return this.namePartRepository;
+			}
+		}
+
+		public IRepository<Person> PersonRepository
+		{
+			get
+			{
+				if (this.personRepository == null)
+				{
+					this.personRepository = new EntityRepository<Person>(context);
+				}
+
+				return this.personRepository;
+			}
+		}
+
+		public IRepository<Telecom> TelecomRepository
+		{
+			get
+			{
+				if (this.telecomRepository == null)
+				{
+					this.telecomRepository = new EntityRepository<Telecom>(context);
+				}
+
+				return this.telecomRepository;
+			}
+		}
+
+		public bool Save()
+		{
+			// if the change count is greater than 0, then changes were saved.
+			int changeCount = context.SaveChanges();
+
+			return changeCount > 0;
+		}
+
+		public async Task SaveAsync()
+		{
+			await context.SaveChangesAsync();
+		}
+
+		#endregion
+
 
 		#region IDisposable Support
 
@@ -73,6 +175,6 @@ namespace PatientGenerator.Persistence.DAL
 			// GC.SuppressFinalize(this);
 		}
 
-		#endregion IDisposable Support
+		#endregion
 	}
 }

@@ -24,7 +24,7 @@ namespace PatientGenerator.Core
 {
 	public interface IPersistenceService : IUsesHostContext
 	{
-		void Save(DemographicOptions options);
+		bool Save(DemographicOptions options);
 
 		Task SaveAsync(DemographicOptions options);
 	}

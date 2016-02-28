@@ -57,7 +57,7 @@
     <Compile Include="DAL\EntityUnitOfWork.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
-    <Compile Include="DAL\PatientGeneratorDbContext.cs" />
+    <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="DAL\PersistenceHandlerService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />

@@ -28,6 +28,10 @@ namespace PatientGenerator.Persistence.Model
 	{
 		public Person()
 		{
+			Addresses = new List<Address>();
+			AlternateIdentifiers = new List<AlternateIdentifier>();
+			Names = new List<Name>();
+			Telecoms = new List<Telecom>();
 		}
 
 		public string AssigningAuthority { get; set; }

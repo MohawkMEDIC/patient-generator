@@ -33,6 +33,7 @@ namespace PatientGenerator.Persistence.Model
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
+		[Required]
 		public DateTime CreationTimestamp { get; set; }
 
 		public int PersonId { get; set; }

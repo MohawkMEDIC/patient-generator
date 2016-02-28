@@ -23,12 +23,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.Persistence.Model;
 
 namespace PatientGenerator.Persistence.DAL
 {
 	public class PersistenceHandlerService : IPersistenceService, IDisposable
 	{
 		private IServiceProvider context;
+		private IUnitOfWork unitOfWork;
+
+		public PersistenceHandlerService() : this(new EntityUnitOfWork(new ApplicationDbContext()))
+		{
+
+		}
+
+		public PersistenceHandlerService(IUnitOfWork unitOfWork)
+		{
+			this.unitOfWork = new EntityUnitOfWork(new ApplicationDbContext());
+		}
 
 		public IServiceProvider Context
 		{
@@ -43,14 +55,98 @@ namespace PatientGenerator.Persistence.DAL
 			}
 		}
 
-		public void Save(DemographicOptions options)
+		private Person MapPerson(DemographicOptions options)
 		{
-			throw new NotImplementedException();
+			Person person = unitOfWork.PersonRepository.Create();
+
+			foreach (var item in options.Addresses)
+			{
+				Address address = new Address().Map(item);
+
+				address.CreationTimestamp = DateTime.Now;
+
+				person.Addresses.Add(address);
+			}
+
+			person.AssigningAuthority = options.AssigningAuthority;
+			person.CreationTimestamp = DateTime.Now;
+			person.Gender = options.Gender;
+
+			foreach (var item in options.OtherIdentifiers)
+			{
+				person.AlternateIdentifiers.Add(new AlternateIdentifier
+				{
+					CreationTimestamp = DateTime.Now,
+					Key = item.Key,
+					Value = item.Value
+				});
+			}
+
+			foreach (var item in options.Names)
+			{
+				person.Names.Add(new Name
+				{
+					CreationTimestamp = DateTime.Now,
+					NameParts = new List<NamePart>
+					{
+						new NamePart
+						{
+							CreationTimestamp = DateTime.Now,
+							NamePartType = NamePartType.Family,
+							Value = item.LastName,
+						},
+						new NamePart
+						{
+							CreationTimestamp = DateTime.Now,
+							NamePartType = NamePartType.Given,
+							Value = item.FirstName,
+						},
+						new NamePart
+						{
+							CreationTimestamp = DateTime.Now,
+							NamePartType = NamePartType.Prefix,
+							Value = item.Prefix
+						}
+					},
+					NameUse = NameUse.Legal
+				});
+			}
+
+			foreach (var item in options?.TelecomOptions?.EmailAddresses)
+			{
+				person.Telecoms.Add(new Telecom
+				{
+					CreationTimestamp = DateTime.Now,
+					TelecomType = TelecomType.Email,
+					TelecomUse = TelecomUse.Direct,
+					Value = item
+				});
+			}
+
+			foreach (var item in options?.TelecomOptions?.PhoneNumbers)
+			{
+				person.Telecoms.Add(new Telecom
+				{
+					CreationTimestamp = DateTime.Now,
+					TelecomType = TelecomType.Phone,
+					TelecomUse = TelecomUse.Direct,
+					Value = item
+				});
+			}
+
+			return person;
 		}
 
-		public Task SaveAsync(DemographicOptions options)
+		public bool Save(DemographicOptions options)
 		{
-			throw new NotImplementedException();
+			unitOfWork.PersonRepository.Add(this.MapPerson(options));
+			return unitOfWork.Save();
+		}
+
+		public async Task SaveAsync(DemographicOptions options)
+		{
+			unitOfWork.PersonRepository.Add(this.MapPerson(options));
+			await unitOfWork.SaveAsync();
 		}
 
 		#region IDisposable Support
@@ -63,7 +159,7 @@ namespace PatientGenerator.Persistence.DAL
 			{
 				if (disposing)
 				{
-					// TODO: dispose managed state (managed objects).
+					unitOfWork.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

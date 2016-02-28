@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Hl7.Fhir.Core, Version=0.11.5.28859, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Solution Items\Hl7.Fhir.Core.dll</HintPath>
@@ -74,6 +82,7 @@
       <HintPath>..\Solution Items\NHapi.Model.V25.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -87,6 +96,7 @@
     <Compile Include="HL7v2Tests.cs" />
     <Compile Include="HL7v3Tests.cs" />
     <Compile Include="MessagingTests.cs" />
+    <Compile Include="PersistenceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,12 +120,17 @@
       <Project>{1ec31f97-bbd0-467e-b6a4-a0750fb61e62}</Project>
       <Name>PatientGenerator.Messaging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.Persistence\PatientGenerator.Persistence.csproj">
+      <Project>{028c97d6-f419-478f-a226-a269516dce1a}</Project>
+      <Name>PatientGenerator.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="PatientGenerator.Tests.licenseheader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
