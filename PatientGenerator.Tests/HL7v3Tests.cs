@@ -73,28 +73,40 @@ namespace PatientGenerator.Tests
 				{
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
-				Gender = "F",
+				Gender = "M",
 				Names = new List<NameOptions>
 				{
 					new NameOptions
 					{
-						FirstName = "Samantha",
-						LastName = "Richtofen"
+						FirstName = "David",
+						LastName = "Nutley",
+						MiddleNames = new List<string>
+						{
+							"Kimberly",
+							"Rob",
+							"Nutley"
+						},
+						Prefix = "Ms.",
+						Suffixes = new List<string>
+						{
+							"PhD",
+							"MSc"
+						}
 					}
 				},
 				OtherIdentifiers = new Dictionary<string, string>
 				{
 					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.0." + new Random(DateTime.Now.Millisecond).Next(100, 10000), Guid.NewGuid().ToString("N")
+						"1.3.6.1.4.1.33349.3.1.3.12", Guid.NewGuid().ToString("N")
 					},
 					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.1." + new Random(DateTime.Now.Second).Next(100, 10000), Guid.NewGuid().ToString("N")
+						"1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")
 					},
 					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.2." + new Random(DateTime.Now.Minute).Next(100, 10000), Guid.NewGuid().ToString("N")
+						"1.3.6.1.4.1.33349.3.1.2.99121.9992", new Random(DateTime.Now.Second).Next(100, 10000).ToString()
 					},
 					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
+						"1.3.6.1.4.1.33349.3.1.3.201203.1.0", new Random(DateTime.Now.Millisecond).Next(100, 10000).ToString()
 					}
 				},
 				PersonIdentifier = Guid.NewGuid().ToString("N"),
@@ -106,7 +118,104 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void SendMessageTest()
+		public void NoAddressTest()
+		{
+			options.Addresses.Clear();
+
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Harry",
+				LastName = "Homeless",
+			});
+
+			var message = EverestUtil.GenerateCandidateRegistry(options);
+
+			var result = EverestUtil.Sendv3Messages(message, "cr");
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoDateOfBirthTest()
+		{
+			options.DateOfBirthOptions = null;
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Strawberry",
+				LastName = "Shortcake",
+			});
+
+			var message = EverestUtil.GenerateCandidateRegistry(options);
+
+			var result = EverestUtil.Sendv3Messages(message, "cr");
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoNameTest()
+		{
+			options.Names.Clear();
+
+			var message = EverestUtil.GenerateCandidateRegistry(options);
+
+			var result = EverestUtil.Sendv3Messages(message, "cr");
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoAlternateIdentifiersTest()
+		{
+			options.OtherIdentifiers.Clear();
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Walter",
+				LastName = "Gretzky",
+			});
+
+			var message = EverestUtil.GenerateCandidateRegistry(options);
+
+			var result = EverestUtil.Sendv3Messages(message, "cr");
+
+			Assert.IsTrue(result);
+		}
+
+		//[TestMethod]
+		//public void PartialAddressTest()
+		//{
+		//	options.Addresses.Clear();
+
+		//	options.Addresses.Add(new AddressOptions
+		//	{
+		//		City = "Chicago",
+		//		Country = "United States of America",
+		//		StateProvince = "Illinois"
+		//	});
+
+		//	options.Names.Clear();
+
+		//	options.Names.Add(new NameOptions
+		//	{
+		//		FirstName = "Joel",
+		//		LastName = "Quinnville",
+		//	});
+
+		//	var message = EverestUtil.GenerateCandidateRegistry(options);
+
+		//	var result = EverestUtil.Sendv3Messages(message, "cr");
+
+		//	Assert.IsTrue(result);
+		//}
+
+		[TestMethod]
+		public void ValidMessageTest()
 		{
 			var message = EverestUtil.GenerateCandidateRegistry(options);
 

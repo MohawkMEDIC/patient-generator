@@ -107,32 +107,6 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void ValidMessageTestv2()
-		{
-			GenerationService service = new GenerationService();
-
-			var result = service.GeneratePatients(options);
-
-			Assert.IsFalse(result.HasErrors);
-		}
-
-		[TestMethod]
-		public void ValidMessageTestv3()
-		{
-			GenerationService service = new GenerationService();
-
-			options.ReceivingApplication = null;
-			options.ReceivingFacility = null;
-			options.SendingApplication = null;
-			options.SendingFacility = null;
-			options.UseHL7v2 = false;
-
-			var result = service.GeneratePatients(options);
-
-			Assert.IsFalse(result.HasErrors);
-		}
-
-		[TestMethod]
 		public void MissingAssigningAuthorityTestv2()
 		{
 			GenerationService service = new GenerationService();
@@ -167,11 +141,102 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void MissingDobOptionsTest()
+		public void MissingDateOfBirthOptionsTest()
 		{
 			GenerationService service = new GenerationService();
 
 			options.DateOfBirthOptions = null;
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsFalse(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void NoEndDateOfBirthOptionsTest()
+		{
+			GenerationService service = new GenerationService();
+
+			options.DateOfBirthOptions = new DateOfBirthOptions
+			{
+				Start = new DateTime(1925, 01, 01),
+				Exact = DateTime.Now
+			};
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsTrue(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void NoStartDateOfBirthOptionsTest()
+		{
+			GenerationService service = new GenerationService();
+
+			options.DateOfBirthOptions = new DateOfBirthOptions
+			{
+				End = new DateTime(1990, 12, 31),
+				Exact = DateTime.Now
+			};
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsTrue(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void RangeDateOfBirthTest()
+		{
+			GenerationService service = new GenerationService();
+
+			options.DateOfBirthOptions = new DateOfBirthOptions
+			{
+				Start = new DateTime(1925, 01, 01),
+				End = new DateTime(1990, 12, 31),
+			};
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsFalse(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void RangeDateOfBirthWithExactTest()
+		{
+			GenerationService service = new GenerationService();
+
+			options.DateOfBirthOptions = new DateOfBirthOptions
+			{
+				Start = new DateTime(1925, 01, 01),
+				End = new DateTime(1990, 12, 31),
+				Exact = DateTime.Now
+			};
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsTrue(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void ValidMessageTestv2()
+		{
+			GenerationService service = new GenerationService();
+
+			var result = service.GeneratePatients(options);
+
+			Assert.IsFalse(result.HasErrors);
+		}
+
+		[TestMethod]
+		public void ValidMessageTestv3()
+		{
+			GenerationService service = new GenerationService();
+
+			options.ReceivingApplication = null;
+			options.ReceivingFacility = null;
+			options.SendingApplication = null;
+			options.SendingFacility = null;
+			options.UseHL7v2 = false;
 
 			var result = service.GeneratePatients(options);
 

@@ -107,17 +107,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void SendMessageTest()
-		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
-
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
-		}
-
-		[TestMethod]
-		public void SendMessageNoAddressTest()
+		public void NoAddressTest()
 		{
 			options.Addresses.Clear();
 
@@ -129,7 +119,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void SendMessageNoAlternateIdentifiersTest()
+		public void NoAlternateIdentifiersTest()
 		{
 			options.OtherIdentifiers.Clear();
 
@@ -141,10 +131,56 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void SendMessageNoDateOfBirthTest()
+		public void NoAssigningAuthorityTest()
+		{
+			options.Addresses.Clear();
+
+			var patient = FhirUtil.GenerateCandidateRegistry(options);
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void NoDateOfBirthTest()
 		{
 			options.DateOfBirthOptions = null;
 
+			var patient = FhirUtil.GenerateCandidateRegistry(options);
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void NoGenderTest()
+		{
+			options.Gender = null;
+
+			var patient = FhirUtil.GenerateCandidateRegistry(options);
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void NoNameTest()
+		{
+			options.Names.Clear();
+
+			var patient = FhirUtil.GenerateCandidateRegistry(options);
+
+			var results = FhirUtil.SendFhirMessages(patient);
+
+			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+		}
+
+		[TestMethod]
+		public void ValidMessageTest()
+		{
 			var patient = FhirUtil.GenerateCandidateRegistry(options);
 
 			var results = FhirUtil.SendFhirMessages(patient);

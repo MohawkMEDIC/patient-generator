@@ -65,6 +65,19 @@ namespace PatientGenerator.HL7v3
 				)
 			);
 
+			TS dob = new TS
+			{
+				NullFlavor = NullFlavor.NoInformation
+			};
+
+			if (patient.DateOfBirthOptions != null)
+			{
+				if (patient.DateOfBirthOptions.Exact.HasValue)
+				{
+					dob = new TS(patient.DateOfBirthOptions.Exact.Value, DatePrecision.Day);
+				}
+			}
+
 			registerPatientRequest.controlActEvent = PRPA_IN101201CA.CreateControlActEvent(
 				Guid.NewGuid(),
 				PRPA_IN101201CA.GetTriggerEvent(),
@@ -82,7 +95,7 @@ namespace PatientGenerator.HL7v3
 										BuildNames(patient),
 										BuildTelecoms(patient),
 										Util.Convert<AdministrativeGender>(patient.Gender.Substring(0)),
-										new TS(patient.DateOfBirthOptions.Exact.Value, DatePrecision.Day),
+										dob,
 										false,
 										null,
 										false,
@@ -108,7 +121,7 @@ namespace PatientGenerator.HL7v3
 			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(DateTime.Now);
 
 			// Author
-			registerPatientRequest.controlActEvent.Author.Time = patient.DateOfBirthOptions.Exact;
+			registerPatientRequest.controlActEvent.Author.Time = new TS(DateTime.Now);
 			registerPatientRequest.controlActEvent.Author.SetAuthorPerson(
 				new MARC.Everest.RMIM.CA.R020402.COCT_MT090102CA.AssignedEntity(
 					new SET<II>(new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N"))),
@@ -126,21 +139,24 @@ namespace PatientGenerator.HL7v3
 				)
 			);
 
-			string hcn = Guid.NewGuid().ToString("N");
-			hcn = Regex.Replace(hcn, "[^.0-9]", "");
-			hcn = hcn.Substring(0, 9);
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = new SET<II>();
 
-			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = SET<II>.CreateSET(
-					new II("1.3.6.1.4.1.33349.3.1.2.99121.9992", hcn),
-					new II("1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")),
-					new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString())
-			);
+			foreach (var otherIdentifier in patient.OtherIdentifiers)
+			{
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(otherIdentifier.Key, otherIdentifier.Value));
+			}
+
+			// must have one alternate identifier
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N")));
+
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 
 #if DEBUG
 			LogGraphable(registerPatientRequest);
 #endif
+
+			bool isValid = registerPatientRequest.Validate();
 
 			return registerPatientRequest;
 		}

@@ -117,9 +117,11 @@ namespace PatientGenerator.Persistence.DAL
 			return changeCount > 0;
 		}
 
-		public async Task SaveAsync()
+		public async Task<bool> SaveAsync()
 		{
-			await context.SaveChangesAsync();
+			int changeCount = await context.SaveChangesAsync();
+
+			return changeCount > 0;
 		}
 
 		#endregion IUnitOfWork

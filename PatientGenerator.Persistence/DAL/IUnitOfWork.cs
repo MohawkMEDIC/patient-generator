@@ -44,6 +44,6 @@ namespace PatientGenerator.Persistence.DAL
 		/// </summary>
 		bool Save();
 
-		Task SaveAsync();
+		Task<bool> SaveAsync();
 	}
 }

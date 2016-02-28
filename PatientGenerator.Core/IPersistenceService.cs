@@ -27,6 +27,6 @@ namespace PatientGenerator.Core
 	{
 		bool Save(DemographicOptions options);
 
-		Task SaveAsync(DemographicOptions options);
+		Task<bool> SaveAsync(DemographicOptions options);
 	}
 }

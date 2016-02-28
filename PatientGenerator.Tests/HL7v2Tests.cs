@@ -109,28 +109,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void SendMessageTest()
-		{
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual(msa.AcknowledgementCode.Value, "AA");
-			}
-		}
-
-		[TestMethod]
-		public void SendMessageInvalidOidTest()
+		public void InvalidOidTest()
 		{
 			options.AssigningAuthority = "this is not a valid oid";
 
@@ -148,7 +127,258 @@ namespace PatientGenerator.Tests
 
 				MSA msa = (MSA)ack.Message.GetStructure("MSA");
 
-				Assert.AreEqual(msa.AcknowledgementCode.Value, "AR");
+				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MalformedOidTest()
+		{
+			options.AssigningAuthority = "1.3.6.1.4.1.33349....434.";
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MissingAssigningAuthorityTest()
+		{
+			options.AssigningAuthority = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MissingReceivingApplicationTest()
+		{
+			options.ReceivingApplication = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MissingReceivingFacilityTest()
+		{
+			options.ReceivingFacility = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MissingSendingApplicationTest()
+		{
+			options.SendingApplication = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void MissingSendingFacilityTest()
+		{
+			options.SendingFacility = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void NoAddressTest()
+		{
+			options.Addresses.Clear();
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void NoAlternateIdentifiersTest()
+		{
+			options.OtherIdentifiers.Clear();
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void NoDateOfBirthTest()
+		{
+			options.DateOfBirthOptions = null;
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void NoNameTest()
+		{
+			options.Names.Clear();
+
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+			}
+		}
+
+		[TestMethod]
+		public void ValidMessageTest()
+		{
+			var response = NHapiUtil.GenerateCandidateRegistry(options);
+
+			var messages = NHapiUtil.Sendv2Messages(response);
+
+			foreach (var message in messages)
+			{
+				Assert.IsInstanceOfType(message, typeof(ACK));
+
+				ACK ack = (ACK)message;
+
+				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+
+				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+
+				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
 			}
 		}
 	}

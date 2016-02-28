@@ -34,9 +34,19 @@ namespace PatientGenerator.Messaging.Validation
 				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.AssigningAuthority) + " cannot be null."));
 			}
 
+			if (options.DateOfBirthOptions?.Start != null && options.DateOfBirthOptions?.Exact != null)
+			{
+				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " DateOfBirthOptions.End must be populated if DateOfBirthOptions.Start is populated."));
+			}
+
+			if (options.DateOfBirthOptions?.End != null && options.DateOfBirthOptions?.Exact != null)
+			{
+				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " DateOfBirthOptions.Start must be populated if DateOfBirthOptions.Start is populated."));
+			}
+
 			if ((options.DateOfBirthOptions?.Start != null && options.DateOfBirthOptions?.End != null) && options.DateOfBirthOptions?.Exact != null)
 			{
-				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated. Either Start and End OR Exact"));
+				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated."));
 			}
 
 			if (options.UseHL7v2)

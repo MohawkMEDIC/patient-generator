@@ -168,10 +168,10 @@ namespace PatientGenerator.Persistence.DAL
 			return unitOfWork.Save();
 		}
 
-		public async Task SaveAsync(DemographicOptions options)
+		public async Task<bool> SaveAsync(DemographicOptions options)
 		{
 			unitOfWork.PersonRepository.Add(this.MapPerson(options));
-			await unitOfWork.SaveAsync();
+			return await unitOfWork.SaveAsync();
 		}
 
 		#region IDisposable Support

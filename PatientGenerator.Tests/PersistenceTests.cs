@@ -22,6 +22,7 @@ using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Persistence.DAL;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Tests
 {
@@ -113,61 +114,183 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void ValidMessageNoAddressTest()
+		public void NoAddressTest()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
 			options.Addresses.Clear();
 
-			bool result = persistenceHandlerService.Save(options);
+			var result = persistenceHandlerService.Save(options);
 
 			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
-		public void ValidMessageNoDateOfBirthTest()
+		public async Task NoAddressTestAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.DateOfBirthOptions = null;
+			options.Addresses.Clear();
 
-			bool result = persistenceHandlerService.Save(options);
-
-			Assert.IsTrue(result);
-		}
-
-		[TestMethod]
-		public void ValidMessageNoIdentifierTest()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
-
-			options.PersonIdentifier = null;
-
-			bool result = persistenceHandlerService.Save(options);
+			var result = await persistenceHandlerService.SaveAsync(options);
 
 			Assert.IsTrue(result);
 		}
 
 		[TestMethod]
-		public void ValidMessageNoNameTest()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
-
-			options.Names.Clear();
-
-			bool result = persistenceHandlerService.Save(options);
-
-			Assert.IsTrue(result);
-		}
-
-		[TestMethod]
-		public void ValidMessageNoAlternateIdentifiersTest()
+		public void NoAlternateIdentifiersTest()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
 			options.OtherIdentifiers.Clear();
 
-			bool result = persistenceHandlerService.Save(options);
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task NoAlternateIdentifiersTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.OtherIdentifiers.Clear();
+
+			var result = await persistenceHandlerService.SaveAsync(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoDateOfBirthTest()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.DateOfBirthOptions = null;
+
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task NoDateOfBirthTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.DateOfBirthOptions = null;
+
+			var result = await persistenceHandlerService.SaveAsync(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoGenderTest()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Gender = null;
+
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task NoGenderTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Gender = null;
+
+			var result = await persistenceHandlerService.SaveAsync(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoNameTest()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Names.Clear();
+
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task NoNameTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Names.Clear();
+
+			var result = await persistenceHandlerService.SaveAsync(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void NoPersonIdentifierTest()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.PersonIdentifier = null;
+
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task NoPersonIdentifierTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.PersonIdentifier = null;
+
+			var result = await persistenceHandlerService.SaveAsync(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public void PartialAddressTest()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Addresses.Clear();
+
+			options.Addresses.Add(new AddressOptions
+			{
+				City = "Miami",
+				Country = "United States of America",
+				StateProvince = "Florida"
+			});
+
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task PartialAddressTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			options.Addresses.Clear();
+
+			options.Addresses.Add(new AddressOptions
+			{
+				City = "Miami",
+				Country = "United States of America",
+				StateProvince = "Florida"
+			});
+
+			var result = await persistenceHandlerService.SaveAsync(options);
 
 			Assert.IsTrue(result);
 		}
@@ -177,7 +300,17 @@ namespace PatientGenerator.Tests
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			bool result = persistenceHandlerService.Save(options);
+			var result = persistenceHandlerService.Save(options);
+
+			Assert.IsTrue(result);
+		}
+
+		[TestMethod]
+		public async Task ValidMessageTestAsync()
+		{
+			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+
+			var result = await persistenceHandlerService.SaveAsync(options);
 
 			Assert.IsTrue(result);
 		}
