@@ -32,5 +32,10 @@ namespace PatientGenerator.HL7v2.Configuration
 
 		[XmlAttribute("name")]
 		public string Name { get; set; }
+
+		public override string ToString()
+		{
+			return Name + " " + Address;
+		}
 	}
 }
