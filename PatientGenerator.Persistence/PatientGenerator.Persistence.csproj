@@ -63,8 +63,11 @@
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\AddressUse.cs" />
     <Compile Include="Model\AlternateIdentifier.cs" />
-    <Compile Include="Model\NamePart.cs" />
-    <Compile Include="Model\NamePartType.cs" />
+    <Compile Include="Model\FirstName.cs" />
+    <Compile Include="Model\LastName.cs" />
+    <Compile Include="Model\MiddleName.cs" />
+    <Compile Include="Model\NamePrefix.cs" />
+    <Compile Include="Model\NameSuffix.cs" />
     <Compile Include="Model\NameUse.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Name.cs" />

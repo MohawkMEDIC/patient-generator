@@ -17,8 +17,6 @@
  * Date: 2016-2-27
  */
 
-using System.ComponentModel;
-
 namespace PatientGenerator.Persistence.Model
 {
 	public enum AddressUse

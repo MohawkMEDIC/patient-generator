@@ -43,7 +43,15 @@ namespace PatientGenerator.Persistence.DAL
 
 		public DbSet<Name> Names { get; set; }
 
-		public DbSet<NamePart> NameParts { get; set; }
+		public DbSet<FirstName> FirstNames { get; set; }
+
+		public DbSet<LastName> LastNames { get; set; }
+
+		public DbSet<MiddleName> MiddleNames { get; set; }
+
+		public DbSet<NamePrefix> NamePrefixes { get; set; }
+
+		public DbSet<NameSuffix> NameSuffixes { get; set; }
 
 		public DbSet<Person> Persons { get; set; }
 

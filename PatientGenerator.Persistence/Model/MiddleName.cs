@@ -18,15 +18,14 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	public class Name
+	public class MiddleName
 	{
-		public Name()
+		public MiddleName()
 		{
 		}
 
@@ -37,22 +36,11 @@ namespace PatientGenerator.Persistence.Model
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		public virtual ICollection<FirstName> FirstNames { get; set; }
+		public int NameId { get; set; }
 
-		public virtual ICollection<LastName> LastNames { get; set; }
+		[ForeignKey("NameId")]
+		public virtual Name Name { get; set; }
 
-		public virtual ICollection<MiddleName> MiddleNames { get; set; }
-
-		public virtual ICollection<NamePrefix> Prefixes { get; set; }
-
-		public virtual ICollection<NameSuffix> Suffixes { get; set; }
-
-		[Required]
-		public NameUse NameUse { get; set; }
-
-		public int PersonId { get; set; }
-
-		[ForeignKey("PersonId")]
-		public virtual Person Person { get; set; }
+		public string Value { get; set; }
 	}
 }

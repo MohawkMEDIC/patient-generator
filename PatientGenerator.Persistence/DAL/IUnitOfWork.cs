@@ -33,13 +33,11 @@ namespace PatientGenerator.Persistence.DAL
 
 		IRepository<Name> NameRepository { get; }
 
-		IRepository<NamePart> NamePartRepository { get; }
-
 		IRepository<Person> PersonRepository { get; }
 
 		IRepository<Telecom> TelecomRepository { get; }
 
-		#endregion
+		#endregion Repositories
 
 		/// <summary>
 		/// Save any pending changes to the database.

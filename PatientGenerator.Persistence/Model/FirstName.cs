@@ -23,9 +23,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PatientGenerator.Persistence.Model
 {
-	public class NamePart
+	public class FirstName
 	{
-		public NamePart()
+		public FirstName()
 		{
 		}
 
@@ -36,14 +36,11 @@ namespace PatientGenerator.Persistence.Model
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		public string Value { get; set; }
-
-		[Required]
-		public NamePartType NamePartType { get; set; }
-
 		public int NameId { get; set; }
 
 		[ForeignKey("NameId")]
 		public virtual Name Name { get; set; }
+
+		public string Value { get; set; }
 	}
 }

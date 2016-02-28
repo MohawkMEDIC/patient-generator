@@ -17,15 +17,30 @@
  * Date: 2016-2-27
  */
 
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace PatientGenerator.Persistence.Model
 {
-	public enum NamePartType
+	public class NamePrefix
 	{
-		Family = 0,
-		Given = 1,
-		Prefix = 2,
-		Suffix = 3,
-		Title = 4,
-		Delimiter = 5
+		public NamePrefix()
+		{
+		}
+
+		[Required]
+		public DateTime CreationTimestamp { get; set; }
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		public int NameId { get; set; }
+
+		[ForeignKey("NameId")]
+		public virtual Name Name { get; set; }
+
+		public string Value { get; set; }
 	}
 }

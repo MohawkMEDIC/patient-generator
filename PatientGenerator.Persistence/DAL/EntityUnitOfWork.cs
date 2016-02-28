@@ -17,7 +17,6 @@
  * Date: 2016-2-27
  */
 
-using System;
 using PatientGenerator.Persistence.Model;
 using System.Threading.Tasks;
 
@@ -30,7 +29,6 @@ namespace PatientGenerator.Persistence.DAL
 		private IRepository<Address> addressRepository;
 		private IRepository<AlternateIdentifier> alternateIdentifierRepository;
 		private IRepository<Name> nameRepository;
-		private IRepository<NamePart> namePartRepository;
 		private IRepository<Person> personRepository;
 		private IRepository<Telecom> telecomRepository;
 
@@ -85,19 +83,6 @@ namespace PatientGenerator.Persistence.DAL
 			}
 		}
 
-		public IRepository<NamePart> NamePartRepository
-		{
-			get
-			{
-				if (this.namePartRepository == null)
-				{
-					this.namePartRepository = new EntityRepository<NamePart>(context);
-				}
-
-				return this.namePartRepository;
-			}
-		}
-
 		public IRepository<Person> PersonRepository
 		{
 			get
@@ -137,8 +122,7 @@ namespace PatientGenerator.Persistence.DAL
 			await context.SaveChangesAsync();
 		}
 
-		#endregion
-
+		#endregion IUnitOfWork
 
 		#region IDisposable Support
 
@@ -175,6 +159,6 @@ namespace PatientGenerator.Persistence.DAL
 			// GC.SuppressFinalize(this);
 		}
 
-		#endregion
+		#endregion IDisposable Support
 	}
 }

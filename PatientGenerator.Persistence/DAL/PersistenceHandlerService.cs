@@ -1,29 +1,28 @@
 ﻿/*
  * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you 
- * may not use this file except in compliance with the License. You may 
- * obtain a copy of the License at 
- * 
- * http://www.apache.org/licenses/LICENSE-2.0 
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you
+ * may not use this file except in compliance with the License. You may
+ * obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the 
- * License for the specific language governing permissions and limitations under 
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
- * 
+ *
  * User: Nityan
  * Date: 2016-2-27
  */
+
 using PatientGenerator.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Persistence.Model;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Persistence.DAL
 {
@@ -34,7 +33,6 @@ namespace PatientGenerator.Persistence.DAL
 
 		public PersistenceHandlerService() : this(new EntityUnitOfWork(new ApplicationDbContext()))
 		{
-
 		}
 
 		public PersistenceHandlerService(IUnitOfWork unitOfWork)
@@ -84,32 +82,59 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options.Names)
 			{
-				person.Names.Add(new Name
+				Name name = new Name
 				{
 					CreationTimestamp = DateTime.Now,
-					NameParts = new List<NamePart>
+					FirstNames = new List<FirstName>
 					{
-						new NamePart
+						new FirstName
 						{
 							CreationTimestamp = DateTime.Now,
-							NamePartType = NamePartType.Family,
+							Value = item.FirstName,
+						}
+					},
+					LastNames = new List<LastName>
+					{
+						new LastName
+						{
+							CreationTimestamp = DateTime.Now,
 							Value = item.LastName,
 						},
-						new NamePart
+					},
+					Prefixes = new List<NamePrefix>
+					{
+						new NamePrefix
 						{
 							CreationTimestamp = DateTime.Now,
-							NamePartType = NamePartType.Given,
-							Value = item.FirstName,
-						},
-						new NamePart
-						{
-							CreationTimestamp = DateTime.Now,
-							NamePartType = NamePartType.Prefix,
 							Value = item.Prefix
 						}
 					},
 					NameUse = NameUse.Legal
-				});
+				};
+
+				name.MiddleNames = new List<MiddleName>();
+
+				foreach (var middleName in item.MiddleNames)
+				{
+					name.MiddleNames.Add(new MiddleName
+					{
+						CreationTimestamp = DateTime.Now,
+						Value = middleName
+					});
+				}
+
+				name.Suffixes = new List<NameSuffix>();
+
+				foreach (var suffix in item.Suffixes)
+				{
+					name.Suffixes.Add(new NameSuffix
+					{
+						CreationTimestamp = DateTime.Now,
+						Value = suffix
+					});
+				}
+
+				person.Names.Add(name);
 			}
 
 			foreach (var item in options?.TelecomOptions?.EmailAddresses)
@@ -184,6 +209,6 @@ namespace PatientGenerator.Persistence.DAL
 			// GC.SuppressFinalize(this);
 		}
 
-		#endregion
+		#endregion IDisposable Support
 	}
 }
