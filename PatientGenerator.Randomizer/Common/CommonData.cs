@@ -14,26 +14,27 @@
  * the License.
  *
  * User: Nityan
- * Date: 2016-2-21
+ * Date: 2016-3-12
  */
 
-using System.Configuration;
-using System.Xml;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace PatientGenerator.FHIR.Configuration
+namespace PatientGenerator.Randomizer.Common
 {
-	/// <summary>
-	/// Represents the Fhir configuration section handler.
-	/// </summary>
-	public class ConfigurationSectionHandler : IConfigurationSectionHandler
+	[XmlRoot("CommonData")]
+	public class CommonData
 	{
-		public object Create(object parent, object configContext, XmlNode section)
-		{
-			XmlElement endpointsNode = section.SelectSingleNode("./*[local-name() = 'endpoints']") as XmlElement;
+		[XmlElement("City")]
+		public List<string> Cities { get; set; }
 
-			XmlNodeList endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']") as XmlNodeList;
+		[XmlElement("FamilyName")]
+		public List<string> FamilyNames { get; set; }
 
-			return null;
-		}
+		[XmlElement("GivenName")]
+		public List<GivenNameGenderPair> GivenNames { get; set; }
+
+		[XmlElement("StreetName")]
+		public List<string> StreetNames { get; set; }
 	}
 }

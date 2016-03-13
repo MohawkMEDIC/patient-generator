@@ -36,7 +36,8 @@ namespace PatientGenerator.Messaging.MessageReceiver
 	/// </summary>
 	public class GenerationService : IGenerationService, IDisposable
 	{
-		private HostContext hostContext;
+		private HostContext context;
+
 		private IFhirSenderService fhirSenderService;
 		private IHL7v2SenderService hl7v2SenderService;
 		private IHL7v3SenderService hl7v3SenderService;
@@ -47,13 +48,16 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		/// </summary>
 		public GenerationService()
 		{
-			hostContext = new HostContext();
+			context = new HostContext();
+			ApplicationContext.Context = context;
 
-			fhirSenderService = hostContext.GetService(typeof(IFhirSenderService)) as IFhirSenderService;
-			hl7v2SenderService = hostContext.GetService(typeof(IHL7v2SenderService)) as IHL7v2SenderService;
-			hl7v3SenderService = hostContext.GetService(typeof(IHL7v3SenderService)) as IHL7v3SenderService;
-			persistenceService = hostContext.GetService(typeof(IPersistenceService)) as IPersistenceService;
+			fhirSenderService = context.GetService(typeof(IFhirSenderService)) as IFhirSenderService;
+			hl7v2SenderService = context.GetService(typeof(IHL7v2SenderService)) as IHL7v2SenderService;
+			hl7v3SenderService = context.GetService(typeof(IHL7v3SenderService)) as IHL7v3SenderService;
+			persistenceService = context.GetService(typeof(IPersistenceService)) as IPersistenceService;
 		}
+
+		#region IGenerationService Members
 
 		/// <summary>
 		/// Generates patients using the provided options.
@@ -124,6 +128,26 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			return response;
 		}
 
+		/// <summary>
+		/// Gets records that have been generated for a session.
+		/// </summary>
+		/// <returns>Returns a list of records that have been generated for a session.</returns>
+		public object GetRecords()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Get the progress for a patient generation session.
+		/// </summary>
+		/// <returns>Returns the progress.</returns>
+		public ProgressResponse Progress()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion IGenerationService Members
+
 		#region IDisposable Support
 
 		private bool disposedValue = false; // To detect redundant calls
@@ -134,7 +158,6 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				if (disposing)
 				{
-					hostContext.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

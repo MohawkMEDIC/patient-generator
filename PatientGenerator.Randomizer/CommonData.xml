@@ -1,0 +1,328 @@
+﻿<!--
+ - Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ - 
+ - Licensed under the Apache License, Version 2.0 (the "License"); you 
+ - may not use this file except in compliance with the License. You may 
+ - obtain a copy of the License at 
+ - 
+ - http://www.apache.org/licenses/LICENSE-2.0 
+ - 
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ - WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the 
+ - License for the specific language governing permissions and limitations under 
+ - the License.
+ - 
+ - User: Nityan
+ - Date: 2016-3-12
+ -->
+<?xml version="1.0" encoding="utf-8" ?> 
+<CommonData>
+  <FamilyName>Smith</FamilyName>
+  <FamilyName>Johnson</FamilyName>
+  <FamilyName>Williams</FamilyName>
+  <FamilyName>Brown</FamilyName>
+  <FamilyName>Jones</FamilyName>
+  <FamilyName>Miller</FamilyName>
+  <FamilyName>Davis</FamilyName>
+  <FamilyName>Garcia</FamilyName>
+  <FamilyName>Rodriguez</FamilyName>
+  <FamilyName>Wilson</FamilyName>
+  <FamilyName>Martinez</FamilyName>
+  <FamilyName>Anderson</FamilyName>
+  <FamilyName>Taylor</FamilyName>
+  <FamilyName>Thomas</FamilyName>
+  <FamilyName>Hernandez</FamilyName>
+  <FamilyName>Moore</FamilyName>
+  <FamilyName>Martin</FamilyName>
+  <FamilyName>Jackson</FamilyName>
+  <FamilyName>Thompson</FamilyName>
+  <FamilyName>White</FamilyName>
+  <FamilyName>Lopez</FamilyName>
+  <FamilyName>Lee</FamilyName>
+  <FamilyName>Gonzalez</FamilyName>
+  <FamilyName>Harris</FamilyName>
+  <FamilyName>Clark</FamilyName>
+  <FamilyName>Lewis</FamilyName>
+  <FamilyName>Robinson</FamilyName>
+  <FamilyName>Walker</FamilyName>
+  <FamilyName>Perez</FamilyName>
+  <FamilyName>Hall</FamilyName>
+  <FamilyName>Young</FamilyName>
+  <FamilyName>Allen</FamilyName>
+  <FamilyName>Sanchez</FamilyName>
+  <FamilyName>Wright</FamilyName>
+  <FamilyName>King</FamilyName>
+  <FamilyName>Scott</FamilyName>
+  <FamilyName>Green</FamilyName>
+  <FamilyName>Baker</FamilyName>
+  <FamilyName>Adams</FamilyName>
+  <FamilyName>Nelson</FamilyName>
+  <FamilyName>Hill</FamilyName>
+  <FamilyName>Ramirez</FamilyName>
+  <FamilyName>Campbell</FamilyName>
+  <FamilyName>Mitchell</FamilyName>
+  <FamilyName>Roberts</FamilyName>
+  <FamilyName>Carter</FamilyName>
+  <FamilyName>Phillips</FamilyName>
+  <FamilyName>Evans</FamilyName>
+  <FamilyName>Turner</FamilyName>
+  <FamilyName>Torres</FamilyName>
+  <FamilyName>Parker</FamilyName>
+  <FamilyName>Collins</FamilyName>
+  <FamilyName>Edwards</FamilyName>
+  <FamilyName>Stewart</FamilyName>
+  <FamilyName>Flores</FamilyName>
+  <FamilyName>Morris</FamilyName>
+  <FamilyName>Nguyen</FamilyName>
+  <FamilyName>Murphy</FamilyName>
+  <FamilyName>Rivera</FamilyName>
+  <FamilyName>Cook</FamilyName>
+  <FamilyName>Rogers</FamilyName>
+  <FamilyName>Morgan</FamilyName>
+  <FamilyName>Peterson</FamilyName>
+  <FamilyName>Cooper</FamilyName>
+  <FamilyName>Reed</FamilyName>
+  <FamilyName>Bailey</FamilyName>
+  <FamilyName>Bell</FamilyName>
+  <FamilyName>Gomez</FamilyName>
+  <FamilyName>Kelly</FamilyName>
+  <FamilyName>Howard</FamilyName>
+  <FamilyName>Ward</FamilyName>
+  <FamilyName>Cox</FamilyName>
+  <FamilyName>Diaz</FamilyName>
+  <FamilyName>Richardson</FamilyName>
+  <FamilyName>Wood</FamilyName>
+  <FamilyName>Watson</FamilyName>
+  <FamilyName>Brooks</FamilyName>
+  <FamilyName>Bennett</FamilyName>
+  <FamilyName>Gray</FamilyName>
+  <FamilyName>James</FamilyName>
+  <FamilyName>Reyes</FamilyName>
+  <FamilyName>Cruz</FamilyName>
+  <FamilyName>Hughes</FamilyName>
+  <FamilyName>Price</FamilyName>
+  <FamilyName>Myers</FamilyName>
+  <FamilyName>Long</FamilyName>
+  <FamilyName>Foster</FamilyName>
+  <FamilyName>Sanders</FamilyName>
+  <FamilyName>Ross</FamilyName>
+  <FamilyName>Morales</FamilyName>
+  <FamilyName>Powell</FamilyName>
+  <FamilyName>Sullivan</FamilyName>
+  <FamilyName>Russell</FamilyName>
+  <FamilyName>Ortiz</FamilyName>
+  <FamilyName>Jenkins</FamilyName>
+  <FamilyName>Gutierrez</FamilyName>
+  <FamilyName>Perry</FamilyName>
+  <FamilyName>Butler</FamilyName>
+  <FamilyName>Barnes</FamilyName>
+  <FamilyName>Fisher</FamilyName>
+  <GivenName gender="M">Aidan</GivenName>
+  <GivenName gender="M">Jacob</GivenName>
+  <GivenName gender="M">Ethan</GivenName>
+  <GivenName gender="M">Nicholas</GivenName>
+  <GivenName gender="M">Matthew</GivenName>
+  <GivenName gender="M">Ryan</GivenName>
+  <GivenName gender="M">Tyler</GivenName>
+  <GivenName gender="M">Jack</GivenName>
+  <GivenName gender="M">Joshua</GivenName>
+  <GivenName gender="M">Andrew</GivenName>
+  <GivenName gender="M">Dylan</GivenName>
+  <GivenName gender="M">Michael</GivenName>
+  <GivenName gender="M">Connor</GivenName>
+  <GivenName gender="M">Caden</GivenName>
+  <GivenName gender="M">Jayden</GivenName>
+  <GivenName gender="M">Noah</GivenName>
+  <GivenName gender="M">Zachary</GivenName>
+  <GivenName gender="M">Alexander</GivenName>
+  <GivenName gender="M">Logan</GivenName>
+  <GivenName gender="M">Caleb</GivenName>
+  <GivenName gender="M">Nathan</GivenName>
+  <GivenName gender="M">Jackson</GivenName>
+  <GivenName gender="M">William</GivenName>
+  <GivenName gender="M">Evan</GivenName>
+  <GivenName gender="M">Joseph</GivenName>
+  <GivenName gender="M">Benjamin</GivenName>
+  <GivenName gender="M">James</GivenName>
+  <GivenName gender="M">Christopher</GivenName>
+  <GivenName gender="M">Cameron</GivenName>
+  <GivenName gender="M">Daniel</GivenName>
+  <GivenName gender="M">Christian</GivenName>
+  <GivenName gender="M">Luke</GivenName>
+  <GivenName gender="M">Gavin</GivenName>
+  <GivenName gender="M">Gabriel</GivenName>
+  <GivenName gender="M">Mason</GivenName>
+  <GivenName gender="M">Anthony</GivenName>
+  <GivenName gender="M">Brayden</GivenName>
+  <GivenName gender="M">David</GivenName>
+  <GivenName gender="M">Austin</GivenName>
+  <GivenName gender="M">Lucas</GivenName>
+  <GivenName gender="M">John</GivenName>
+  <GivenName gender="M">Elijah</GivenName>
+  <GivenName gender="M">Owen</GivenName>
+  <GivenName gender="M">Jonathan</GivenName>
+  <GivenName gender="M">Brandon</GivenName>
+  <GivenName gender="M">Alex</GivenName>
+  <GivenName gender="M">Samuel</GivenName>
+  <GivenName gender="M">Sean</GivenName>
+  <GivenName gender="M">Thomas</GivenName>
+  <GivenName gender="M">Hunter</GivenName>
+  <GivenName gender="F">Emma</GivenName>
+  <GivenName gender="F">Olivia</GivenName>
+  <GivenName gender="F">Maya</GivenName>
+  <GivenName gender="F">Emily</GivenName>
+  <GivenName gender="F">Sarah</GivenName>
+  <GivenName gender="F">Isabella</GivenName>
+  <GivenName gender="F">Ava</GivenName>
+  <GivenName gender="F">Chloe</GivenName>
+  <GivenName gender="F">Alexis</GivenName>
+  <GivenName gender="F">Abbigail</GivenName>
+  <GivenName gender="F">Deborah</GivenName>
+  <GivenName gender="F">Jennifer</GivenName>
+  <GivenName gender="F">Allison</GivenName>
+  <GivenName gender="F">Susan</GivenName>
+  <GivenName gender="F">Natalie</GivenName>
+  <GivenName gender="F">Rose</GivenName>
+  <GivenName gender="F">Katie</GivenName>
+  <GivenName gender="F">Lisa</GivenName>
+  <GivenName gender="F">Christine</GivenName>
+  <GivenName gender="F">Monique</GivenName>
+  <GivenName gender="F">Mona</GivenName>
+  <GivenName gender="F">Madison</GivenName>
+  <GivenName gender="F">May</GivenName>
+  <GivenName gender="F">Hillary</GivenName>
+  <GivenName gender="F">Lyssa</GivenName>
+  <GivenName gender="F">Kayleigh</GivenName>
+  <GivenName gender="F">Bernidette</GivenName>
+  <GivenName gender="F">Jude</GivenName>
+  <GivenName gender="F">Emma</GivenName>
+  <GivenName gender="F">Emily</GivenName>
+  <GivenName gender="F">Madison</GivenName>
+  <GivenName gender="F">Kaitlyn</GivenName>
+  <GivenName gender="F">Sophia</GivenName>
+  <GivenName gender="F">Isabella</GivenName>
+  <GivenName gender="F">Olivia</GivenName>
+  <GivenName gender="F">Hannah</GivenName>
+  <GivenName gender="F">Makayla</GivenName>
+  <GivenName gender="F">Ava</GivenName>
+  <GivenName gender="F">Abigail</GivenName>
+  <GivenName gender="F">Sarah</GivenName>
+  <GivenName gender="F">Hailey</GivenName>
+  <GivenName gender="F">Kaylee</GivenName>
+  <GivenName gender="F">Madeline</GivenName>
+  <GivenName gender="F">Ella</GivenName>
+  <GivenName gender="F">Grace</GivenName>
+  <GivenName gender="F">Mia</GivenName>
+  <GivenName gender="F">Riley</GivenName>
+  <GivenName gender="F">Samantha</GivenName>
+  <GivenName gender="F">Sydney</GivenName>
+  <GivenName gender="F">Lauren</GivenName>
+  <GivenName gender="F">Mackenzie</GivenName>
+  <GivenName gender="F">Chloe</GivenName>
+  <GivenName gender="F">Alyssa</GivenName>
+  <GivenName gender="F">Lily</GivenName>
+  <GivenName gender="F">Alexis</GivenName>
+  <GivenName gender="F">Natalie</GivenName>
+  <GivenName gender="F">Taylor</GivenName>
+  <GivenName gender="F">Anna</GivenName>
+  <GivenName gender="F">Brianna</GivenName>
+  <GivenName gender="F">Zoe</GivenName>
+  <GivenName gender="F">Kylie</GivenName>
+  <GivenName gender="F">Ashley</GivenName>
+  <GivenName gender="F">Elizabeth</GivenName>
+  <GivenName gender="F">Megan</GivenName>
+  <GivenName gender="F">Allison</GivenName>
+  <GivenName gender="F">Kayla</GivenName>
+  <GivenName gender="F">Katherine</GivenName>
+  <GivenName gender="F">Kyra</GivenName>
+  <GivenName gender="F">Isabelle</GivenName>
+  <GivenName gender="F">Morgan</GivenName>
+  <GivenName gender="F">Savannah</GivenName>
+  <GivenName gender="F">Jasmine</GivenName>
+  <GivenName gender="F">Arianna</GivenName>
+  <GivenName gender="F">Avery</GivenName>
+  <GivenName gender="F">Julia</GivenName>
+  <GivenName gender="F">Rachel</GivenName>
+  <GivenName gender="F">Maya</GivenName>
+  <GivenName gender="F">Jordan</GivenName>
+
+  <StreetName>Main St.</StreetName>
+  <StreetName>King St.</StreetName>
+  <StreetName>West 5th</StreetName>
+  <StreetName>James St.</StreetName>
+  <StreetName>Barton St.</StreetName>
+  <StreetName>Cannon St.</StreetName>
+  <StreetName>Ontario St.</StreetName>
+  <StreetName>Younge St.</StreetName>
+  <StreetName>Glover Rd.</StreetName>
+
+  <City>Alvinston</City>
+  <City>Amherstburg</City>
+  <City>Arkona</City>
+  <City>Belle River</City>
+  <City>Blenheim</City>
+  <City>Blytheswood</City>
+  <City>Bothwell</City>
+  <City>Brigden</City>
+  <City>Brights Grove</City>
+  <City>Cairo</City>
+  <City>Camlachie</City>
+  <City>Cedar Beach</City>
+  <City>Cedar Springs</City>
+  <City>Cedarhurst Park</City>
+  <City>Charing Cross</City>
+  <City>Chatham</City>
+  <City>Colchester</City>
+  <City>Comber</City>
+  <City>Corunna</City>
+  <City>Cottam</City>
+  <City>Courtright</City>
+  <City>Croton</City>
+  <City>Dealtown</City>
+  <City>Deerbrook</City>
+  <City>Dover Centre</City>
+  <City>Dresden</City>
+  <City>Duart</City>
+  <City>Eatonville</City>
+  <City>Eberts</City>
+  <City>Edys Mills</City>
+  <City>Elmstead</City>
+  <City>Emeryville</City>
+  <City>Erie Beach</City>
+  <City>Erieau</City>
+
+  <City>Adelaide</City>
+  <City>Allenford</City>
+  <City>Alvanley</City>
+  <City>Amberley</City>
+  <City>Amulree</City>
+  <City>Annan</City>
+  <City>Appin</City>
+  <City>Atwood</City>
+  <City>Ballymote</City>
+  <City>Bayfield</City>
+  <City>Beachville</City>
+  <City>Belgrave</City>
+  <City>Belmont</City>
+  <City>Belmore</City>
+  <City>Benmiller</City>
+  <City>Berkeley</City>
+  <City>Cairngorm</City>
+  <City>Calton</City>
+  <City>Cargill</City>
+  <City>Carlow</City>
+  <City>Carlsruhe</City>
+  <City>Centralia</City>
+  <City>Ceylon</City>
+  <City>Chatsworth</City>
+  <City>Dashwood</City>
+  <City>Delaware</City>
+  <City>Denfield</City>
+  <City>Desboro</City>
+  <City>Dobbinton</City>
+  <City>Donegal</City>
+  <City>Dorchester</City>
+  <City>Dornoch</City>
+
+</CommonData>

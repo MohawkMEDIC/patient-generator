@@ -14,50 +14,22 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-28
+ * Date: 2016-3-12
  */
-using PatientGenerator.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using PatientGenerator.Core.ComponentModel;
-using PatientGenerator.FHIR.Configuration;
-using System.Configuration;
+using System.Xml.Serialization;
 
-namespace PatientGenerator.FHIR
+namespace PatientGenerator.Randomizer.Common
 {
-	public class FhirSenderService : IFhirSenderService
+	public class GivenNameGenderPair
 	{
-		private IServiceProvider context;
+		[XmlAttribute("gender")]
+		public string GenderCode { get; set; }
 
-		public IServiceProvider Context
-		{
-			get
-			{
-				return this.context;
-			}
-
-			set
-			{
-				this.context = value;
-			}
-		}
-
-		public void Send(DemographicOptions options)
-		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
-
-			FhirUtil.SendFhirMessages(patient);
-		}
-
-		public async Task SendAsync(DemographicOptions options)
-		{
-			await Task.Factory.StartNew(() =>
-			{
-				this.Send(options);
-			});
-		}
+		[XmlText]
+		public string Name { get; set; }
 	}
 }

@@ -14,50 +14,38 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-28
+ * Date: 2016-3-12
  */
-using PatientGenerator.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PatientGenerator.Core.ComponentModel;
-using PatientGenerator.FHIR.Configuration;
-using System.Configuration;
 
-namespace PatientGenerator.FHIR
+namespace PatientGenerator.Messaging
 {
-	public class FhirSenderService : IFhirSenderService
+	internal static class ApplicationContext
 	{
-		private IServiceProvider context;
+		private static IServiceProvider context;
 
-		public IServiceProvider Context
+		private static object syncLock = new object();
+
+		public static IServiceProvider Context
 		{
 			get
 			{
-				return this.context;
+				return context;
 			}
-
 			set
 			{
-				this.context = value;
+				if (context == null)
+				{
+					lock (syncLock)
+					{
+						context = value;
+					}
+				}
 			}
-		}
-
-		public void Send(DemographicOptions options)
-		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
-
-			FhirUtil.SendFhirMessages(patient);
-		}
-
-		public async Task SendAsync(DemographicOptions options)
-		{
-			await Task.Factory.StartNew(() =>
-			{
-				this.Send(options);
-			});
 		}
 	}
 }

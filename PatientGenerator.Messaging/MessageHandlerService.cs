@@ -53,6 +53,7 @@ namespace PatientGenerator.Messaging
 			set
 			{
 				this.context = value;
+				ApplicationContext.Context = this.context;
 			}
 		}
 

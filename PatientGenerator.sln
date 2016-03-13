@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Messaging"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Persistence", "PatientGenerator.Persistence\PatientGenerator.Persistence.csproj", "{028C97D6-F419-478F-A226-A269516DCE1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Randomizer", "PatientGenerator.Randomizer\PatientGenerator.Randomizer.csproj", "{CA719D41-4349-4EE4-BE68-2553600D230F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{028C97D6-F419-478F-A226-A269516DCE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{028C97D6-F419-478F-A226-A269516DCE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{028C97D6-F419-478F-A226-A269516DCE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA719D41-4349-4EE4-BE68-2553600D230F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA719D41-4349-4EE4-BE68-2553600D230F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA719D41-4349-4EE4-BE68-2553600D230F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA719D41-4349-4EE4-BE68-2553600D230F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

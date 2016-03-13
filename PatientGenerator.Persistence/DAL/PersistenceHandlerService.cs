@@ -47,7 +47,6 @@ namespace PatientGenerator.Persistence.DAL
 			{
 				return this.context;
 			}
-
 			set
 			{
 				this.context = value;

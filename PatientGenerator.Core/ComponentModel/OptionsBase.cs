@@ -67,8 +67,18 @@ namespace PatientGenerator.Core.ComponentModel
 		public string SendingFacility { get; set; }
 
 		/// <summary>
+		/// When true, the application will generate patients using FHIR messages.
+		/// </summary>
+		public bool UseFhir { get; set; }
+
+		/// <summary>
 		/// When true, the application will generate patients using HL7v2 messages.
 		/// </summary>
 		public bool UseHL7v2 { get; set; }
+
+		/// <summary>
+		/// When true, the application will generate patients using HL7v3 messages.
+		/// </summary>
+		public bool UseHL7v3 { get; set; }
 	}
 }

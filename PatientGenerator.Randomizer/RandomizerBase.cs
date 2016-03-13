@@ -14,50 +14,37 @@
  * the License.
  * 
  * User: Nityan
- * Date: 2016-2-28
+ * Date: 2016-3-12
  */
-using PatientGenerator.Core;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PatientGenerator.Core.ComponentModel;
-using PatientGenerator.FHIR.Configuration;
-using System.Configuration;
+using System.Reflection;
+using System.Xml.Serialization;
 
-namespace PatientGenerator.FHIR
+namespace PatientGenerator.Randomizer
 {
-	public class FhirSenderService : IFhirSenderService
+	public abstract class RandomizerBase<T> where T : class
 	{
-		private IServiceProvider context;
-
-		public IServiceProvider Context
+		protected virtual T LoadData(string filename)
 		{
-			get
+			string fn = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), filename);
+			FileStream fs = null;
+			try
 			{
-				return this.context;
+				fs = File.OpenRead(fn);
+				XmlSerializer xsz = new XmlSerializer(typeof(T));
+				return xsz.Deserialize(fs) as T;
 			}
-
-			set
+			finally
 			{
-				this.context = value;
+				if (fs != null)
+				{
+					fs.Close();
+					fs.Dispose();
+				}
 			}
-		}
-
-		public void Send(DemographicOptions options)
-		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
-
-			FhirUtil.SendFhirMessages(patient);
-		}
-
-		public async Task SendAsync(DemographicOptions options)
-		{
-			await Task.Factory.StartNew(() =>
-			{
-				this.Send(options);
-			});
 		}
 	}
 }

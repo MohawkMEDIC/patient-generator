@@ -19,6 +19,7 @@
 
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Messaging.Model;
+using System.ComponentModel;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace PatientGenerator.Messaging.Services
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract(Name = "GeneratePatients")]
+		[OperationContract(Name = "GeneratePatients", Action = "GeneratePatients")]
 		GenerationResponse GeneratePatients(DemographicOptions options);
 
 		/// <summary>
@@ -43,7 +44,21 @@ namespace PatientGenerator.Messaging.Services
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract(Name = "GeneratePatientsAsync")]
-		Task<GenerationResponse> GeneratePatientsAsync(DemographicOptions options);
+		[OperationContract(Name = "GeneratePatientsAsync", Action = "GeneratePatientsAsync")]
+		Task <GenerationResponse> GeneratePatientsAsync(DemographicOptions options);
+
+		/// <summary>
+		/// Gets records that have been generated for a session.
+		/// </summary>
+		/// <returns>Returns a list of records that have been generated for a session.</returns>
+		[OperationContract(Name = "GetRecords", Action = "GetRecords")]
+		object GetRecords();
+
+		/// <summary>
+		/// Get the progress for a patient generation session.
+		/// </summary>
+		/// <returns>Returns the progress.</returns>
+		[OperationContract(Name = "Progress", Action = "Progress")]
+		ProgressResponse Progress();
 	}
 }

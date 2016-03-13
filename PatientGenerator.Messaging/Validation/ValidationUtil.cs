@@ -57,7 +57,7 @@ namespace PatientGenerator.Messaging.Validation
 				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated."));
 			}
 
-			if (options.UseHL7v2)
+			if (options.UseHL7v2 || options.UseHL7v3)
 			{
 				if (options.ReceivingApplication == null)
 				{
