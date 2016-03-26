@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PatientGenerator.Core.Common;
 
 namespace PatientGenerator.HL7v3
 {
@@ -49,6 +50,15 @@ namespace PatientGenerator.HL7v3
 
 			EverestUtil.Sendv3Messages(graphable, "cr");
 		}
+		public void Send(IEnumerable<Patient> patients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Send(Patient patient)
+		{
+			throw new NotImplementedException();
+		}
 
 		public async Task SendAsync(DemographicOptions options)
 		{
@@ -56,6 +66,19 @@ namespace PatientGenerator.HL7v3
 			{
 				this.Send(options);
 			});
+		}
+
+		public async Task SendAsync(IEnumerable<Patient> patients)
+		{
+			await Task.Factory.StartNew(() =>
+			{
+				this.Send(patients);
+			});
+		}
+
+		public Task SendAsync(Patient patient)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
