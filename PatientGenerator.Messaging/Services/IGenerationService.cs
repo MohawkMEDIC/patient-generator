@@ -36,29 +36,15 @@ namespace PatientGenerator.Messaging.Services
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract(Name = "GeneratePatients", Action = "GeneratePatients")]
+		[OperationContract(Name = "GeneratePatientsWithOptions", Action = "GeneratePatientsWithOptions")]
 		GenerationResponse GeneratePatients(DemographicOptions options);
 
 		/// <summary>
-		/// Generates patients using the provided options.
+		/// Generates patients using a randomized dataset.
 		/// </summary>
-		/// <param name="options">The options to use to generate patients.</param>
+		/// <param name="count">The number of patients to generate.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		[OperationContract(Name = "GeneratePatientsAsync", Action = "GeneratePatientsAsync")]
-		Task <GenerationResponse> GeneratePatientsAsync(DemographicOptions options);
-
-		/// <summary>
-		/// Gets records that have been generated for a session.
-		/// </summary>
-		/// <returns>Returns a list of records that have been generated for a session.</returns>
-		[OperationContract(Name = "GetRecords", Action = "GetRecords")]
-		object GetRecords();
-
-		/// <summary>
-		/// Get the progress for a patient generation session.
-		/// </summary>
-		/// <returns>Returns the progress.</returns>
-		[OperationContract(Name = "Progress", Action = "Progress")]
-		ProgressResponse Progress();
+		[OperationContract(Name = "GeneratePatients", Action = "GeneratePatients")]
+		GenerationResponse GeneratePatients(int count);
 	}
 }

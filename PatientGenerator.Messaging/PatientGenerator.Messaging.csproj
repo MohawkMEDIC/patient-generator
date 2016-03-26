@@ -47,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Configuration\ConfigurationSectionHandler.cs" />
-    <Compile Include="Configuration\ListenEndpoint.cs" />
-    <Compile Include="Configuration\MessagingConfigurationSection.cs" />
     <Compile Include="Model\GenerationResponse.cs" />
     <Compile Include="MessageHandlerService.cs" />
     <Compile Include="MessageReceiver\GenerationService.cs" />

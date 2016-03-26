@@ -16,6 +16,8 @@
  * User: Nityan
  * Date: 2016-3-12
  */
+using PatientGenerator.Core;
+using PatientGenerator.Core.Common;
 using PatientGenerator.Randomizer.Common;
 using System;
 using System.Collections.Generic;
@@ -27,17 +29,30 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.Randomizer
 {
-	public class PersonRandomizer : RandomizerBase<CommonData>
+	public class RandomizerService : RandomizerBase<CommonData>, IRandomizerService
 	{
 		private Random random = new Random();
 		private CommonData commonData;
+		private IServiceProvider context;
 
-		public PersonRandomizer()
+		public RandomizerService()
 		{
 			commonData = LoadData(ConfigurationManager.AppSettings["CommonFile"]);
 		}
 
-		public object GetRandomPatient()
+		public IServiceProvider Context
+		{
+			get
+			{
+				return this.context;
+			}
+
+			set
+			{
+				this.context = value;
+			}
+		}
+		public Patient GetRandomPatient()
 		{
 			GivenNameGenderPair nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
 
@@ -57,25 +72,25 @@ namespace PatientGenerator.Randomizer
 					postal += '-';
 			}
 
-			//Patient patient = new Patient
-			//{
-			//	AddressLine = random.Next(400).ToString("##0") + " " + commonData.StreetNames[random.Next(commonData.StreetNames.Count)],
-			//	City = commonData.Cities[random.Next(commonData.Cities.Count)],
-			//	DateOfBirth = new DateTime(random.Next(1930, 2014), random.Next(1, 11), random.Next(1, 28)),
-			//	Email = (firstName + "." + lastName + random.Next(1000) + "@example.com").ToLower(),
-			//	FirstName = firstName,
-			//	Gender = nameGenderPair.GenderCode,
-			//	HealthCardNo = OHIPUtilities.OHIPUtil.GenerateHealthNumber(random),
-			//	Language = "eng",
-			//	LastName = lastName,
-			//	MiddleName = middleName,
-			//	PhoneNo = "905575" + random.Next(1000, 9999),
-			//	PostalCode = postal,
-			//	Province = "Ontario"
-			//};
+			Patient patient = new Patient
+			{
+				AddressLine = random.Next(400).ToString("##0") + " " + commonData.StreetNames[random.Next(commonData.StreetNames.Count)],
+				City = commonData.Cities[random.Next(commonData.Cities.Count)],
+				DateOfBirth = new DateTime(random.Next(1930, 2014), random.Next(1, 11), random.Next(1, 28)),
+				Email = (firstName + "." + lastName + random.Next(1000) + "@example.com").ToLower(),
+				FirstName = firstName,
+				Gender = nameGenderPair.GenderCode,
+				HealthCardNo = OHIPUtilities.OHIPUtil.GenerateHealthNumber(random),
+				Language = "eng",
+				LastName = lastName,
+				MiddleName = middleName,
+				PhoneNo = "905575" + random.Next(1000, 9999),
+				PostalCode = postal,
+				Province = "Ontario"
+			};
 
 #if DEBUG
-			//Trace.TraceInformation(patient.FirstName + " " + patient.LastName + " " + patient.DateOfBirth.ToString("yyyy-MM-dd") + " " + patient.HealthCardNo);
+			Trace.TraceInformation(patient.FirstName + " " + patient.LastName + " " + patient.DateOfBirth.ToString("yyyy-MM-dd") + " " + patient.HealthCardNo);
 #endif
 
 			return null;

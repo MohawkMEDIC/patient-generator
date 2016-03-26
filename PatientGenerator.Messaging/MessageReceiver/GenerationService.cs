@@ -60,6 +60,18 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		#region IGenerationService Members
 
 		/// <summary>
+		/// Generates patients using a randomized dataset.
+		/// </summary>
+		/// <param name="count">The number of patients to generate.</param>
+		/// <returns>Returns a GenerationResponse.</returns>
+		public GenerationResponse GeneratePatients(int count)
+		{
+			GenerationResponse response = new GenerationResponse();
+
+			return response;
+		}
+
+		/// <summary>
 		/// Generates patients using the provided options.
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
@@ -92,58 +104,6 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			}
 
 			return response;
-		}
-
-		/// <summary>
-		/// Generates patients using the provided options.
-		/// </summary>
-		/// <param name="options">The options to use to generate patients.</param>
-		/// <returns>Returns a GenerationResponse.</returns>
-		public async Task<GenerationResponse> GeneratePatientsAsync(DemographicOptions options)
-		{
-			GenerationResponse response = new GenerationResponse();
-
-			IEnumerable<IResultDetail> details = ValidationUtil.ValidateMessage(options);
-
-			if (details.Count(x => x.Type == ResultDetailType.Error) > 0)
-			{
-				response.Messages = details.Select(x => x.ToString()).ToList();
-				response.HasErrors = true;
-			}
-			else
-			{
-				// no validation errors, save the options
-				await persistenceService?.SaveAsync(options);
-
-				// send to fhir endpoints 
-				await fhirSenderService?.SendAsync(options);
-
-				// send to hl7v2 endpoints 
-				await hl7v2SenderService?.SendAsync(options);
-
-				// send to hl7v3 endpoints 
-				await hl7v3SenderService?.SendAsync(options);
-			}
-
-			return response;
-		}
-
-		/// <summary>
-		/// Gets records that have been generated for a session.
-		/// </summary>
-		/// <returns>Returns a list of records that have been generated for a session.</returns>
-		public object GetRecords()
-		{
-			throw new NotImplementedException();
-		}
-
-		/// <summary>
-		/// Get the progress for a patient generation session.
-		/// </summary>
-		/// <returns>Returns the progress.</returns>
-		public ProgressResponse Progress()
-		{
-			throw new NotImplementedException();
 		}
 
 		#endregion IGenerationService Members

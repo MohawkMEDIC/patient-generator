@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Patient.cs" />
     <Compile Include="ComponentModel\AddressOptions.cs" />
     <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
     <Compile Include="ComponentModel\DemographicOptions.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="IHL7v2SenderService.cs" />
     <Compile Include="IHL7v3SenderService.cs" />
     <Compile Include="IPersistenceService.cs" />
+    <Compile Include="IRandomizerService.cs" />
     <Compile Include="ModelMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentModel\TelecomOptions.cs" />

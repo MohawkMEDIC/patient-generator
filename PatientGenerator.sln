@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Solution Items\NHapi.Base.dll = Solution Items\NHapi.Base.dll
 		Solution Items\NHapi.Model.V231.dll = Solution Items\NHapi.Model.V231.dll
 		Solution Items\NHapi.Model.V25.dll = Solution Items\NHapi.Model.V25.dll
+		Solution Items\OHIPUtilities.dll = Solution Items\OHIPUtilities.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Core", "PatientGenerator.Core\PatientGenerator.Core.csproj", "{189EB28F-D9E3-4786-92FB-9883135FB9BA}"

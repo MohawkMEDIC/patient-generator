@@ -112,6 +112,10 @@
       <Project>{028c97d6-f419-478f-a226-a269516dce1a}</Project>
       <Name>PatientGenerator.Persistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PatientGenerator.Randomizer\PatientGenerator.Randomizer.csproj">
+      <Project>{ca719d41-4349-4ee4-be68-2553600d230f}</Project>
+      <Name>PatientGenerator.Randomizer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

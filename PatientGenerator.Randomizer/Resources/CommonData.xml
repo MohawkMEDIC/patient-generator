@@ -1,4 +1,5 @@
-﻿<!--
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
  - Copyright 2016-2016 Mohawk College of Applied Arts and Technology
  - 
  - Licensed under the Apache License, Version 2.0 (the "License"); you 
@@ -16,7 +17,6 @@
  - User: Nityan
  - Date: 2016-3-12
  -->
-<?xml version="1.0" encoding="utf-8" ?> 
 <CommonData>
   <FamilyName>Smith</FamilyName>
   <FamilyName>Johnson</FamilyName>
