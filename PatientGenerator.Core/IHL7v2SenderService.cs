@@ -17,6 +17,7 @@
  * Date: 2016-2-28
  */
 using MARC.HI.EHRS.SVC.Core.Services;
+using PatientGenerator.Core.Common;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,14 @@ namespace PatientGenerator.Core
 	{
 		void Send(DemographicOptions options);
 
+		void Send(IEnumerable<Patient> patients);
+
+		void Send(Patient patient);
+
 		Task SendAsync(DemographicOptions options);
+
+		Task SendAsync(IEnumerable<Patient> patients);
+
+		Task SendAsync(Patient patient);
 	}
 }

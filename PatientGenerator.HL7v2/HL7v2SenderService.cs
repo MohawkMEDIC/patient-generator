@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PatientGenerator.Core.Common;
 
 namespace PatientGenerator.HL7v2
 {
@@ -43,11 +44,22 @@ namespace PatientGenerator.HL7v2
 			}
 		}
 
+
 		public void Send(DemographicOptions options)
 		{
 			var message = NHapiUtil.GenerateCandidateRegistry(options);
 
 			NHapiUtil.Sendv2Messages(message);
+		}
+
+		public void Send(IEnumerable<Patient> patients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Send(Patient patient)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task SendAsync(DemographicOptions options)
@@ -56,6 +68,16 @@ namespace PatientGenerator.HL7v2
 			{
 				this.Send(options);
 			});
+		}
+
+		public Task SendAsync(IEnumerable<Patient> patients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task SendAsync(Patient patient)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -52,6 +52,7 @@ namespace PatientGenerator.Randomizer
 				this.context = value;
 			}
 		}
+
 		public Patient GetRandomPatient()
 		{
 			GivenNameGenderPair nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
@@ -93,7 +94,7 @@ namespace PatientGenerator.Randomizer
 			Trace.TraceInformation(patient.FirstName + " " + patient.LastName + " " + patient.DateOfBirth.ToString("yyyy-MM-dd") + " " + patient.HealthCardNo);
 #endif
 
-			return null;
+			return patient;
 		}
 	}
 }

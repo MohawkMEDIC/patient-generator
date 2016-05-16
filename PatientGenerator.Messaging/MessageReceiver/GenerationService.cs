@@ -42,6 +42,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		private IHL7v2SenderService hl7v2SenderService;
 		private IHL7v3SenderService hl7v3SenderService;
 		private IPersistenceService persistenceService;
+		private IRandomizerService randomizerService;
 
 		/// <summary>
 		/// Initializes a new instance of the GenerationService class.
@@ -55,6 +56,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			hl7v2SenderService = context.GetService(typeof(IHL7v2SenderService)) as IHL7v2SenderService;
 			hl7v3SenderService = context.GetService(typeof(IHL7v3SenderService)) as IHL7v3SenderService;
 			persistenceService = context.GetService(typeof(IPersistenceService)) as IPersistenceService;
+			randomizerService = context.GetService(typeof(IRandomizerService)) as IRandomizerService;
 		}
 
 		#region IGenerationService Members
@@ -67,6 +69,11 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		public GenerationResponse GeneratePatients(int count)
 		{
 			GenerationResponse response = new GenerationResponse();
+
+			for (int i = 0; i < count; i++)
+			{
+				randomizerService.GetRandomPatient();
+			}
 
 			return response;
 		}

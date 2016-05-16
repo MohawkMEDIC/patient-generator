@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.FHIR.Configuration;
 using System.Configuration;
+using PatientGenerator.Core.Common;
 
 namespace PatientGenerator.FHIR
 {
@@ -52,12 +53,32 @@ namespace PatientGenerator.FHIR
 			FhirUtil.SendFhirMessages(patient);
 		}
 
+		public void Send(IEnumerable<Patient> patients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Send(Patient patient)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task SendAsync(DemographicOptions options)
 		{
 			await Task.Factory.StartNew(() =>
 			{
 				this.Send(options);
 			});
+		}
+
+		public Task SendAsync(IEnumerable<Patient> patients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task SendAsync(Patient patient)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

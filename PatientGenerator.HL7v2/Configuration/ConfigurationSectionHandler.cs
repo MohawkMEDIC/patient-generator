@@ -26,11 +26,24 @@ namespace PatientGenerator.HL7v2.Configuration
 	{
 		public object Create(object parent, object configContext, XmlNode section)
 		{
+			HL7v2ConfigurationSection configurationSection = new HL7v2ConfigurationSection();
+
 			XmlElement endpointsNode = section.SelectSingleNode("./*[local-name() = 'endpoints']") as XmlElement;
 
 			XmlNodeList endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']") as XmlNodeList;
 
-			return null;
+			foreach (XmlNode item in endpoints)
+			{
+				LlpEndpoint endpoint = new LlpEndpoint
+				{
+					Address = item.Attributes["address"].Value,
+					Name = item.Attributes["name"].Value
+				};
+
+				configurationSection.Endpoints.Add(endpoint);
+			}
+
+			return configurationSection;
 		}
 	}
 }
