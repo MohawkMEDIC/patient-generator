@@ -141,6 +141,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 			{
 				if (disposing)
 				{
+					((IDisposable)this.context)?.Dispose();
 				}
 
 				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

@@ -132,7 +132,11 @@ namespace PatientGenerator.HL7v3
 							new ENXP[] {
 								new ENXP("Fyfe", EntityNamePartType.Family),
 								new ENXP("Justin", EntityNamePartType.Given),
-								new ENXP("Dr", EntityNamePartType.Prefix)
+								new ENXP
+								{
+									Qualifier = new SET<CS<EntityNamePartQualifier>> { new CS<EntityNamePartQualifier>(EntityNamePartQualifier.Prefix) },
+									Value = "Dr."
+								}
 							}
 						),
 						new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.HealthCareProvider() { NullFlavor = NullFlavor.NoInformation }

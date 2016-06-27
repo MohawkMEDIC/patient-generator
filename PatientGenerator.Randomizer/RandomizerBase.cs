@@ -39,11 +39,8 @@ namespace PatientGenerator.Randomizer
 			}
 			finally
 			{
-				if (fs != null)
-				{
-					fs.Close();
-					fs.Dispose();
-				}
+
+				fs?.Dispose();
 			}
 		}
 	}
