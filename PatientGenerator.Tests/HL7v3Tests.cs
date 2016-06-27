@@ -33,14 +33,23 @@ namespace PatientGenerator.Tests
 	[TestClass]
 	public class HL7v3Tests
 	{
+		/// <summary>
+		/// The demographic options.
+		/// </summary>
 		private DemographicOptions options;
 
+		/// <summary>
+		/// Runs cleanup after each test execution.
+		/// </summary>
 		[TestCleanup]
 		public void Cleanup()
 		{
 			options = null;
 		}
 
+		/// <summary>
+		/// Runs initialization before each test execution.
+		/// </summary>
 		[TestInitialize]
 		public void Initialize()
 		{
@@ -122,6 +131,9 @@ namespace PatientGenerator.Tests
 			};
 		}
 
+		/// <summary>
+		/// Tests that the address is empty when no address options are specified.
+		/// </summary>
 		[TestMethod]
 		public void TestEmptyAddress()
 		{
@@ -147,7 +159,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("Homeless", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.Name.Select(x => x.Part).First().First(x => x.Type == MARC.Everest.DataTypes.EntityNamePartType.Family).Value);
 		}
 
-
+		/// <summary>
+		/// Tests that the alternate identifiers are empty when no alternate identifiers are specified.
+		/// </summary>
 		[TestMethod]
 		public void TestEmptyAlternateIdentifiers()
 		{
@@ -174,6 +188,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual(1, message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Count);
 		}
 
+		/// <summary>
+		/// Tests that the date of birth is empty when no date of birth is specified.
+		/// </summary>
 		[TestMethod]
 		public void TestEmptyDateOfBirth()
 		{
@@ -199,6 +216,9 @@ namespace PatientGenerator.Tests
 			Assert.IsNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
 		}
 
+		/// <summary>
+		/// Tests that the name is empty when no name is specified.
+		/// </summary>
 		[TestMethod]
 		public void TestEmptyName()
 		{
@@ -216,6 +236,9 @@ namespace PatientGenerator.Tests
 			Assert.IsNotNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
 		}
 
+		/// <summary>
+		/// Tests that the gender is female when female is specified.
+		/// </summary>
 		[TestMethod]
 		public void TestGenderFemale()
 		{
@@ -234,6 +257,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("female", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
 		}
 
+		/// <summary>
+		/// Tests that the gender is male when male is specified.
+		/// </summary>
 		[TestMethod]
 		public void TestGenderMale()
 		{
@@ -252,6 +278,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("male", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
 		}
 
+		/// <summary>
+		/// Tests that the gender is undifferentiated when an undifferentiated gender specified.
+		/// </summary>
 		[TestMethod]
 		public void TestGenderUndifferentiated()
 		{
@@ -270,6 +299,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("undifferentiated", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
 		}
 
+		/// <summary>
+		/// Tests that multiple addresses are recorded when multiple addresses are specified.
+		/// </summary>
 		[TestMethod]
 		public void TestMultipleAddresses()
 		{
@@ -358,6 +390,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("578233", fourthAddress.First(x => x.Type == MARC.Everest.DataTypes.AddressPartType.PostalCode).Value);
 		}
 
+		/// <summary>
+		/// Tests that multiple alternate identifiers are recorded when multiple alternate identifiers are specified.
+		/// </summary>
 		[TestMethod]
 		public void TestMultipleAlternateIdentifiers()
 		{
@@ -391,7 +426,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("2115-060-045-CX", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Where(x => x.Root == "1.3.6.1.4.1.33349.3.1.5.102.2").Select(x => x.Extension).First());
 		}
 
-
+		/// <summary>
+		/// Tests that a partial addresses is recorded when a partial address is specified.
+		/// </summary>
 		[TestMethod]
 		public void TestPartialAddress()
 		{
@@ -429,6 +466,9 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("Illinois", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.Addr.Select(x => x.Part).First().First(x => x.Type == MARC.Everest.DataTypes.AddressPartType.State).Value);
 		}
 
+		/// <summary>
+		/// Tests the when two addresses are returned when two addresses are specified.
+		/// </summary>
 		[TestMethod]
 		public void TestTwoAddresses()
 		{
