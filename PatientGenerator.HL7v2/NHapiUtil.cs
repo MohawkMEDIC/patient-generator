@@ -19,6 +19,7 @@
 
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
+using NHapi.Model.V25.Datatype;
 using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Segment;
 using PatientGenerator.Core.ComponentModel;
@@ -35,7 +36,7 @@ namespace PatientGenerator.HL7v2
 	{
 		private static HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
 
-		public static IMessage GenerateCandidateRegistry(DemographicOptions patient)
+		private static IMessage CreateBaseMessage(PatientGenerator.Core.Common.Metadata metadata)
 		{
 			ADT_A01 message = new ADT_A01();
 
@@ -47,46 +48,46 @@ namespace PatientGenerator.HL7v2
 			message.MSH.MessageType.TriggerEvent.Value = "A01";
 			message.MSH.ProcessingID.ProcessingID.Value = "P";
 
-			message.MSH.ReceivingApplication.NamespaceID.Value = patient.ReceivingApplication;
-			message.MSH.ReceivingFacility.NamespaceID.Value = patient.ReceivingFacility;
-			message.MSH.SendingApplication.NamespaceID.Value = patient.SendingApplication;
-			message.MSH.SendingFacility.NamespaceID.Value = patient.SendingFacility;
+			message.MSH.ReceivingApplication.NamespaceID.Value = metadata.ReceivingApplication;
+			message.MSH.ReceivingFacility.NamespaceID.Value = metadata.ReceivingFacility;
+			message.MSH.SendingApplication.NamespaceID.Value = metadata.SendingApplication;
+			message.MSH.SendingFacility.NamespaceID.Value = metadata.SendingFacility;
 
 			message.MSH.VersionID.VersionID.Value = "2.3.1";
+
+			return message;
+		}
+
+		public static IMessage GenerateCandidateRegistry(DemographicOptions options)
+		{
+			ADT_A01 message = CreateBaseMessage(options.Metadata) as ADT_A01;
 
 			PID pid = message.PID;
 
 			var cx = pid.GetPatientIdentifierList(0);
 
-			cx.IDNumber.Value = patient.PersonIdentifier;
-			cx.AssigningAuthority.UniversalID.Value = patient.AssigningAuthority;
+			cx.IDNumber.Value = options.PersonIdentifier;
+			cx.AssigningAuthority.UniversalID.Value = options.Metadata.AssigningAuthority;
 			cx.AssigningAuthority.UniversalIDType.Value = "ISO";
 
-			//for (int i = 1; i < patient.OtherIdentifiers.Count; i++)
-			//{
-			//	var idList = pid.GetPatientIdentifierList(i);
+			pid.AdministrativeSex.Value = options.Gender;
 
-			//	idList.IDNumber.Value = patient.OtherIdentifiers[patient.OtherIdentifiers.ToArray().]
-			//}
-
-			pid.AdministrativeSex.Value = patient.Gender;
-
-			if (patient.DateOfBirthOptions != null)
+			if (options.DateOfBirthOptions != null)
 			{
-				if (patient.DateOfBirthOptions.Exact.HasValue)
+				if (options.DateOfBirthOptions.Exact.HasValue)
 				{
-					pid.DateTimeOfBirth.Time.SetShortDate(patient.DateOfBirthOptions.Exact.Value);
+					pid.DateTimeOfBirth.Time.SetShortDate(options.DateOfBirthOptions.Exact.Value);
 				}
 			}
 
-			for (int i = 0; i < patient.Names.Count; i++)
+			for (int i = 0; i < options.Names.Count; i++)
 			{
-				pid.GetPatientName(i).GivenName.Value = patient.Names.ToArray()[i].FirstName;
-				pid.GetPatientName(i).FamilyName.Surname.Value = patient.Names.ToArray()[i].LastName;
-				pid.GetPatientName(i).PrefixEgDR.Value = patient.Names.ToArray()[i].Prefix;
-				pid.GetPatientName(i).ProfessionalSuffix.Value = patient.Names.ToArray()[i].Suffixes.FirstOrDefault();
+				pid.GetPatientName(i).GivenName.Value = options.Names.ToArray()[i].FirstName;
+				pid.GetPatientName(i).FamilyName.Surname.Value = options.Names.ToArray()[i].LastName;
+				pid.GetPatientName(i).PrefixEgDR.Value = options.Names.ToArray()[i].Prefix;
+				pid.GetPatientName(i).ProfessionalSuffix.Value = options.Names.ToArray()[i].Suffixes.FirstOrDefault();
 
-				var middleNames = patient.Names.Select(x => x.MiddleNames).ToArray()[i];
+				var middleNames = options.Names.Select(x => x.MiddleNames).ToArray()[i];
 
 				if (middleNames.Count > 0)
 				{
@@ -94,14 +95,41 @@ namespace PatientGenerator.HL7v2
 				}
 			}
 
-			for (int i = 0; i < patient.Addresses.Count; i++)
+			for (int i = 0; i < options.Addresses.Count; i++)
 			{
-				pid.GetPatientAddress(i).StreetAddress.StreetOrMailingAddress.Value = patient.Addresses.ToArray()[i].StreetAddress;
-				pid.GetPatientAddress(i).City.Value = patient.Addresses.ToArray()[i].City;
-				pid.GetPatientAddress(i).StateOrProvince.Value = patient.Addresses.ToArray()[i].StateProvince;
-				pid.GetPatientAddress(i).ZipOrPostalCode.Value = patient.Addresses.ToArray()[i].ZipPostalCode;
-				pid.GetPatientAddress(i).Country.Value = patient.Addresses.ToArray()[i].Country;
+				pid.GetPatientAddress(i).StreetAddress.StreetOrMailingAddress.Value = options.Addresses.ToArray()[i].StreetAddress;
+				pid.GetPatientAddress(i).City.Value = options.Addresses.ToArray()[i].City;
+				pid.GetPatientAddress(i).StateOrProvince.Value = options.Addresses.ToArray()[i].StateProvince;
+				pid.GetPatientAddress(i).ZipOrPostalCode.Value = options.Addresses.ToArray()[i].ZipPostalCode;
+				pid.GetPatientAddress(i).Country.Value = options.Addresses.ToArray()[i].Country;
 			}
+
+			return message;
+		}
+
+		public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient, PatientGenerator.Core.Common.Metadata metadata)
+		{
+			ADT_A01 message = CreateBaseMessage(metadata) as ADT_A01;
+
+			PID pid = message.PID;
+
+			var cx = pid.GetPatientIdentifierList(0);
+
+			cx.IDNumber.Value = patient.HealthCardNo;
+			cx.AssigningAuthority.UniversalID.Value = metadata.AssigningAuthority;
+			cx.AssigningAuthority.UniversalIDType.Value = "ISO";
+
+			pid.AdministrativeSex.Value = patient.Gender;
+			pid.DateTimeOfBirth.Time.SetShortDate(patient.DateOfBirth);
+
+			pid.GetPatientName(0).GivenName.Value = patient.FirstName;
+			pid.GetPatientName(0).FamilyName.Surname.Value = patient.LastName;
+
+			pid.GetPatientAddress(0).StreetAddress.StreetOrMailingAddress.Value = patient.AddressLine;
+			pid.GetPatientAddress(0).City.Value = patient.City;
+			pid.GetPatientAddress(0).StateOrProvince.Value = patient.Province;
+			pid.GetPatientAddress(0).ZipOrPostalCode.Value = patient.PostalCode;
+			pid.GetPatientAddress(0).Country.Value = patient.Country;
 
 			return message;
 		}

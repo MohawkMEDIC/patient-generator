@@ -31,6 +31,8 @@ namespace PatientGenerator.Core.Common
 
 		public string City { get; set; }
 
+		public string Country { get; set; }
+
 		public DateTime DateOfBirth { get; set; }
 
 		public string Email { get; set; }

@@ -49,7 +49,7 @@
     <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
     <Compile Include="ComponentModel\DemographicOptions.cs" />
     <Compile Include="ComponentModel\NameOptions.cs" />
-    <Compile Include="ComponentModel\OptionsBase.cs" />
+    <Compile Include="Common\Metadata.cs" />
     <Compile Include="IFhirSenderService.cs" />
     <Compile Include="IHL7v2SenderService.cs" />
     <Compile Include="IHL7v3SenderService.cs" />

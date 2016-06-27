@@ -54,12 +54,12 @@ namespace PatientGenerator.HL7v3
 				AcknowledgementCondition.Always,
 				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Receiver(
 					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device2(
-						new II("1.3.6.1.4.1.33349.3.1.1.20.4", patient.ReceivingFacility)
+						new II("1.3.6.1.4.1.33349.3.1.1.20.4", patient.Metadata.ReceivingFacility)
 					)
 				),
 				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
 					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
-						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", patient.SendingFacility)
+						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", patient.Metadata.SendingFacility)
 					)
 				)
 			);

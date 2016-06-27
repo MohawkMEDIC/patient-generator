@@ -42,7 +42,6 @@ namespace PatientGenerator.Tests
 		{
 			options = new DemographicOptions
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
 				{
 					new AddressOptions
@@ -75,6 +74,14 @@ namespace PatientGenerator.Tests
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
 				Gender = "F",
+				Metadata = new Core.Common.Metadata
+				{
+					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+					ReceivingApplication = "CRTEST",
+					ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+					SendingApplication = "SEEDER",
+					SendingFacility = "SEEDING"
+				},
 				Names = new List<NameOptions>
 				{
 					new NameOptions
@@ -98,11 +105,7 @@ namespace PatientGenerator.Tests
 						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
 					}
 				},
-				PersonIdentifier = Guid.NewGuid().ToString("N"),
-				ReceivingApplication = "CRTEST",
-				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-				SendingApplication = "SEEDER",
-				SendingFacility = "SEEDING"
+				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}
 

@@ -17,6 +17,7 @@
  * Date: 2016-2-15
  */
 
+using PatientGenerator.Core.Common;
 using System.Collections.Generic;
 
 namespace PatientGenerator.Core.ComponentModel
@@ -24,7 +25,7 @@ namespace PatientGenerator.Core.ComponentModel
 	/// <summary>
 	/// Represents demographic options for a patient.
 	/// </summary>
-	public class DemographicOptions : OptionsBase
+	public class DemographicOptions
 	{
 		/// <summary>
 		/// Initializes a new instance of the DemographicOptions class.
@@ -57,6 +58,11 @@ namespace PatientGenerator.Core.ComponentModel
 		/// The gender of the patient.
 		/// </summary>
 		public string Gender { get; set; }
+
+		/// <summary>
+		/// Metadata about the patient registration.
+		/// </summary>
+		public Metadata Metadata { get; set; }
 
 		/// <summary>
 		/// The primary identifier for the patient.

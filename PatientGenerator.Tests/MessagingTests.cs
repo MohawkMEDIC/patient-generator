@@ -53,7 +53,6 @@ namespace PatientGenerator.Tests
 		{
 			options = new DemographicOptions
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
 				{
 					new AddressOptions
@@ -86,6 +85,15 @@ namespace PatientGenerator.Tests
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
 				Gender = "M",
+				Metadata = new Core.Common.Metadata
+				{
+					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+					ReceivingApplication = "CRTEST",
+					ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+					SendingApplication = "SEEDER",
+					SendingFacility = "SEEDING",
+					UseHL7v2 = true
+				},
 				Names = new List<NameOptions>
 				{
 					new NameOptions
@@ -109,12 +117,7 @@ namespace PatientGenerator.Tests
 						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
 					}
 				},
-				PersonIdentifier = Guid.NewGuid().ToString("N"),
-				ReceivingApplication = "CRTEST",
-				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-				SendingApplication = "SEEDER",
-				SendingFacility = "SEEDING",
-				UseHL7v2 = true
+				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}
 
@@ -218,12 +221,12 @@ namespace PatientGenerator.Tests
 		{
 			GenerationService service = new GenerationService();
 
-			options.AssigningAuthority = null;
-			options.ReceivingApplication = null;
-			options.ReceivingFacility = null;
-			options.SendingApplication = null;
-			options.SendingFacility = null;
-			options.UseHL7v2 = true;
+			options.Metadata.AssigningAuthority = null;
+			options.Metadata.ReceivingApplication = null;
+			options.Metadata.ReceivingFacility = null;
+			options.Metadata.SendingApplication = null;
+			options.Metadata.SendingFacility = null;
+			options.Metadata.UseHL7v2 = true;
 
 			var result = service.GeneratePatients(options);
 
@@ -238,12 +241,12 @@ namespace PatientGenerator.Tests
 		{
 			GenerationService service = new GenerationService();
 
-			options.AssigningAuthority = null;
-			options.ReceivingApplication = null;
-			options.ReceivingFacility = null;
-			options.SendingApplication = null;
-			options.SendingFacility = null;
-			options.UseHL7v2 = false;
+			options.Metadata.AssigningAuthority = null;
+			options.Metadata.ReceivingApplication = null;
+			options.Metadata.ReceivingFacility = null;
+			options.Metadata.SendingApplication = null;
+			options.Metadata.SendingFacility = null;
+			options.Metadata.UseHL7v2 = false;
 
 			var result = service.GeneratePatients(options);
 

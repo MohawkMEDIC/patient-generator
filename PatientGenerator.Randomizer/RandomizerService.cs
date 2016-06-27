@@ -74,6 +74,7 @@ namespace PatientGenerator.Randomizer
 			{
 				AddressLine = random.Next(400).ToString("##0") + " " + commonData.StreetNames[random.Next(commonData.StreetNames.Count)],
 				City = commonData.Cities[random.Next(commonData.Cities.Count)],
+				Country = "Canada",
 				DateOfBirth = new DateTime(random.Next(1930, 2014), random.Next(1, 11), random.Next(1, 28)),
 				Email = (firstName + "." + lastName + random.Next(1000) + "@example.com").ToLower(),
 				FirstName = firstName,

@@ -17,17 +17,17 @@
  * Date: 2016-2-15
  */
 
-namespace PatientGenerator.Core.ComponentModel
+namespace PatientGenerator.Core.Common
 {
 	/// <summary>
-	/// Represents a base class for options.
+	/// Represents metadata about patient registration.
 	/// </summary>
-	public class OptionsBase
+	public class Metadata
 	{
 		/// <summary>
-		/// Initializes a new instance of the OptionsBase class.
+		/// Initializes a new instance of the <see cref="PatientGenerator.Core.ComponentModel.Metadata"/> class.
 		/// </summary>
-		protected OptionsBase()
+		public Metadata()
 		{
 		}
 

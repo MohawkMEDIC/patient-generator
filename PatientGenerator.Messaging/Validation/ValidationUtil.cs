@@ -37,9 +37,9 @@ namespace PatientGenerator.Messaging.Validation
 		{
 			List<IResultDetail> details = new List<IResultDetail>();
 
-			if (string.IsNullOrEmpty(options.AssigningAuthority) || string.IsNullOrWhiteSpace(options.AssigningAuthority))
+			if (string.IsNullOrEmpty(options.Metadata.AssigningAuthority) || string.IsNullOrWhiteSpace(options.Metadata.AssigningAuthority))
 			{
-				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.AssigningAuthority) + " cannot be null or empty."));
+				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.Metadata.AssigningAuthority) + " cannot be null or empty."));
 			}
 
 			if (options.DateOfBirthOptions?.Start != null && options.DateOfBirthOptions?.Exact != null)
@@ -57,26 +57,26 @@ namespace PatientGenerator.Messaging.Validation
 				details.Add(new ConflictingValueResultDetail(ResultDetailType.Error, nameof(options.DateOfBirthOptions) + " cannot have all fields populated."));
 			}
 
-			if (options.UseHL7v2 || options.UseHL7v3)
+			if (options.Metadata.UseHL7v2 || options.Metadata.UseHL7v3)
 			{
-				if (string.IsNullOrEmpty(options.ReceivingApplication) || string.IsNullOrWhiteSpace(options.ReceivingApplication))
+				if (string.IsNullOrEmpty(options.Metadata.ReceivingApplication) || string.IsNullOrWhiteSpace(options.Metadata.ReceivingApplication))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingApplication) + " cannot be null or empty."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.Metadata.ReceivingApplication) + " cannot be null or empty."));
 				}
 
-				if (string.IsNullOrEmpty(options.ReceivingFacility) || string.IsNullOrWhiteSpace(options.ReceivingFacility))
+				if (string.IsNullOrEmpty(options.Metadata.ReceivingFacility) || string.IsNullOrWhiteSpace(options.Metadata.ReceivingFacility))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingFacility) + " cannot be null or empty."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.Metadata.ReceivingFacility) + " cannot be null or empty."));
 				}
 
-				if (string.IsNullOrEmpty(options.SendingApplication) || string.IsNullOrWhiteSpace(options.SendingApplication))
+				if (string.IsNullOrEmpty(options.Metadata.SendingApplication) || string.IsNullOrWhiteSpace(options.Metadata.SendingApplication))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingApplication) + " cannot be null or empty."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.Metadata.SendingApplication) + " cannot be null or empty."));
 				}
 
-				if (string.IsNullOrEmpty(options.SendingFacility) || string.IsNullOrWhiteSpace(options.SendingFacility))
+				if (string.IsNullOrEmpty(options.Metadata.SendingFacility) || string.IsNullOrWhiteSpace(options.Metadata.SendingFacility))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingFacility) + " cannot be null or empty."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.Metadata.SendingFacility) + " cannot be null or empty."));
 				}
 			}
 			else

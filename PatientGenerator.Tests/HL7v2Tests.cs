@@ -42,7 +42,6 @@ namespace PatientGenerator.Tests
 		{
 			options = new DemographicOptions
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 				Addresses = new List<AddressOptions>
 				{
 					new AddressOptions
@@ -75,6 +74,15 @@ namespace PatientGenerator.Tests
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
 				Gender = "F",
+				Metadata = new Core.Common.Metadata
+				{
+					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+					ReceivingApplication = "CRTEST",
+					ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+					SendingApplication = "SEEDER",
+					SendingFacility = "SEEDING",
+					UseHL7v2 = true
+				},
 				Names = new List<NameOptions>
 				{
 					new NameOptions
@@ -98,12 +106,7 @@ namespace PatientGenerator.Tests
 						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
 					}
 				},
-				PersonIdentifier = Guid.NewGuid().ToString("N"),
-				ReceivingApplication = "CRTEST",
-				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-				SendingApplication = "SEEDER",
-				SendingFacility = "SEEDING",
-				UseHL7v2 = true
+				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}
 
@@ -144,7 +147,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptyAssigningAuthority()
 		{
-			options.AssigningAuthority = string.Empty;
+			options.Metadata.AssigningAuthority = string.Empty;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -222,7 +225,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptyReceivingApplication()
 		{
-			options.ReceivingApplication = string.Empty;
+			options.Metadata.ReceivingApplication = string.Empty;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -239,7 +242,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptyReceivingFacility()
 		{
-			options.ReceivingFacility = string.Empty;
+			options.Metadata.ReceivingFacility = string.Empty;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -256,7 +259,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptySendingApplication()
 		{
-			options.SendingApplication = string.Empty;
+			options.Metadata.SendingApplication = string.Empty;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -273,7 +276,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptySendingFacility()
 		{
-			options.SendingFacility = string.Empty;
+			options.Metadata.SendingFacility = string.Empty;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -337,7 +340,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestInvalidOid()
 		{
-			options.AssigningAuthority = "this is not a valid oid";
+			options.Metadata.AssigningAuthority = "this is not a valid oid";
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -531,7 +534,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNullAssigningAuthority()
 		{
-			options.AssigningAuthority = null;
+			options.Metadata.AssigningAuthority = null;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -554,7 +557,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNullReceivingApplication()
 		{
-			options.ReceivingApplication = null;
+			options.Metadata.ReceivingApplication = null;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -571,7 +574,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNullReceivingFacility()
 		{
-			options.ReceivingFacility = null;
+			options.Metadata.ReceivingFacility = null;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -588,7 +591,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNullSendingApplication()
 		{
-			options.SendingApplication = null;
+			options.Metadata.SendingApplication = null;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
@@ -605,7 +608,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNullSendingFacility()
 		{
-			options.SendingFacility = null;
+			options.Metadata.SendingFacility = null;
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 

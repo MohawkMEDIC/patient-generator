@@ -66,7 +66,7 @@ namespace PatientGenerator.Persistence.DAL
 				person.Addresses.Add(address);
 			}
 
-			person.AssigningAuthority = options.AssigningAuthority;
+			person.AssigningAuthority = options.Metadata.AssigningAuthority;
 			person.CreationTimestamp = DateTime.Now;
 			person.Gender = options.Gender;
 
