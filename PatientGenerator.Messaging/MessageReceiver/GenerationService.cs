@@ -28,8 +28,6 @@ using PatientGenerator.Messaging.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.MessageReceiver
 {
@@ -81,13 +79,13 @@ namespace PatientGenerator.Messaging.MessageReceiver
 
 			foreach (Patient patient in patients)
 			{
-				// send to fhir endpoints 
+				// send to fhir endpoints
 				fhirSenderService?.Send(patient);
 
-				// send to hl7v2 endpoints 
+				// send to hl7v2 endpoints
 				hl7v2SenderService?.Send(patient);
 
-				// send to hl7v3 endpoints 
+				// send to hl7v3 endpoints
 				hl7v3SenderService?.Send(patient);
 			}
 
@@ -115,15 +113,14 @@ namespace PatientGenerator.Messaging.MessageReceiver
 				// no validation errors, save the options
 				persistenceService?.Save(options);
 
-				// send to fhir endpoints 
+				// send to fhir endpoints
 				fhirSenderService?.Send(options);
 
-				// send to hl7v2 endpoints 
+				// send to hl7v2 endpoints
 				hl7v2SenderService?.Send(options);
 
-				// send to hl7v3 endpoints 
+				// send to hl7v3 endpoints
 				hl7v3SenderService?.Send(options);
-
 			}
 
 			return response;

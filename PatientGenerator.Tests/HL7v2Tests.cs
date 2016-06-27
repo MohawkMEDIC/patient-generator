@@ -18,7 +18,6 @@
  */
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHapi.Model.V25.Message;
 using NHapi.Model.V25.Segment;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2;

@@ -35,7 +35,7 @@ namespace PatientGenerator.Tests
 		/// The demographic options.
 		/// </summary>
 		private DemographicOptions options;
-		
+
 		/// <summary>
 		/// Runs cleanup after each test execution.
 		/// </summary>
@@ -44,7 +44,7 @@ namespace PatientGenerator.Tests
 		{
 			options = null;
 		}
-		
+
 		/// <summary>
 		/// Runs initialization before each test execution.
 		/// </summary>

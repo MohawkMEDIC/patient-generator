@@ -30,9 +30,7 @@ using MARC.Everest.Xml;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace PatientGenerator.HL7v3
@@ -156,7 +154,6 @@ namespace PatientGenerator.HL7v3
 			{
 				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(otherIdentifier.Key, otherIdentifier.Value));
 			}
-
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 

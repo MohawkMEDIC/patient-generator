@@ -19,9 +19,7 @@
 
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Messaging.Model;
-using System.ComponentModel;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.Services
 {
