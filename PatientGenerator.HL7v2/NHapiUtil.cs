@@ -62,6 +62,13 @@ namespace PatientGenerator.HL7v2
 			cx.AssigningAuthority.UniversalID.Value = patient.AssigningAuthority;
 			cx.AssigningAuthority.UniversalIDType.Value = "ISO";
 
+			//for (int i = 1; i < patient.OtherIdentifiers.Count; i++)
+			//{
+			//	var idList = pid.GetPatientIdentifierList(i);
+
+			//	idList.IDNumber.Value = patient.OtherIdentifiers[patient.OtherIdentifiers.ToArray().]
+			//}
+
 			pid.AdministrativeSex.Value = patient.Gender;
 
 			if (patient.DateOfBirthOptions != null)
@@ -72,8 +79,20 @@ namespace PatientGenerator.HL7v2
 				}
 			}
 
-			pid.GetPatientName(0).GivenName.Value = patient.Names.Select(x => x.FirstName).FirstOrDefault();
-			pid.GetPatientName(0).FamilyName.Surname.Value = patient.Names.Select(x => x.LastName).FirstOrDefault();
+			for (int i = 0; i < patient.Names.Count; i++)
+			{
+				pid.GetPatientName(i).GivenName.Value = patient.Names.ToArray()[i].FirstName;
+				pid.GetPatientName(i).FamilyName.Surname.Value = patient.Names.ToArray()[i].LastName;
+				pid.GetPatientName(i).PrefixEgDR.Value = patient.Names.ToArray()[i].Prefix;
+				pid.GetPatientName(i).ProfessionalSuffix.Value = patient.Names.ToArray()[i].Suffixes.FirstOrDefault();
+
+				var middleNames = patient.Names.Select(x => x.MiddleNames).ToArray()[i];
+
+				if (middleNames.Count > 0)
+				{
+					pid.GetPatientName(i).SecondAndFurtherGivenNamesOrInitialsThereof.Value = middleNames.Aggregate((a, b) => a + " " + b);
+				}
+			}
 
 			for (int i = 0; i < patient.Addresses.Count; i++)
 			{

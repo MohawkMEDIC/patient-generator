@@ -37,16 +37,6 @@ namespace PatientGenerator.Core.ComponentModel
 		public string AssigningAuthority { get; set; }
 
 		/// <summary>
-		/// When true, the application will randomize all data.
-		/// </summary>
-		public bool RandomizeAll { get; set; }
-
-		/// <summary>
-		/// When true, the application will randomize all fields not populated.
-		/// </summary>
-		public bool RandomizeEmpty { get; set; }
-
-		/// <summary>
 		/// The receiving application.
 		/// </summary>
 		public string ReceivingApplication { get; set; }

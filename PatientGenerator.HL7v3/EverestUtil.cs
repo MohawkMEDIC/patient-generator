@@ -30,6 +30,7 @@ using MARC.Everest.Xml;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -141,13 +142,16 @@ namespace PatientGenerator.HL7v3
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = new SET<II>();
 
+			if (patient.OtherIdentifiers.Count == 0)
+			{
+				// must have one alternate identifier
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N")));
+			}
+
 			foreach (var otherIdentifier in patient.OtherIdentifiers)
 			{
 				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(otherIdentifier.Key, otherIdentifier.Value));
 			}
-
-			// must have one alternate identifier
-			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N")));
 
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
@@ -159,6 +163,11 @@ namespace PatientGenerator.HL7v3
 			bool isValid = registerPatientRequest.Validate();
 
 			return registerPatientRequest;
+		}
+
+		public static IGraphable GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient)
+		{
+			return null;
 		}
 
 		/// <summary>

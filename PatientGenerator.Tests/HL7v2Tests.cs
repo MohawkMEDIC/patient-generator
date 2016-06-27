@@ -18,8 +18,8 @@
  */
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHapi.Model.V231.Message;
-using NHapi.Model.V231.Segment;
+using NHapi.Model.V25.Message;
+using NHapi.Model.V25.Segment;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2;
 using System;
@@ -109,277 +109,586 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void InvalidOidTest()
-		{
-			options.AssigningAuthority = "this is not a valid oid";
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MalformedOidTest()
-		{
-			options.AssigningAuthority = "1.3.6.1.4.1.33349....434.";
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MissingAssigningAuthorityTest()
-		{
-			options.AssigningAuthority = null;
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MissingReceivingApplicationTest()
-		{
-			options.ReceivingApplication = null;
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MissingReceivingFacilityTest()
-		{
-			options.ReceivingFacility = null;
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MissingSendingApplicationTest()
-		{
-			options.SendingApplication = null;
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void MissingSendingFacilityTest()
-		{
-			options.SendingFacility = null;
-
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
-
-			var messages = NHapiUtil.Sendv2Messages(response);
-
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AR", msa.AcknowledgementCode.Value);
-			}
-		}
-
-		[TestMethod]
-		public void NoAddressTest()
+		public void TestEmptyAddress()
 		{
 			options.Addresses.Clear();
 
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			var messages = NHapiUtil.Sendv2Messages(response);
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
-			foreach (var message in messages)
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var addresses = pid.GetPatientAddress();
+
+			foreach (var item in addresses)
 			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+				Assert.IsNull(item.City.Value);
+				Assert.IsNull(item.Country.Value);
+				Assert.IsNull(item.StateOrProvince.Value);
+				Assert.IsNull(item.StreetAddress.StreetOrMailingAddress.Value);
+				Assert.IsNull(item.ZipOrPostalCode.Value);
 			}
 		}
 
 		[TestMethod]
-		public void NoAlternateIdentifiersTest()
+		public void TestEmptyAssigningAuthority()
 		{
-			options.OtherIdentifiers.Clear();
+			options.AssigningAuthority = string.Empty;
 
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			var messages = NHapiUtil.Sendv2Messages(response);
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
+			MSH msh = (MSH)actual.GetStructure("MSH");
 
-				ACK ack = (ACK)message;
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
 
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
 
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+			PID pid = (PID)actual.GetStructure("PID");
 
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
-			}
+			Assert.AreEqual(string.Empty, pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
 		}
 
 		[TestMethod]
-		public void NoDateOfBirthTest()
+		public void TestEmptyDateOfBirth()
 		{
 			options.DateOfBirthOptions = null;
 
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			var messages = NHapiUtil.Sendv2Messages(response);
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
-			foreach (var message in messages)
-			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
+			MSH msh = (MSH)actual.GetStructure("MSH");
 
-				ACK ack = (ACK)message;
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
 
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
 
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+			PID pid = (PID)actual.GetStructure("PID");
 
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
-			}
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+			Assert.IsNull(pid.DateTimeOfBirth.Time.Value);
 		}
 
 		[TestMethod]
-		public void NoNameTest()
+		public void TestEmptyName()
 		{
 			options.Names.Clear();
 
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			var messages = NHapiUtil.Sendv2Messages(response);
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
-			foreach (var message in messages)
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var names = pid.GetPatientName();
+
+			foreach (var item in names)
 			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
-
-				ACK ack = (ACK)message;
-
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
-
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
-
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
+				Assert.IsNull(item.GivenName.Value);
+				Assert.IsNull(item.FamilyName.Surname.Value);
 			}
 		}
 
 		[TestMethod]
-		public void ValidMessageTest()
+		public void TestEmptyReceivingApplication()
 		{
-			var response = NHapiUtil.GenerateCandidateRegistry(options);
+			options.ReceivingApplication = string.Empty;
 
-			var messages = NHapiUtil.Sendv2Messages(response);
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			foreach (var message in messages)
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual(string.Empty, msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestEmptyReceivingFacility()
+		{
+			options.ReceivingFacility = string.Empty;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual(string.Empty, msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestEmptySendingApplication()
+		{
+			options.SendingApplication = string.Empty;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual(string.Empty, msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestEmptySendingFacility()
+		{
+			options.SendingFacility = string.Empty;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual(string.Empty, msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestFullName()
+		{
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
 			{
-				Assert.IsInstanceOfType(message, typeof(ACK));
+				Prefix = "Dr.",
+				FirstName = "Sammy",
+				MiddleNames = new List<string>
+				{
+					"J",
+					"Hall"
+				},
+				LastName = "Richtofen",
+				Suffixes = new List<string>
+				{
+					"MSc"
+				}
+			});
 
-				ACK ack = (ACK)message;
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-				Assert.IsInstanceOfType(ack.Message.GetStructure("MSA"), typeof(MSA));
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
-				MSA msa = (MSA)ack.Message.GetStructure("MSA");
+			MSH msh = (MSH)actual.GetStructure("MSH");
 
-				Assert.AreEqual("AA", msa.AcknowledgementCode.Value);
-			}
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var name = pid.GetPatientName(0);
+
+			Assert.AreEqual("Dr.", name.PrefixEgDR.Value);
+			Assert.AreEqual("Sammy", name.GivenName.Value);
+			Assert.AreEqual("J Hall", name.SecondAndFurtherGivenNamesOrInitialsThereof.Value);
+			Assert.AreEqual("Richtofen", name.FamilyName.Surname.Value);
+			Assert.AreEqual("MSc", name.ProfessionalSuffix.Value);
+		}
+
+		[TestMethod]
+		public void TestInvalidOid()
+		{
+			options.AssigningAuthority = "this is not a valid oid";
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("this is not a valid oid", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+		}
+
+		[TestMethod]
+		public void TestMultipleAddresses()
+		{
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var firstAddress = pid.GetPatientAddress(0);
+
+			Assert.AreEqual("Brampton", firstAddress.City.Value);
+			Assert.AreEqual("Canada", firstAddress.Country.Value);
+			Assert.AreEqual("Ontario", firstAddress.StateOrProvince.Value);
+			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("L6X0C3", firstAddress.ZipOrPostalCode.Value);
+
+			var secondAddress = pid.GetPatientAddress(1);
+
+			Assert.AreEqual("New York City", secondAddress.City.Value);
+			Assert.AreEqual("United States of America", secondAddress.Country.Value);
+			Assert.AreEqual("New York", secondAddress.StateOrProvince.Value);
+			Assert.AreEqual("250 Madison Ave.", secondAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("07008", secondAddress.ZipOrPostalCode.Value);
+
+			var thirdAddress = pid.GetPatientAddress(2);
+
+			Assert.AreEqual("Friedberg", thirdAddress.City.Value);
+			Assert.AreEqual("Germany", thirdAddress.Country.Value);
+			Assert.AreEqual("Elbonia", thirdAddress.StateOrProvince.Value);
+			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("578233", thirdAddress.ZipOrPostalCode.Value);
+		}
+
+		[TestMethod]
+		public void TestMultipleNames()
+		{
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Sammy",
+				LastName = "Richtofen"
+			});
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Sally",
+				LastName = "Sam"
+			});
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var firstName = pid.GetPatientName(0);
+
+			Assert.AreEqual("Samantha", firstName.GivenName.Value);
+			Assert.AreEqual("Richtofen", firstName.FamilyName.Surname.Value);
+
+			var secondName = pid.GetPatientName(1);
+
+			Assert.AreEqual("Sammy", secondName.GivenName.Value);
+			Assert.AreEqual("Richtofen", secondName.FamilyName.Surname.Value);
+
+			var thirdName = pid.GetPatientName(2);
+
+			Assert.AreEqual("Sally", thirdName.GivenName.Value);
+			Assert.AreEqual("Sam", thirdName.FamilyName.Surname.Value);
+		}
+
+		[TestMethod]
+		public void TestNamePrefix()
+		{
+			options.Names.Add(new NameOptions
+			{
+				Prefix = "Dr.",
+				FirstName = "Sammy",
+				LastName = "Richtofen"
+			});
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var firstName = pid.GetPatientName(0);
+
+			Assert.AreEqual("Samantha", firstName.GivenName.Value);
+			Assert.AreEqual("Richtofen", firstName.FamilyName.Surname.Value);
+
+			var secondName = pid.GetPatientName(1);
+
+			Assert.AreEqual("Dr.", secondName.PrefixEgDR.Value);
+			Assert.AreEqual("Sammy", secondName.GivenName.Value);
+			Assert.AreEqual("Richtofen", secondName.FamilyName.Surname.Value);
+		}
+
+		[TestMethod]
+		public void TestNameSuffix()
+		{
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Sammy",
+				LastName = "Richtofen",
+				Suffixes = new List<string>
+				{
+					"MSc"
+				}
+			});
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var name = pid.GetPatientName(0);
+
+			Assert.AreEqual("Sammy", name.GivenName.Value);
+			Assert.AreEqual("Richtofen", name.FamilyName.Surname.Value);
+			Assert.AreEqual("MSc", name.ProfessionalSuffix.Value);
+		}
+
+		[TestMethod]
+		public void TestNullAssigningAuthority()
+		{
+			options.AssigningAuthority = null;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.IsNull(pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+		}
+
+		[TestMethod]
+		public void TestNullReceivingApplication()
+		{
+			options.ReceivingApplication = null;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.IsNull(msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestNullReceivingFacility()
+		{
+			options.ReceivingFacility = null;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.IsNull(msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestNullSendingApplication()
+		{
+			options.SendingApplication = null;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.IsNull(msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestNullSendingFacility()
+		{
+			options.SendingFacility = null;
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.IsNull(msh.SendingFacility.NamespaceID.Value);
+		}
+
+		[TestMethod]
+		public void TestPartialAddress()
+		{
+			options.Addresses.Clear();
+
+			options.Addresses.Add(new AddressOptions
+			{
+				City = "Brampton",
+				Country = "Canada",
+				StreetAddress = "123 Main Street West",
+				StateProvince = "Ontario"
+			});
+
+			options.Addresses.Add(new AddressOptions
+			{
+				City = "New York City",
+				Country = "United States of America",
+				StateProvince = "New York",
+				ZipPostalCode = "07008"
+			});
+
+			options.Addresses.Add(new AddressOptions
+			{
+				Country = "Germany",
+				StateProvince = "Elbonia",
+				StreetAddress = "Grüner Weg 6",
+				ZipPostalCode = "578233"
+			});
+
+			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+
+			MSH msh = (MSH)actual.GetStructure("MSH");
+
+			Assert.AreEqual("CRTEST", msh.ReceivingApplication.NamespaceID.Value);
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", msh.ReceivingFacility.NamespaceID.Value);
+			Assert.AreEqual("SEEDER", msh.SendingApplication.NamespaceID.Value);
+			Assert.AreEqual("SEEDING", msh.SendingFacility.NamespaceID.Value);
+
+			Assert.IsInstanceOfType(actual.GetStructure("PID"), typeof(PID));
+
+			PID pid = (PID)actual.GetStructure("PID");
+
+			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
+
+			var firstAddress = pid.GetPatientAddress(0);
+
+			Assert.AreEqual("Brampton", firstAddress.City.Value);
+			Assert.AreEqual("Canada", firstAddress.Country.Value);
+			Assert.AreEqual("Ontario", firstAddress.StateOrProvince.Value);
+			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.IsNull(firstAddress.ZipOrPostalCode.Value);
+
+			var secondAddress = pid.GetPatientAddress(1);
+
+			Assert.AreEqual("New York City", secondAddress.City.Value);
+			Assert.AreEqual("United States of America", secondAddress.Country.Value);
+			Assert.AreEqual("New York", secondAddress.StateOrProvince.Value);
+			Assert.IsNull(secondAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("07008", secondAddress.ZipOrPostalCode.Value);
+
+			var thirdAddress = pid.GetPatientAddress(2);
+
+			Assert.IsNull(thirdAddress.City.Value);
+			Assert.AreEqual("Germany", thirdAddress.Country.Value);
+			Assert.AreEqual("Elbonia", thirdAddress.StateOrProvince.Value);
+			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("578233", thirdAddress.ZipOrPostalCode.Value);
 		}
 	}
 }

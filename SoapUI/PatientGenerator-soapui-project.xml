@@ -253,7 +253,21 @@
          <pat:count>?</pat:count>\r
       </pat:GeneratePatients>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatients"/></con:call></con:operation><con:operation id="bca916e8-b879-419d-a907-1e5c90fd9963" isOneWay="false" action="GeneratePatientsWithOptions" name="GeneratePatientsWithOptions" bindingOperationName="GeneratePatientsWithOptions" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6ce9e481-9e13-4228-8c68-316e7a420a71" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatients"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bca916e8-b879-419d-a907-1e5c90fd9963" isOneWay="false" action="GeneratePatientsWithOptions" name="GeneratePatientsWithOptions" bindingOperationName="GeneratePatientsWithOptions" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6ce9e481-9e13-4228-8c68-316e7a420a71" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <pat:GeneratePatientsWithOptions>\r
+         <!--Optional:-->\r
+         <pat:options>\r
+            <!--Optional:-->\r
+            <pat1:AssigningAuthority>1.3.6.1.4.1.33349.3.1.5.10.99.2</pat1:AssigningAuthority>\r
+            <!--Optional:-->\r
+            <pat1:RandomizeAll>true</pat1:RandomizeAll>\r
+            </pat:options>
+
+      </pat:GeneratePatientsWithOptions>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatientsWithOptions"/><con:wsrmConfig version="1.2"/></con:call><con:call id="74067736-ae6d-449e-aaf7-9ecb4fe19af5" name="Request 2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <pat:GeneratePatientsWithOptions>\r
@@ -354,7 +368,7 @@
          </pat:options>\r
       </pat:GeneratePatientsWithOptions>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatientsWithOptions"/></con:call></con:operation></con:interface><con:testSuite id="0a66a100-cc5a-4b09-8317-624975fd4eb6" name="BasicHttpBinding_IGenerationService TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="037b2d5c-bc1b-425f-8ecf-98d8f9f0ea81" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GeneratePatients TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="2ec89c9e-7e90-4d79-becf-cdd97a4d275e" name="GeneratePatients"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IGenerationService</con:interface><con:operation>GeneratePatients</con:operation><con:request name="GeneratePatients" id="4b653293-e2a6-468f-881c-4e5076ed9a83"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatientsWithOptions"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="0a66a100-cc5a-4b09-8317-624975fd4eb6" name="BasicHttpBinding_IGenerationService TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="037b2d5c-bc1b-425f-8ecf-98d8f9f0ea81" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GeneratePatients TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="2ec89c9e-7e90-4d79-becf-cdd97a4d275e" name="GeneratePatients"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IGenerationService</con:interface><con:operation>GeneratePatients</con:operation><con:request name="GeneratePatients" id="4b653293-e2a6-468f-881c-4e5076ed9a83"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <pat:GeneratePatients>\r
@@ -369,97 +383,28 @@
          <!--Optional:-->\r
          <pat:options>\r
             <!--Optional:-->\r
-            <pat1:AssigningAuthority>?</pat1:AssigningAuthority>\r
+            <pat1:AssigningAuthority>1.3.6.1.4.1.33349.3.1.5.10.102.6</pat1:AssigningAuthority>\r
+            
+            <pat1:ReceivingApplication>WIN-FRI7OCCKPBR</pat1:ReceivingApplication>\r
             <!--Optional:-->\r
-            <pat1:RandomizeAll>?</pat1:RandomizeAll>\r
-            <!--Optional:-->\r
-            <pat1:RandomizeEmpty>?</pat1:RandomizeEmpty>\r
-            <!--Optional:-->\r
-            <pat1:ReceivingApplication>?</pat1:ReceivingApplication>\r
-            <!--Optional:-->\r
-            <pat1:ReceivingFacility>?</pat1:ReceivingFacility>\r
-            <!--Optional:-->\r
-            <pat1:SendingApplication>?</pat1:SendingApplication>\r
-            <!--Optional:-->\r
-            <pat1:SendingFacility>?</pat1:SendingFacility>\r
-            <!--Optional:-->\r
-            <pat1:UseFhir>?</pat1:UseFhir>\r
-            <!--Optional:-->\r
-            <pat1:UseHL7v2>?</pat1:UseHL7v2>\r
-            <!--Optional:-->\r
-            <pat1:UseHL7v3>?</pat1:UseHL7v3>\r
-            <!--Optional:-->\r
-            <pat1:Addresses>\r
-               <!--Zero or more repetitions:-->\r
-               <pat1:AddressOptions>\r
-                  <!--Optional:-->\r
-                  <pat1:City>?</pat1:City>\r
-                  <!--Optional:-->\r
-                  <pat1:Country>?</pat1:Country>\r
-                  <!--Optional:-->\r
-                  <pat1:StateProvince>?</pat1:StateProvince>\r
-                  <!--Optional:-->\r
-                  <pat1:StreetAddress>?</pat1:StreetAddress>\r
-                  <!--Optional:-->\r
-                  <pat1:ZipPostalCode>?</pat1:ZipPostalCode>\r
-               </pat1:AddressOptions>\r
-            </pat1:Addresses>\r
-            <!--Optional:-->\r
+            <pat1:ReceivingFacility>ON</pat1:ReceivingFacility>\r
+
+            
+			<!--<pat1:SendingApplication>FAKECORPDEV</pat1:SendingApplication>
+            <pat1:SendingFacility>FAKECORPFAC</pat1:SendingFacility>-->
+			
+			
+			<!----><pat1:SendingApplication>FAKEDEV</pat1:SendingApplication>
+            <pat1:SendingFacility>FAKEFAC</pat1:SendingFacility>
+            
             <pat1:DateOfBirthOptions>\r
                <!--Optional:-->\r
-               <pat1:End>?</pat1:End>\r
-               <!--Optional:-->\r
-               <pat1:Exact>?</pat1:Exact>\r
-               <!--Optional:-->\r
-               <pat1:Start>?</pat1:Start>\r
+               <pat1:Exact>1982-04-21T00:00:00</pat1:Exact>\r
             </pat1:DateOfBirthOptions>\r
             <!--Optional:-->\r
-            <pat1:Gender>?</pat1:Gender>\r
+            <pat1:Gender>F</pat1:Gender>\r
             <!--Optional:-->\r
-            <pat1:Names>\r
-               <!--Zero or more repetitions:-->\r
-               <pat1:NameOptions>\r
-                  <!--Optional:-->\r
-                  <pat1:FirstName>?</pat1:FirstName>\r
-                  <!--Optional:-->\r
-                  <pat1:LastName>?</pat1:LastName>\r
-                  <!--Optional:-->\r
-                  <pat1:MiddleNames>\r
-                     <!--Zero or more repetitions:-->\r
-                     <arr:string>?</arr:string>\r
-                  </pat1:MiddleNames>\r
-                  <!--Optional:-->\r
-                  <pat1:Prefix>?</pat1:Prefix>\r
-                  <!--Optional:-->\r
-                  <pat1:Suffixes>\r
-                     <!--Zero or more repetitions:-->\r
-                     <arr:string>?</arr:string>\r
-                  </pat1:Suffixes>\r
-               </pat1:NameOptions>\r
-            </pat1:Names>\r
-            <!--Optional:-->\r
-            <pat1:OtherIdentifiers>\r
-               <!--Zero or more repetitions:-->\r
-               <arr:KeyValueOfstringstring>\r
-                  <arr:Key>?</arr:Key>\r
-                  <arr:Value>?</arr:Value>\r
-               </arr:KeyValueOfstringstring>\r
-            </pat1:OtherIdentifiers>\r
-            <!--Optional:-->\r
-            <pat1:PersonIdentifier>?</pat1:PersonIdentifier>\r
-            <!--Optional:-->\r
-            <pat1:TelecomOptions>\r
-               <!--Optional:-->\r
-               <pat1:EmailAddresses>\r
-                  <!--Zero or more repetitions:-->\r
-                  <arr:string>?</arr:string>\r
-               </pat1:EmailAddresses>\r
-               <!--Optional:-->\r
-               <pat1:PhoneNumbers>\r
-                  <!--Zero or more repetitions:-->\r
-                  <arr:string>?</arr:string>\r
-               </pat1:PhoneNumbers>\r
-            </pat1:TelecomOptions>\r
+            <pat1:PersonIdentifier>785638247534</pat1:PersonIdentifier>\r
          </pat:options>\r
       </pat:GeneratePatientsWithOptions>\r
    </soapenv:Body>\r

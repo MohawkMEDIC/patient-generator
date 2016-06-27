@@ -31,6 +31,7 @@ namespace PatientGenerator.Messaging.Model
 		/// </summary>
 		public GenerationResponse()
 		{
+			this.Messages = new List<string>();
 		}
 
 		/// <summary>

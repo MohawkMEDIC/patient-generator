@@ -37,9 +37,9 @@ namespace PatientGenerator.Messaging.Validation
 		{
 			List<IResultDetail> details = new List<IResultDetail>();
 
-			if (options.AssigningAuthority == null)
+			if (string.IsNullOrEmpty(options.AssigningAuthority) || string.IsNullOrWhiteSpace(options.AssigningAuthority))
 			{
-				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.AssigningAuthority) + " cannot be null."));
+				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.AssigningAuthority) + " cannot be null or empty."));
 			}
 
 			if (options.DateOfBirthOptions?.Start != null && options.DateOfBirthOptions?.Exact != null)
@@ -59,25 +59,29 @@ namespace PatientGenerator.Messaging.Validation
 
 			if (options.UseHL7v2 || options.UseHL7v3)
 			{
-				if (options.ReceivingApplication == null)
+				if (string.IsNullOrEmpty(options.ReceivingApplication) || string.IsNullOrWhiteSpace(options.ReceivingApplication))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingApplication) + " cannot be null."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingApplication) + " cannot be null or empty."));
 				}
 
-				if (options.ReceivingFacility == null)
+				if (string.IsNullOrEmpty(options.ReceivingFacility) || string.IsNullOrWhiteSpace(options.ReceivingFacility))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingFacility) + " cannot be null."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.ReceivingFacility) + " cannot be null or empty."));
 				}
 
-				if (options.SendingApplication == null)
+				if (string.IsNullOrEmpty(options.SendingApplication) || string.IsNullOrWhiteSpace(options.SendingApplication))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingApplication) + " cannot be null."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingApplication) + " cannot be null or empty."));
 				}
 
-				if (options.SendingFacility == null)
+				if (string.IsNullOrEmpty(options.SendingFacility) || string.IsNullOrWhiteSpace(options.SendingFacility))
 				{
-					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingFacility) + " cannot be null."));
+					details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, nameof(options.SendingFacility) + " cannot be null or empty."));
 				}
+			}
+			else
+			{
+				details.Add(new MandatoryElementMissingResultDetail(ResultDetailType.Error, "Must specify FHIR, HL7v2, or HL7v3"));
 			}
 
 			return details;

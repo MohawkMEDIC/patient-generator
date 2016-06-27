@@ -107,85 +107,73 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoAddressTest()
+		public void TestEmptyAddress()
 		{
 			options.Addresses.Clear();
 
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.IsNull(actual.Address.Select(x => x.City).FirstOrDefault());
+			Assert.IsNull(actual.Address.Select(x => x.Country).FirstOrDefault());
+			Assert.IsNull(actual.Address.Select(x => x.Line).FirstOrDefault());
+			Assert.IsNull(actual.Address.Select(x => x.State).FirstOrDefault());
+			Assert.IsNull(actual.Address.Select(x => x.Zip).FirstOrDefault());
 		}
 
 		[TestMethod]
-		public void NoAlternateIdentifiersTest()
+		public void TestEmptyAlternateIdentifiers()
 		{
 			options.OtherIdentifiers.Clear();
 
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.AreEqual(0, actual.Identifier.Count);
 		}
 
 		[TestMethod]
-		public void NoAssigningAuthorityTest()
-		{
-			options.Addresses.Clear();
-
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
-
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
-		}
-
-		[TestMethod]
-		public void NoDateOfBirthTest()
+		public void TestEmptyDateOfBirth()
 		{
 			options.DateOfBirthOptions = null;
 
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.IsNull(actual.BirthDate);
 		}
 
 		[TestMethod]
-		public void NoGenderTest()
+		public void TestEmptyEmail()
+		{
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
+
+			Assert.AreEqual(0, actual.Telecom.Count);
+		}
+
+		[TestMethod]
+		public void TestEmptyGender()
 		{
 			options.Gender = null;
 
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.IsNull(actual.Gender.Text);
 		}
 
 		[TestMethod]
-		public void NoNameTest()
+		public void TestEmptyName()
 		{
 			options.Names.Clear();
 
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.AreEqual(0, actual.Name.Count);
 		}
 
 		[TestMethod]
-		public void ValidMessageTest()
+		public void TestEmptyPhone()
 		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			var results = FhirUtil.SendFhirMessages(patient);
-
-			Assert.IsTrue(results.Where(x => !x).Count() == 0);
+			Assert.AreEqual(0, actual.Telecom.Count);
 		}
 	}
 }

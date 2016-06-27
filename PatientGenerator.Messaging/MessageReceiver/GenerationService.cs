@@ -19,6 +19,7 @@
 
 using MARC.HI.EHRS.SVC.Core;
 using PatientGenerator.Core;
+using PatientGenerator.Core.Common;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.Core.Validation;
 using PatientGenerator.Messaging.Model;
@@ -27,6 +28,7 @@ using PatientGenerator.Messaging.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PatientGenerator.Messaging.MessageReceiver
@@ -70,9 +72,23 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		{
 			GenerationResponse response = new GenerationResponse();
 
+			List<Patient> patients = new List<Patient>();
+
 			for (int i = 0; i < count; i++)
 			{
-				randomizerService.GetRandomPatient();
+				patients.Add(randomizerService.GetRandomPatient());
+			}
+
+			foreach (Patient patient in patients)
+			{
+				// send to fhir endpoints 
+				fhirSenderService?.Send(patient);
+
+				// send to hl7v2 endpoints 
+				hl7v2SenderService?.Send(patient);
+
+				// send to hl7v3 endpoints 
+				hl7v3SenderService?.Send(patient);
 			}
 
 			return response;
@@ -91,7 +107,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 
 			if (details.Count(x => x.Type == ResultDetailType.Error) > 0)
 			{
-				response.Messages = details.Select(x => x.ToString()).ToList();
+				response.Messages.AddRange(details.Select(x => x.Message));
 				response.HasErrors = true;
 			}
 			else
