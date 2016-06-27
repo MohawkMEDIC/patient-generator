@@ -214,6 +214,60 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
+		public void TestGenderFemale()
+		{
+			options.Gender = "F";
+
+			var actual = EverestUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
+
+			PRPA_IN101201CA message = (PRPA_IN101201CA)actual;
+
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", message.Receiver.Device.Id.Extension);
+			Assert.AreEqual("SEEDING", message.Sender.Device.Id.Extension);
+			Assert.IsNotNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
+
+			Assert.AreEqual("female", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
+		}
+
+		[TestMethod]
+		public void TestGenderMale()
+		{
+			options.Gender = "M";
+
+			var actual = EverestUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
+
+			PRPA_IN101201CA message = (PRPA_IN101201CA)actual;
+
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", message.Receiver.Device.Id.Extension);
+			Assert.AreEqual("SEEDING", message.Sender.Device.Id.Extension);
+			Assert.IsNotNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
+
+			Assert.AreEqual("male", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
+		}
+
+		[TestMethod]
+		public void TestGenderUndifferentiated()
+		{
+			options.Gender = "UN";
+
+			var actual = EverestUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
+
+			PRPA_IN101201CA message = (PRPA_IN101201CA)actual;
+
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", message.Receiver.Device.Id.Extension);
+			Assert.AreEqual("SEEDING", message.Sender.Device.Id.Extension);
+			Assert.IsNotNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
+
+			Assert.AreEqual("undifferentiated", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.AdministrativeGenderCode.DisplayName.Value);
+		}
+
+		[TestMethod]
 		public void TestMultipleAddresses()
 		{
 			options.Addresses.Clear();
@@ -299,6 +353,39 @@ namespace PatientGenerator.Tests
 			Assert.IsNull(fourthAddress.FirstOrDefault(x => x.Type == MARC.Everest.DataTypes.AddressPartType.State));
 			Assert.AreEqual("Grüner Weg 6", fourthAddress.First(x => x.Type == MARC.Everest.DataTypes.AddressPartType.StreetAddressLine).Value);
 			Assert.AreEqual("578233", fourthAddress.First(x => x.Type == MARC.Everest.DataTypes.AddressPartType.PostalCode).Value);
+		}
+
+		[TestMethod]
+		public void TestMultipleAlternateIdentifiers()
+		{
+			options.Names.Clear();
+
+			options.Names.Add(new NameOptions
+			{
+				FirstName = "Walter",
+				LastName = "Gretzky",
+			});
+
+			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.100.0", "8385-171-683-CX");
+			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX");
+			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX");
+
+			var actual = EverestUtil.GenerateCandidateRegistry(options);
+
+			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
+
+			PRPA_IN101201CA message = (PRPA_IN101201CA)actual;
+
+			Assert.AreEqual("Mohawk College of Applied Arts and Technology", message.Receiver.Device.Id.Extension);
+			Assert.AreEqual("SEEDING", message.Sender.Device.Id.Extension);
+			Assert.AreEqual("Walter", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.Name.Select(x => x.Part).First().First(x => x.Type == MARC.Everest.DataTypes.EntityNamePartType.Given).Value);
+			Assert.AreEqual("Gretzky", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.Name.Select(x => x.Part).First().First(x => x.Type == MARC.Everest.DataTypes.EntityNamePartType.Family).Value);
+			Assert.IsNotNull(message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.IdentifiedPerson.BirthTime.Value);
+			Assert.AreEqual(7, message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Count);
+
+			Assert.AreEqual("8385-171-683-CX", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Where(x => x.Root == "1.3.6.1.4.1.33349.3.1.5.100.0").Select(x => x.Extension).First());
+			Assert.AreEqual("1192-571-546-CX", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Where(x => x.Root == "1.3.6.1.4.1.33349.3.1.5.101.1").Select(x => x.Extension).First());
+			Assert.AreEqual("2115-060-045-CX", message.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Where(x => x.Root == "1.3.6.1.4.1.33349.3.1.5.102.2").Select(x => x.Extension).First());
 		}
 
 

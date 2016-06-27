@@ -95,7 +95,7 @@ namespace PatientGenerator.HL7v3
 									new MARC.Everest.RMIM.CA.R020402.PRPA_MT101002CA.Person(
 										BuildNames(patient),
 										BuildTelecoms(patient),
-										Util.Convert<AdministrativeGender>(patient.Gender.Substring(0)),
+										Util.Convert<AdministrativeGender>(patient.Gender),
 										dob,
 										false,
 										null,
@@ -218,18 +218,9 @@ namespace PatientGenerator.HL7v3
 			client.Formatter = formatter;
 			client.Formatter.GraphAides.Add(new DatatypeFormatter());
 
-			//foreach (var item in graphables)
-			//{
-			//	formatter.Graph(Console.OpenStandardOutput(), item);
-			//}
-
 			client.Open();
 
 			var sendResult = client.Send(graphable);
-
-			//var temp = sendResult.Code == ResultCode.Accepted ||
-			//	sendResult.Code == ResultCode.AcceptedNonConformant &&
-			//	sendResult.Details.Count(o => o.Type == ResultDetailType.Error) == 0;
 
 #if DEBUG
 			Trace.TraceInformation("Sending HL7v3 message to endpoint: " + client.ConnectionString);
@@ -350,7 +341,6 @@ namespace PatientGenerator.HL7v3
 			{
 				personNames.Add(new PN(EntityNameUse.Legal, new ENXP[]
 				{
-					//new ENXP(item.Prefix, EntityNamePartType.Prefix),
 					new ENXP(item.FirstName, EntityNamePartType.Given),
 					new ENXP(item.LastName, EntityNamePartType.Family)
 				}));
