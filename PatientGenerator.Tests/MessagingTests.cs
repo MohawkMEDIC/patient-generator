@@ -25,17 +25,29 @@ using System.Collections.Generic;
 
 namespace PatientGenerator.Tests
 {
+	/// <summary>
+	/// Contains tests for the messaging component.
+	/// </summary>
 	[TestClass]
 	public class MessagingTests
 	{
+		/// <summary>
+		/// The demographic options.
+		/// </summary>
 		private DemographicOptions options;
-
+		
+		/// <summary>
+		/// Runs cleanup after each test execution.
+		/// </summary>
 		[TestCleanup]
 		public void Cleanup()
 		{
 			options = null;
 		}
-
+		
+		/// <summary>
+		/// Runs initialization before each test execution.
+		/// </summary>
 		[TestInitialize]
 		public void Initialize()
 		{
@@ -106,6 +118,9 @@ namespace PatientGenerator.Tests
 			};
 		}
 
+		/// <summary>
+		/// Tests that a date of birth range contains the start and end values and no exact value.
+		/// </summary>
 		[TestMethod]
 		public void TestDateOfBirthRange()
 		{
@@ -122,6 +137,9 @@ namespace PatientGenerator.Tests
 			Assert.IsFalse(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation fails when a start date of birth and an exact date of birth are provided.
+		/// </summary>
 		[TestMethod]
 		public void TestDateOfBirthRangeNoEnd()
 		{
@@ -138,6 +156,9 @@ namespace PatientGenerator.Tests
 			Assert.IsTrue(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation fails when a end date of birth and an exact date of birth are provided.
+		/// </summary>
 		[TestMethod]
 		public void TestDateOfBirthRangeNoStart()
 		{
@@ -154,6 +175,9 @@ namespace PatientGenerator.Tests
 			Assert.IsTrue(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation fails when a start date of birth, an end date of birth, and an exact date of birth are provided.
+		/// </summary>
 		[TestMethod]
 		public void TestDateOfBirthRangeWithExact()
 		{
@@ -171,6 +195,9 @@ namespace PatientGenerator.Tests
 			Assert.IsTrue(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation passes when no date of birth options are provided.
+		/// </summary>
 		[TestMethod]
 		public void TestEmptyDateOfBirth()
 		{
@@ -183,6 +210,9 @@ namespace PatientGenerator.Tests
 			Assert.IsFalse(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation fails when no assigning authority is provided.
+		/// </summary>
 		[TestMethod]
 		public void TestNullAssigningAuthorityV2()
 		{
@@ -200,6 +230,9 @@ namespace PatientGenerator.Tests
 			Assert.IsTrue(result.HasErrors);
 		}
 
+		/// <summary>
+		/// Tests that the model validation fails when no assigning authority is provided.
+		/// </summary>
 		[TestMethod]
 		public void TestNullAssigningAuthorityV3()
 		{

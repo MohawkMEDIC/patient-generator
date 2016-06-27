@@ -132,7 +132,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the address is empty when no address options are specified.
+		/// Tests that the address is empty when no address options are provided.
 		/// </summary>
 		[TestMethod]
 		public void TestEmptyAddress()
@@ -160,7 +160,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the alternate identifiers are empty when no alternate identifiers are specified.
+		/// Tests that the alternate identifiers are empty when no alternate identifiers are provided.
 		/// </summary>
 		[TestMethod]
 		public void TestEmptyAlternateIdentifiers()
@@ -189,7 +189,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the date of birth is empty when no date of birth is specified.
+		/// Tests that the date of birth is empty when no date of birth is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestEmptyDateOfBirth()
@@ -217,7 +217,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the name is empty when no name is specified.
+		/// Tests that the name is empty when no name is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestEmptyName()
@@ -237,7 +237,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the gender is female when female is specified.
+		/// Tests that the gender is female when female is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestGenderFemale()
@@ -258,7 +258,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the gender is male when male is specified.
+		/// Tests that the gender is male when male is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestGenderMale()
@@ -279,7 +279,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that the gender is undifferentiated when an undifferentiated gender specified.
+		/// Tests that the gender is undifferentiated when an undifferentiated gender is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestGenderUndifferentiated()
@@ -300,7 +300,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that multiple addresses are recorded when multiple addresses are specified.
+		/// Tests that multiple addresses are recorded when multiple addresses are provided.
 		/// </summary>
 		[TestMethod]
 		public void TestMultipleAddresses()
@@ -391,7 +391,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that multiple alternate identifiers are recorded when multiple alternate identifiers are specified.
+		/// Tests that multiple alternate identifiers are recorded when multiple alternate identifiers are provided.
 		/// </summary>
 		[TestMethod]
 		public void TestMultipleAlternateIdentifiers()
@@ -427,7 +427,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests that a partial addresses is recorded when a partial address is specified.
+		/// Tests that a partial addresses is recorded when a partial address is provided.
 		/// </summary>
 		[TestMethod]
 		public void TestPartialAddress()
@@ -467,7 +467,7 @@ namespace PatientGenerator.Tests
 		}
 
 		/// <summary>
-		/// Tests the when two addresses are returned when two addresses are specified.
+		/// Tests the when two addresses are returned when two addresses are provided.
 		/// </summary>
 		[TestMethod]
 		public void TestTwoAddresses()
