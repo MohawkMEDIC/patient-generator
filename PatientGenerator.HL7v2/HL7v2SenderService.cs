@@ -17,11 +17,13 @@
  * Date: 2016-2-28
  */
 
+using NHapi.Base.Model;
 using PatientGenerator.Core;
 using PatientGenerator.Core.Common;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PatientGenerator.HL7v2
@@ -52,12 +54,35 @@ namespace PatientGenerator.HL7v2
 
 		public void Send(IEnumerable<Patient> patients)
 		{
-			throw new NotImplementedException();
+			List<IMessage> messages = new List<IMessage>();
+
+			foreach (var patient in patients)
+			{
+				messages.Add(NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
+				{
+					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+					ReceivingApplication = "CRTEST",
+					ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+					SendingApplication = "SEEDER",
+					SendingFacility = "SEEDING"
+				}));
+			}
+
+			messages.Select(x => NHapiUtil.Sendv2Messages(x));
 		}
 
 		public void Send(Patient patient)
 		{
-			throw new NotImplementedException();
+			var message = NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				ReceivingApplication = "CRTEST",
+				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+				SendingApplication = "SEEDER",
+				SendingFacility = "SEEDING"
+			});
+
+			NHapiUtil.Sendv2Messages(message);
 		}
 
 		public async Task SendAsync(DemographicOptions options)
@@ -68,14 +93,20 @@ namespace PatientGenerator.HL7v2
 			});
 		}
 
-		public Task SendAsync(IEnumerable<Patient> patients)
+		public async Task SendAsync(IEnumerable<Patient> patients)
 		{
-			throw new NotImplementedException();
+			await Task.Factory.StartNew(() =>
+			{
+				this.Send(patients);
+			});
 		}
 
-		public Task SendAsync(Patient patient)
+		public async Task SendAsync(Patient patient)
 		{
-			throw new NotImplementedException();
+			await Task.Factory.StartNew(() =>
+			{
+				this.Send(patient);
+			});
 		}
 	}
 }
