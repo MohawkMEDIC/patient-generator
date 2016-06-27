@@ -27,6 +27,9 @@ using System.Linq;
 
 namespace PatientGenerator.Tests
 {
+	/// <summary>
+	/// Contains tests for HL7v3 message generation.
+	/// </summary>
 	[TestClass]
 	public class HL7v3Tests
 	{
