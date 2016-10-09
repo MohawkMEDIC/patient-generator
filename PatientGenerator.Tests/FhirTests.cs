@@ -17,6 +17,7 @@
  * Date: 2016-2-21
  */
 
+using Hl7.Fhir.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.FHIR;
@@ -120,7 +121,7 @@ namespace PatientGenerator.Tests
 			Assert.IsNull(actual.Address.Select(x => x.Country).FirstOrDefault());
 			Assert.IsNull(actual.Address.Select(x => x.Line).FirstOrDefault());
 			Assert.IsNull(actual.Address.Select(x => x.State).FirstOrDefault());
-			Assert.IsNull(actual.Address.Select(x => x.Zip).FirstOrDefault());
+			Assert.IsNull(actual.Address.Select(x => x.PostalCode).FirstOrDefault());
 		}
 
 		[TestMethod]
@@ -158,7 +159,7 @@ namespace PatientGenerator.Tests
 
 			var actual = FhirUtil.GenerateCandidateRegistry(options);
 
-			Assert.IsNull(actual.Gender.Text);
+			Assert.AreEqual(AdministrativeGender.Unknown, actual.Gender);
 		}
 
 		[TestMethod]

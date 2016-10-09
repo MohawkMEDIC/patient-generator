@@ -51,7 +51,7 @@ namespace PatientGenerator.FHIR
 						address.StreetAddress
 					},
 					State = address.StateProvince,
-					Zip = address.ZipPostalCode
+					PostalCode = address.ZipPostalCode
 				});
 			}
 
@@ -81,8 +81,30 @@ namespace PatientGenerator.FHIR
 				}
 			}
 
-			patient.Gender = new CodeableConcept();
-			patient.Gender.Text = options.Gender;
+			switch (options.Gender)
+			{
+				case "F":
+				case "f":
+				case "female":
+				case "Female":
+					patient.Gender = AdministrativeGender.Female;
+					break;
+				case "M":
+				case "m":
+				case "male":
+				case "Male":
+					patient.Gender = AdministrativeGender.Male;
+					break;
+				case "O":
+				case "o":
+				case "other":
+				case "Other":
+					patient.Gender = AdministrativeGender.Other;
+					break;
+				default:
+					patient.Gender = AdministrativeGender.Unknown;
+					break;
+			}
 
 			patient.Identifier = new List<Identifier>();
 
@@ -112,22 +134,22 @@ namespace PatientGenerator.FHIR
 				patient.Name.Add(humanName);
 			}
 
-			patient.Telecom = new List<Contact>();
+			patient.Telecom = new List<ContactPoint>();
 
 			foreach (var email in options.TelecomOptions.EmailAddresses)
 			{
-				patient.Telecom.Add(new Contact
+				patient.Telecom.Add(new ContactPoint
 				{
-					System = Contact.ContactSystem.Email,
+					System = ContactPoint.ContactPointSystem.Email,
 					Value = email
 				});
 			}
 
 			foreach (var phone in options.TelecomOptions.PhoneNumbers)
 			{
-				patient.Telecom.Add(new Contact
+				patient.Telecom.Add(new ContactPoint
 				{
-					System = Contact.ContactSystem.Phone,
+					System = ContactPoint.ContactPointSystem.Phone,
 					Value = phone
 				});
 			}
@@ -137,33 +159,27 @@ namespace PatientGenerator.FHIR
 
 		public static List<bool> SendFhirMessages(Patient patient)
 		{
-			List<bool> results = new List<bool>();
+			var results = new List<bool>();
 
 			foreach (var endpoint in configuration.Endpoints)
 			{
-				FhirClient client = new FhirClient(new Uri(endpoint.Address));
+				var client = new FhirClient(new Uri(endpoint.Address));
 
 #if DEBUG
 				Trace.TraceInformation("Sending FHIR message to endpoint " + endpoint.ToString());
 #endif
 
-				OperationOutcome outcome = null;
+				var outcome = client.ValidateCreate(patient);
 
-				client.TryValidateCreate(patient, out outcome);
-
-				if (outcome != null)
+				if (outcome?.Fatals > 0 || outcome?.Errors > 0)
 				{
 					Trace.TraceWarning("Pre-validation failed for FHIR message");
-
-					foreach (var issue in outcome.Issue)
-					{
-						Trace.TraceWarning(outcome.Issue.Select(x => x.Details).Aggregate((current, next) => current + ", " + next));
-					}
+					Trace.TraceError($"FHIR Validation Error: {string.Join(", ", outcome.Issue.Select(o => o.Details))}");
 				}
 
 				results.Add(outcome == null);
 
-				client.Create(patient, null, true);
+				client.Create<Patient>(patient);
 			}
 
 			return results;
