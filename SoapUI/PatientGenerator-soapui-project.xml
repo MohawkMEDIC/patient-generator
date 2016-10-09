@@ -247,7 +247,7 @@
    <soapenv:Header/>
    <soapenv:Body>
       <pat:GeneratePatients>
-      <pat:count>20</pat:count>
+      <pat:count>100</pat:count>
          </pat:GeneratePatients>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatients"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bca916e8-b879-419d-a907-1e5c90fd9963" isOneWay="false" action="GeneratePatientsWithOptions" name="GeneratePatientsWithOptions" bindingOperationName="GeneratePatientsWithOptions" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6ce9e481-9e13-4228-8c68-316e7a420a71" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">

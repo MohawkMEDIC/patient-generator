@@ -166,11 +166,6 @@ namespace PatientGenerator.HL7v3
 			return registerPatientRequest;
 		}
 
-		public static IGraphable GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient)
-		{
-			return null;
-		}
-
 		/// <summary>
 		/// Logs an IGraphable message.
 		/// </summary>
