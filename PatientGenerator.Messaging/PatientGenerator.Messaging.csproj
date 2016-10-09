@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationContext.cs" />
     <Compile Include="Model\GenerationResponse.cs" />
     <Compile Include="MessageHandlerService.cs" />
     <Compile Include="MessageReceiver\GenerationService.cs" />

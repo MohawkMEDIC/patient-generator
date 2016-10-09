@@ -31,83 +31,34 @@ namespace PatientGenerator.Messaging
 	public class MessageHandlerService : IMessageHandlerService, IDisposable
 	{
 		/// <summary>
-		/// The IServiceProvider, an inherited member of the IUsesHostContext interface.
-		/// </summary>
-		private IServiceProvider context;
-
-		/// <summary>
 		/// The ServiceHost for WCF services.
 		/// </summary>
 		private ServiceHost serviceHost;
 
 		/// <summary>
-		/// The IServiceProvider context.
+		/// Gets the running state of the message handler.
 		/// </summary>
-		public IServiceProvider Context
-		{
-			get
-			{
-				return this.context;
-			}
-
-			set
-			{
-				this.context = value;
-				ApplicationContext.Context = this.context;
-			}
-		}
+		public bool IsRunning => this.serviceHost?.State == System.ServiceModel.CommunicationState.Opened;
 
 		/// <summary>
-		/// Starts the message handler service.
+		/// Fired when the object is starting up.
 		/// </summary>
-		/// <returns>Returns true if the service(s) started successfully.</returns>
-		public bool Start()
-		{
-			bool status = false;
-
-			serviceHost = new ServiceHost(typeof(GenerationService));
-
-			try
-			{
-				serviceHost.Open();
-				status = true;
-
-				Trace.TraceInformation("Message handler started successfully");
-			}
-			catch (Exception e)
-			{
-				Trace.TraceError("Unable to start message handler");
-				Trace.TraceError(e.ToString());
-				status = false;
-			}
-
-			return status;
-		}
+		public event EventHandler Started;
 
 		/// <summary>
-		/// Stops the message handler service.
+		/// Fired when the object is starting.
 		/// </summary>
-		/// <returns>Returns true if the service(s) stopped successfully.</returns>
-		public bool Stop()
-		{
-			bool status = false;
+		public event EventHandler Starting;
 
-			try
-			{
-				serviceHost.Close();
-				status = true;
+		/// <summary>
+		/// Fired when the service has stopped.
+		/// </summary>
+		public event EventHandler Stopped;
 
-				Trace.TraceInformation("Message handler stopped successfully");
-			}
-			catch (Exception e)
-			{
-				Trace.TraceError("Unable to stop message handler");
-				Trace.TraceError(e.ToString());
-				status = false;
-			}
-
-			return status;
-		}
+		/// <summary>
+		/// Fired when the service is stopping.
+		/// </summary>
+		public event EventHandler Stopping;
 
 		#region IDisposable Support
 
@@ -145,5 +96,63 @@ namespace PatientGenerator.Messaging
 		}
 
 		#endregion IDisposable Support
+
+		/// <summary>
+		/// Starts the message handler service.
+		/// </summary>
+		/// <returns>Returns true if the service(s) started successfully.</returns>
+		public bool Start()
+		{
+			var status = false;
+
+			serviceHost = new ServiceHost(typeof(GenerationService));
+
+			try
+			{
+				this.Starting?.Invoke(this, EventArgs.Empty);
+				serviceHost.Open();
+				status = true;
+
+				Trace.TraceInformation("Message handler started successfully");
+
+				this.Started?.Invoke(this, EventArgs.Empty);
+			}
+			catch (Exception e)
+			{
+				Trace.TraceError("Unable to start message handler");
+				Trace.TraceError(e.ToString());
+				status = false;
+			}
+
+			return status;
+		}
+
+		/// <summary>
+		/// Stops the message handler service.
+		/// </summary>
+		/// <returns>Returns true if the service(s) stopped successfully.</returns>
+		public bool Stop()
+		{
+			var status = false;
+
+			try
+			{
+				this.Stopping?.Invoke(this, EventArgs.Empty);
+				serviceHost.Close();
+				status = true;
+
+				Trace.TraceInformation("Message handler stopped successfully");
+
+				this.Stopped?.Invoke(this, EventArgs.Empty);
+			}
+			catch (Exception e)
+			{
+				Trace.TraceError("Unable to stop message handler");
+				Trace.TraceError(e.ToString());
+				status = false;
+			}
+
+			return status;
+		}
 	}
 }

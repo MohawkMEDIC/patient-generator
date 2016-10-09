@@ -17,6 +17,7 @@
  * Date: 2016-3-12
  */
 
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
@@ -27,20 +28,26 @@ namespace PatientGenerator.Randomizer
 	{
 		protected virtual T LoadData(string filename)
 		{
-			var entryAssembly = Assembly.GetEntryAssembly();
+			if (filename == null)
+			{
+				throw new ArgumentNullException($"{nameof(filename)} cannot be null");
+			}
 
-			string fn = Path.Combine(Path.GetDirectoryName(filename));
+			var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetDirectoryName(filename), Path.GetFileName(filename));
 
-			FileStream fs = null;
+			FileStream fileStream = null;
+
 			try
 			{
-				fs = File.OpenRead(fn);
-				XmlSerializer xsz = new XmlSerializer(typeof(T));
-				return xsz.Deserialize(fs) as T;
+				fileStream = File.OpenRead(file);
+
+				var xsz = new XmlSerializer(typeof(T));
+
+				return xsz.Deserialize(fileStream) as T;
 			}
 			finally
 			{
-				fs?.Dispose();
+				fileStream?.Dispose();
 			}
 		}
 	}

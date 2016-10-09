@@ -34,29 +34,24 @@ namespace PatientGenerator.Messaging.MessageReceiver
 	/// <summary>
 	/// Provides operations to generate patients.
 	/// </summary>
-	public class GenerationService : IGenerationService, IDisposable
+	public class GenerationService : IGenerationService
 	{
-		private HostContext context;
-
-		private IFhirSenderService fhirSenderService;
-		private IHL7v2SenderService hl7v2SenderService;
-		private IHL7v3SenderService hl7v3SenderService;
-		private IPersistenceService persistenceService;
-		private IRandomizerService randomizerService;
+		private readonly IFhirSenderService fhirSenderService;
+		private readonly IHL7v2SenderService hl7v2SenderService;
+		private readonly IHL7v3SenderService hl7v3SenderService;
+		private readonly IPersistenceService persistenceService;
+		private readonly IRandomizerService randomizerService;
 
 		/// <summary>
 		/// Initializes a new instance of the GenerationService class.
 		/// </summary>
 		public GenerationService()
 		{
-			context = new HostContext();
-			ApplicationContext.Context = context;
-
-			fhirSenderService = context.GetService(typeof(IFhirSenderService)) as IFhirSenderService;
-			hl7v2SenderService = context.GetService(typeof(IHL7v2SenderService)) as IHL7v2SenderService;
-			hl7v3SenderService = context.GetService(typeof(IHL7v3SenderService)) as IHL7v3SenderService;
-			persistenceService = context.GetService(typeof(IPersistenceService)) as IPersistenceService;
-			randomizerService = context.GetService(typeof(IRandomizerService)) as IRandomizerService;
+			fhirSenderService = ApplicationContext.Current.GetService<IFhirSenderService>();
+			hl7v2SenderService = ApplicationContext.Current.GetService<IHL7v2SenderService>();
+			hl7v3SenderService = ApplicationContext.Current.GetService<IHL7v3SenderService>();
+			persistenceService = ApplicationContext.Current.GetService<IPersistenceService>();
+			randomizerService = ApplicationContext.Current.GetService<IRandomizerService>();
 		}
 
 		#region IGenerationService Members
@@ -127,42 +122,5 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		}
 
 		#endregion IGenerationService Members
-
-		#region IDisposable Support
-
-		private bool disposedValue = false; // To detect redundant calls
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					((IDisposable)this.context)?.Dispose();
-				}
-
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
-
-				disposedValue = true;
-			}
-		}
-
-		// TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-		// ~GenerationService() {
-		//   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-		//   Dispose(false);
-		// }
-
-		// This code added to correctly implement the disposable pattern.
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-			Dispose(true);
-			// TODO: uncomment the following line if the finalizer is overridden above.
-			// GC.SuppressFinalize(this);
-		}
-
-		#endregion IDisposable Support
 	}
 }

@@ -17,7 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll = Solution Items\MARC.Everest.RMIM.UV.CDAr2.dll
 		Solution Items\MARC.HI.EHRS.SVC.Core.dll = Solution Items\MARC.HI.EHRS.SVC.Core.dll
 		Solution Items\MohawkCollege.Util.Console.Parameters.dll = Solution Items\MohawkCollege.Util.Console.Parameters.dll
-		Solution Items\Newtonsoft.Json.dll = Solution Items\Newtonsoft.Json.dll
 		Solution Items\OHIPUtilities.dll = Solution Items\OHIPUtilities.dll
 	EndProjectSection
 EndProject

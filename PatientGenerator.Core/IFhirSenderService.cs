@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.Core
 {
-	public interface IFhirSenderService : IUsesHostContext
+	public interface IFhirSenderService
 	{
 		void Send(DemographicOptions options);
 

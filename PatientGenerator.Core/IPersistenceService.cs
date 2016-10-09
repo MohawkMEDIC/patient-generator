@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.Core
 {
-	public interface IPersistenceService : IUsesHostContext
+	public interface IPersistenceService
 	{
 		bool Save(DemographicOptions options);
 

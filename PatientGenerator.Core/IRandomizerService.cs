@@ -22,7 +22,7 @@ using PatientGenerator.Core.Common;
 
 namespace PatientGenerator.Core
 {
-	public interface IRandomizerService : IUsesHostContext
+	public interface IRandomizerService
 	{
 		Patient GetRandomPatient();
 	}
