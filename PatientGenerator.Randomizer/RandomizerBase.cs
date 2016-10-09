@@ -27,7 +27,10 @@ namespace PatientGenerator.Randomizer
 	{
 		protected virtual T LoadData(string filename)
 		{
-			string fn = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), filename);
+			var entryAssembly = Assembly.GetEntryAssembly();
+
+			string fn = Path.Combine(Path.GetDirectoryName(filename));
+
 			FileStream fs = null;
 			try
 			{
