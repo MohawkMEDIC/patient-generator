@@ -60,11 +60,11 @@ namespace PatientGenerator.HL7v2
 			{
 				messages.Add(NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
 				{
-					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.9.2.10000",
 					ReceivingApplication = "CRTEST",
 					ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-					SendingApplication = "SEEDER",
-					SendingFacility = "SEEDING"
+					SendingApplication = "Test",
+					SendingFacility = "Test"
 				}));
 			}
 
@@ -75,11 +75,11 @@ namespace PatientGenerator.HL7v2
 		{
 			var message = NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
 			{
-				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.9.2.10000",
 				ReceivingApplication = "CRTEST",
 				ReceivingFacility = "Mohawk College of Applied Arts and Technology",
-				SendingApplication = "SEEDER",
-				SendingFacility = "SEEDING"
+				SendingApplication = "Test",
+				SendingFacility = "Test"
 			});
 
 			NHapiUtil.Sendv2Messages(message);
