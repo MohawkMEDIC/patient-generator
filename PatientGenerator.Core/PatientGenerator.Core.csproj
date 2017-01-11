@@ -50,6 +50,7 @@
     <Compile Include="ComponentModel\DemographicOptions.cs" />
     <Compile Include="ComponentModel\NameOptions.cs" />
     <Compile Include="Common\Metadata.cs" />
+    <Compile Include="ComponentModel\RelatedPersonOptions.cs" />
     <Compile Include="IFhirSenderService.cs" />
     <Compile Include="IHL7v2SenderService.cs" />
     <Compile Include="IHL7v3SenderService.cs" />
