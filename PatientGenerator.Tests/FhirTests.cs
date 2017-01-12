@@ -91,21 +91,21 @@ namespace PatientGenerator.Tests
 						LastName = "Richtofen"
 					}
 				},
-				OtherIdentifiers = new Dictionary<string, string>
-				{
-					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.0." + new Random(DateTime.Now.Millisecond).Next(100, 10000), Guid.NewGuid().ToString("N")
-					},
-					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.1." + new Random(DateTime.Now.Second).Next(100, 10000), Guid.NewGuid().ToString("N")
-					},
-					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.2." + new Random(DateTime.Now.Minute).Next(100, 10000), Guid.NewGuid().ToString("N")
-					},
-					{
-						"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
-					}
-				},
+				//OtherIdentifiers = new Dictionary<string, string>
+				//{
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.0." + new Random(DateTime.Now.Millisecond).Next(100, 10000), Guid.NewGuid().ToString("N")
+				//	},
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.1." + new Random(DateTime.Now.Second).Next(100, 10000), Guid.NewGuid().ToString("N")
+				//	},
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.2." + new Random(DateTime.Now.Minute).Next(100, 10000), Guid.NewGuid().ToString("N")
+				//	},
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
+				//	}
+				//},
 				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}

@@ -75,7 +75,7 @@ namespace PatientGenerator.Persistence.DAL
 				person.AlternateIdentifiers.Add(new AlternateIdentifier
 				{
 					CreationTimestamp = DateTime.Now,
-					Key = item.Key,
+					Key = item.AssigningAuthority,
 					Value = item.Value
 				});
 			}

@@ -110,7 +110,7 @@ namespace PatientGenerator.FHIR
 
 			foreach (var identifier in options.OtherIdentifiers)
 			{
-				patient.Identifier.Add(new Identifier(identifier.Key, identifier.Value));
+				patient.Identifier.Add(new Identifier(identifier.AssigningAuthority, identifier.Value));
 			}
 
 			patient.Name = new List<HumanName>();

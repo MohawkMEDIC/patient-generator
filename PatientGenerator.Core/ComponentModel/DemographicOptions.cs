@@ -35,7 +35,7 @@ namespace PatientGenerator.Core.ComponentModel
             this.Addresses = new List<AddressOptions>();
             this.DateOfBirthOptions = new DateOfBirthOptions();
             this.Names = new List<NameOptions>();
-            this.OtherIdentifiers = new Dictionary<string, string>();
+            this.OtherIdentifiers = new List<AlternateIdentifierOptions>();
             this.RelatedPersons = new List<RelatedPersonOptions>();
             this.TelecomOptions = new TelecomOptions();
 		}
@@ -78,7 +78,7 @@ namespace PatientGenerator.Core.ComponentModel
 		/// <summary>
 		/// Any other identifiers or alt ids for the patient.
 		/// </summary>
-		public Dictionary<string, string> OtherIdentifiers { get; set; }
+		public List<AlternateIdentifierOptions> OtherIdentifiers { get; set; }
 
 		/// <summary>
 		/// Telecom options for the patient.

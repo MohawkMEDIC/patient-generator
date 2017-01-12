@@ -69,7 +69,7 @@ namespace PatientGenerator.HL7v2
             cx.IDNumber.Value = options.PersonIdentifier;
             cx.AssigningAuthority.UniversalID.Value = options.Metadata.AssigningAuthority;
             cx.AssigningAuthority.UniversalIDType.Value = "ISO";
-
+        
             pid.AdministrativeSex.Value = options.Gender;
 
             if (options.DateOfBirthOptions != null)
@@ -78,6 +78,13 @@ namespace PatientGenerator.HL7v2
                 {
                     pid.DateTimeOfBirth.Time.SetShortDate(options.DateOfBirthOptions.Exact.Value);
                 }
+            }
+
+            for (int i = 0; i < options.OtherIdentifiers.Count; i++)
+            {
+                pid.GetAlternatePatientIDPID(i).IDNumber.Value = options.OtherIdentifiers[i].Value;
+                pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalID.Value = options.OtherIdentifiers[i].AssigningAuthority;
+                pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalIDType.Value = options.OtherIdentifiers[i].Type;
             }
 
             for (int i = 0; i < options.Names.Count; i++)

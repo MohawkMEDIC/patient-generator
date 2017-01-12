@@ -115,21 +115,21 @@ namespace PatientGenerator.Tests
 						}
 					}
 				},
-				OtherIdentifiers = new Dictionary<string, string>
-				{
-					{
-						"1.3.6.1.4.1.33349.3.1.3.12", Guid.NewGuid().ToString("N")
-					},
-					{
-						"1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")
-					},
-					{
-						"1.3.6.1.4.1.33349.3.1.2.99121.9992", new Random(DateTime.Now.Second).Next(100, 10000).ToString()
-					},
-					{
-						"1.3.6.1.4.1.33349.3.1.3.201203.1.0", new Random(DateTime.Now.Millisecond).Next(100, 10000).ToString()
-					}
-				},
+				//OtherIdentifiers = new Dictionary<string, string>
+				//{
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.3.12", Guid.NewGuid().ToString("N")
+				//	},
+				//	{
+				//		"1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")
+				//	},
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.2.99121.9992", new Random(DateTime.Now.Second).Next(100, 10000).ToString()
+				//	},
+				//	{
+				//		"1.3.6.1.4.1.33349.3.1.3.201203.1.0", new Random(DateTime.Now.Millisecond).Next(100, 10000).ToString()
+				//	}
+				//},
 				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}
@@ -407,9 +407,9 @@ namespace PatientGenerator.Tests
 				LastName = "Gretzky",
 			});
 
-			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.100.0", "8385-171-683-CX");
-			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX");
-			options.OtherIdentifiers.Add("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX");
+			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.100.0", "8385-171-683-CX"));
+			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX"));
+			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX"));
 
 			var actual = EverestUtil.GenerateCandidateRegistry(options);
 
