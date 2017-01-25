@@ -17,7 +17,7 @@ namespace PatientGenerator.Core.ComponentModel
         /// The relationship of this person to the patient. Stored as a relationship code.
         /// https://www.hl7.org/fhir/v2/0063/index.html
         /// </summary>
-        public string Relationship { get; set; }
+        public PatientRelationshipType Relationship { get; set; }
 
         /// <summary>
         /// The phone number of the related person to the patient.
@@ -28,5 +28,14 @@ namespace PatientGenerator.Core.ComponentModel
         /// The address of the related person to the patient.
         /// </summary>
         public List<AddressOptions> Address { get; set; }
+
+        /// <summary>
+        /// Definition for the available relationships to add to the patient.
+        /// </summary>
+        public enum PatientRelationshipType
+        {
+            MTH,
+            FTH
+        }
     }
 }

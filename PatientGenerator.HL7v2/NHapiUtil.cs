@@ -19,9 +19,9 @@
 
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
-using NHapi.Model.V25.Datatype;
-using NHapi.Model.V25.Message;
-using NHapi.Model.V25.Segment;
+using NHapi.Model.V231.Datatype;
+using NHapi.Model.V231.Message;
+using NHapi.Model.V231.Segment;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2.Configuration;
 using System;
@@ -41,10 +41,10 @@ namespace PatientGenerator.HL7v2
             ADT_A01 message = new ADT_A01();
 
             message.MSH.AcceptAcknowledgmentType.Value = "AL";
-            message.MSH.DateTimeOfMessage.Time.Value = DateTime.Now.ToString("yyyyMMddHHmmss");
+            message.MSH.DateTimeOfMessage.TimeOfAnEvent.Value = DateTime.Now.ToString("yyyyMMddHHmmss");
             message.MSH.MessageControlID.Value = Guid.NewGuid().ToString();
             message.MSH.MessageType.MessageStructure.Value = "ADT_A01";
-            message.MSH.MessageType.MessageCode.Value = "ADT";
+            message.MSH.MessageType.MessageType.Value = "ADT";
             message.MSH.MessageType.TriggerEvent.Value = "A01";
             message.MSH.ProcessingID.ProcessingID.Value = "P";
 
@@ -63,26 +63,26 @@ namespace PatientGenerator.HL7v2
             ADT_A01 message = CreateBaseMessage(options.Metadata) as ADT_A01;
 
             PID pid = message.PID;
-
+            
             var cx = pid.GetPatientIdentifierList(0);
 
-            cx.IDNumber.Value = options.PersonIdentifier;
+            cx.ID.Value = options.PersonIdentifier;
             cx.AssigningAuthority.UniversalID.Value = options.Metadata.AssigningAuthority;
             cx.AssigningAuthority.UniversalIDType.Value = "ISO";
         
-            pid.AdministrativeSex.Value = options.Gender;
+            pid.Sex.Value = options.Gender;
 
             if (options.DateOfBirthOptions != null)
             {
                 if (options.DateOfBirthOptions.Exact.HasValue)
                 {
-                    pid.DateTimeOfBirth.Time.SetShortDate(options.DateOfBirthOptions.Exact.Value);
+                    pid.DateTimeOfBirth.TimeOfAnEvent.SetShortDate(options.DateOfBirthOptions.Exact.Value);
                 }
             }
 
             for (int i = 0; i < options.OtherIdentifiers.Count; i++)
             {
-                pid.GetAlternatePatientIDPID(i).IDNumber.Value = options.OtherIdentifiers[i].Value;
+                pid.GetAlternatePatientIDPID(i).ID.Value = options.OtherIdentifiers[i].Value;
                 pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalID.Value = options.OtherIdentifiers[i].AssigningAuthority;
                 pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalIDType.Value = options.OtherIdentifiers[i].Type;
             }
@@ -90,21 +90,21 @@ namespace PatientGenerator.HL7v2
             for (int i = 0; i < options.Names.Count; i++)
             {
                 pid.GetPatientName(i).GivenName.Value = options.Names.ToArray()[i].FirstName;
-                pid.GetPatientName(i).FamilyName.Surname.Value = options.Names.ToArray()[i].LastName;
+                pid.GetPatientName(i).FamilyLastName.FamilyName.Value = options.Names.ToArray()[i].LastName;
                 pid.GetPatientName(i).PrefixEgDR.Value = options.Names.ToArray()[i].Prefix;
-                pid.GetPatientName(i).ProfessionalSuffix.Value = options.Names.ToArray()[i].Suffixes.FirstOrDefault();
+                pid.GetPatientName(i).SuffixEgJRorIII.Value = options.Names.ToArray()[i].Suffixes.FirstOrDefault();
 
                 var middleNames = options.Names.Select(x => x.MiddleNames).ToArray()[i];
 
                 if (middleNames.Count > 0)
                 {
-                    pid.GetPatientName(i).SecondAndFurtherGivenNamesOrInitialsThereof.Value = middleNames.Aggregate((a, b) => a + " " + b);
+                    pid.GetPatientName(i).MiddleInitialOrName.Value = middleNames.Aggregate((a, b) => a + " " + b);
                 }
             }
 
             for (int i = 0; i < options.Addresses.Count; i++)
             {
-                pid.GetPatientAddress(i).StreetAddress.StreetOrMailingAddress.Value = options.Addresses.ToArray()[i].StreetAddress;
+                pid.GetPatientAddress(i).StreetAddress.Value = options.Addresses.ToArray()[i].StreetAddress;
                 pid.GetPatientAddress(i).City.Value = options.Addresses.ToArray()[i].City;
                 pid.GetPatientAddress(i).StateOrProvince.Value = options.Addresses.ToArray()[i].StateProvince;
                 pid.GetPatientAddress(i).ZipOrPostalCode.Value = options.Addresses.ToArray()[i].ZipPostalCode;
@@ -113,34 +113,9 @@ namespace PatientGenerator.HL7v2
 
             for (int i = 0; i < options.TelecomOptions.PhoneNumbers.Count; i++)
             {
-                pid.GetPhoneNumberHome(i).TelephoneNumber.Value = options.TelecomOptions.PhoneNumbers[i];
+                pid.GetPhoneNumberHome(i).AnyText.Value = options.TelecomOptions.PhoneNumbers[i];
             }
-
-            for (int i = 0; i < options.RelatedPersons.Count; i++)
-            {
-                var nk1 = message.AddNK1();
-
-                nk1.Relationship.AlternateIdentifier.Value = options.RelatedPersons[i].Relationship;
-                nk1.GetPhoneNumber(i).TelephoneNumber.Value = options.RelatedPersons[i].Phone;
-
-                for (int j = 0; j < options.RelatedPersons[i].Names.Count; j++)
-                {
-                    nk1.GetName(j).GivenName.Value = options.Names.ToArray()[j].FirstName;
-                    nk1.GetName(j).FamilyName.Surname.Value = options.Names.ToArray()[j].LastName;
-                    nk1.GetName(j).PrefixEgDR.Value = options.Names.ToArray()[j].Prefix;
-                    nk1.GetName(j).ProfessionalSuffix.Value = options.Names.ToArray()[j].Suffixes.FirstOrDefault();
-                }
-
-                for (int k = 0; k < options.RelatedPersons[i].Address.Count; k++)
-                {
-                    nk1.GetAddress(k).StreetAddress.StreetOrMailingAddress.Value = options.Addresses.ToArray()[k].StreetAddress;
-                    nk1.GetAddress(k).City.Value = options.Addresses.ToArray()[k].City;
-                    nk1.GetAddress(k).StateOrProvince.Value = options.Addresses.ToArray()[k].StateProvince;
-                    nk1.GetAddress(k).ZipOrPostalCode.Value = options.Addresses.ToArray()[k].ZipPostalCode;
-                    nk1.GetAddress(k).Country.Value = options.Addresses.ToArray()[k].Country;
-                }
-            }
-
+            
             return message;
         }
 
@@ -152,17 +127,17 @@ namespace PatientGenerator.HL7v2
 
             var cx = pid.GetPatientIdentifierList(0);
 
-            cx.IDNumber.Value = patient.HealthCardNo;
+            cx.ID.Value = patient.HealthCardNo;
             cx.AssigningAuthority.UniversalID.Value = metadata.AssigningAuthority;
             cx.AssigningAuthority.UniversalIDType.Value = "ISO";
 
-            pid.AdministrativeSex.Value = patient.Gender;
-            pid.DateTimeOfBirth.Time.SetShortDate(patient.DateOfBirth);
+            pid.Sex.Value = patient.Gender;
+            pid.DateTimeOfBirth.TimeOfAnEvent.SetShortDate(patient.DateOfBirth);
 
             pid.GetPatientName(0).GivenName.Value = patient.FirstName;
-            pid.GetPatientName(0).FamilyName.Surname.Value = patient.LastName;
+            pid.GetPatientName(0).FamilyLastName.FamilyName.Value = patient.LastName;
 
-            pid.GetPatientAddress(0).StreetAddress.StreetOrMailingAddress.Value = patient.AddressLine;
+            pid.GetPatientAddress(0).StreetAddress.Value = patient.AddressLine;
             pid.GetPatientAddress(0).City.Value = patient.City;
             pid.GetPatientAddress(0).StateOrProvince.Value = patient.Province;
             pid.GetPatientAddress(0).ZipOrPostalCode.Value = patient.PostalCode;
@@ -191,6 +166,40 @@ namespace PatientGenerator.HL7v2
                 Trace.TraceInformation("Sending to endpoint: " + endpoint.ToString());
 
                 IMessage response = sender.SendAndReceive(message);
+
+                var parsedResponse = parser.Encode(response);
+
+#if DEBUG
+                Trace.TraceInformation("Response: " + Environment.NewLine);
+                Trace.TraceInformation(parsedResponse.ToString());
+#endif
+                messages.Add(response);
+            }
+
+            return messages;
+        }
+
+        public static IEnumerable<IMessage> Sendv2MessagesBySsl(IMessage message, List<LlpEndpoint> addresses, string thumbprint)
+        {
+            List<IMessage> messages = new List<IMessage>();
+
+            foreach (var endpoint in addresses)
+            {
+                //MllpMessageSender sender = new MllpMessageSender(new Uri(endpoint.Address));
+                SslMessageSender sender = new SslMessageSender(new Uri(endpoint.Address));
+
+                PipeParser parser = new PipeParser();
+
+                var parsedMessage = parser.Encode(message);
+
+#if DEBUG
+                Trace.TraceInformation("Request: " + Environment.NewLine);
+                Trace.TraceInformation(parsedMessage.ToString());
+#endif
+
+                Trace.TraceInformation("Sending to endpoint: " + endpoint.ToString());
+                
+                IMessage response = sender.SendAndReceive(message, thumbprint);
 
                 var parsedResponse = parser.Encode(response);
 
