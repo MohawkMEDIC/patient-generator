@@ -29,15 +29,15 @@ namespace PatientGenerator.FHIR.Configuration
 	{
 		public object Create(object parent, object configContext, XmlNode section)
 		{
-			FhirConfigurationSection configurationSection = new FhirConfigurationSection();
+			var configurationSection = new FhirConfigurationSection();
 
-			XmlElement endpointsNode = section.SelectSingleNode("./*[local-name() = 'endpoints']") as XmlElement;
+			var endpointsNode = section.SelectSingleNode("./*[local-name() = 'endpoints']") as XmlElement;
 
-			XmlNodeList endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']") as XmlNodeList;
+			var endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']") as XmlNodeList;
 
 			foreach (XmlNode item in endpoints)
 			{
-				FhirEndpoint endpoint = new FhirEndpoint
+				var endpoint = new FhirEndpoint
 				{
 					Address = item.Attributes["address"].Value,
 					Name = item.Attributes["name"].Value

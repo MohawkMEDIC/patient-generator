@@ -1,8 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="7737e74e-f316-44d7-b3e7-270c893477f8" activeEnvironment="Default" name="PatientGenerator" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8d9e3385-3994-47a7-acbc-4a6f87d89657" wsaVersion="NONE" name="BasicHttpBinding_IGenerationService" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IGenerationService" soapVersion="1_1" anonymous="optional" definition="http://localhost:8000/patientgenerator?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8000/patientgenerator?wsdl"><con:part><con:url>http://localhost:8000/patientgenerator?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GenerationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:i0="http://marc-hi.ca/xmlns/patgensvc" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-  <wsdl:import namespace="http://marc-hi.ca/xmlns/patgensvc" location="http://localhost:8000/patientgenerator?wsdl=wsdl0"/>
-  <wsdl:types/>
-  <wsdl:binding name="BasicHttpBinding_IGenerationService" type="i0:IGenerationService">
+<con:soapui-project id="7737e74e-f316-44d7-b3e7-270c893477f8" activeEnvironment="Default" name="PatientGenerator" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="8d9e3385-3994-47a7-acbc-4a6f87d89657" wsaVersion="NONE" name="BasicHttpBinding_IGenerationService" type="wsdl" bindingName="{http://marc-hi.ca/xmlns/patgensvc}BasicHttpBinding_IGenerationService" soapVersion="1_1" anonymous="optional" definition="http://localhost:8000/patientgenerator?singleWsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8000/patientgenerator?singleWsdl"><con:part><con:url>http://localhost:8000/patientgenerator?singleWsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GenerationService" targetNamespace="http://marc-hi.ca/xmlns/patgensvc" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://marc-hi.ca/xmlns/patgensvc" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://marc-hi.ca/xmlns/patgensvc" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel"/>
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
+      <xs:element name="GeneratePatientsWithOptions">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="options" nillable="true" type="q1:DemographicOptions" xmlns:q1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GeneratePatientsWithOptionsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GeneratePatientsWithOptionsResult" nillable="true" type="q2:GenerationResponse" xmlns:q2="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GeneratePatients">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="count" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GeneratePatientsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GeneratePatientsResult" nillable="true" type="q3:GenerationResponse" xmlns:q3="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+      <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+      <xs:element name="byte" nillable="true" type="xs:byte"/>
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+      <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+      <xs:element name="double" nillable="true" type="xs:double"/>
+      <xs:element name="float" nillable="true" type="xs:float"/>
+      <xs:element name="int" nillable="true" type="xs:int"/>
+      <xs:element name="long" nillable="true" type="xs:long"/>
+      <xs:element name="QName" nillable="true" type="xs:QName"/>
+      <xs:element name="short" nillable="true" type="xs:short"/>
+      <xs:element name="string" nillable="true" type="xs:string"/>
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+      <xs:element name="char" nillable="true" type="tns:char"/>
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int"/>
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration"/>
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid"/>
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName"/>
+      <xs:attribute name="Id" type="xs:ID"/>
+      <xs:attribute name="Ref" type="xs:IDREF"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common"/>
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+      <xs:complexType name="DemographicOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddressOptions"/>
+          <xs:element minOccurs="0" name="DateOfBirthOptions" nillable="true" type="tns:DateOfBirthOptions"/>
+          <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Metadata" nillable="true" type="q1:Metadata" xmlns:q1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common"/>
+          <xs:element minOccurs="0" name="Names" nillable="true" type="tns:ArrayOfNameOptions"/>
+          <xs:element minOccurs="0" name="OtherIdentifiers" nillable="true" type="q2:ArrayOfKeyValueOfstringstring" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+          <xs:element minOccurs="0" name="PersonIdentifier" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="TelecomOptions" nillable="true" type="tns:TelecomOptions"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DemographicOptions" nillable="true" type="tns:DemographicOptions"/>
+      <xs:complexType name="ArrayOfAddressOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressOptions" nillable="true" type="tns:AddressOptions"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAddressOptions" nillable="true" type="tns:ArrayOfAddressOptions"/>
+      <xs:complexType name="AddressOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="StateProvince" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="StreetAddress" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ZipPostalCode" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AddressOptions" nillable="true" type="tns:AddressOptions"/>
+      <xs:complexType name="DateOfBirthOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="End" nillable="true" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="Exact" nillable="true" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DateOfBirthOptions" nillable="true" type="tns:DateOfBirthOptions"/>
+      <xs:complexType name="ArrayOfNameOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="NameOptions" nillable="true" type="tns:NameOptions"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfNameOptions" nillable="true" type="tns:ArrayOfNameOptions"/>
+      <xs:complexType name="NameOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="MiddleNames" nillable="true" type="q3:ArrayOfstring" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+          <xs:element minOccurs="0" name="Prefix" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Suffixes" nillable="true" type="q4:ArrayOfstring" xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="NameOptions" nillable="true" type="tns:NameOptions"/>
+      <xs:complexType name="TelecomOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EmailAddresses" nillable="true" type="q5:ArrayOfstring" xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+          <xs:element minOccurs="0" name="PhoneNumbers" nillable="true" type="q6:ArrayOfstring" xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TelecomOptions" nillable="true" type="tns:TelecomOptions"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common">
+      <xs:complexType name="Metadata">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AssigningAuthority" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ReceivingApplication" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ReceivingFacility" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="SendingApplication" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="SendingFacility" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="UseFhir" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UseHL7v2" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="UseHL7v3" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Metadata" nillable="true" type="tns:Metadata"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring"/>
+      <xs:complexType name="ArrayOfKeyValueOfstringstring">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Key" nillable="true" type="xs:string"/>
+                <xs:element name="Value" nillable="true" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+      <xs:complexType name="GenerationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HasErrors" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="q1:ArrayOfstring" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GenerationResponse" nillable="true" type="tns:GenerationResponse"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IGenerationService_GeneratePatientsWithOptions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratePatientsWithOptions"/>
+  </wsdl:message>
+  <wsdl:message name="IGenerationService_GeneratePatientsWithOptions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratePatientsWithOptionsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="IGenerationService_GeneratePatients_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratePatients"/>
+  </wsdl:message>
+  <wsdl:message name="IGenerationService_GeneratePatients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratePatientsResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="IGenerationService">
+    <wsdl:operation name="GeneratePatientsWithOptions">
+      <wsdl:input wsaw:Action="GeneratePatientsWithOptions" message="tns:IGenerationService_GeneratePatientsWithOptions_InputMessage"/>
+      <wsdl:output wsaw:Action="http://marc-hi.ca/xmlns/patgensvc/IGenerationService/GeneratePatientsWithOptionsResponse" message="tns:IGenerationService_GeneratePatientsWithOptions_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePatients">
+      <wsdl:input wsaw:Action="GeneratePatients" message="tns:IGenerationService_GeneratePatients_InputMessage"/>
+      <wsdl:output wsaw:Action="http://marc-hi.ca/xmlns/patgensvc/IGenerationService/GeneratePatientsResponse" message="tns:IGenerationService_GeneratePatients_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IGenerationService" type="tns:IGenerationService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="GeneratePatientsWithOptions">
       <soap:operation soapAction="GeneratePatientsWithOptions" style="document"/>
@@ -28,227 +238,11 @@
       <soap:address location="http://localhost:8000/patientgenerator"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?wsdl=wsdl0</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://marc-hi.ca/xmlns/patgensvc" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://marc-hi.ca/xmlns/patgensvc" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
-  <wsdl:types>
-    <xsd:schema targetNamespace="http://marc-hi.ca/xmlns/patgensvc/Imports">
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd0" namespace="http://marc-hi.ca/xmlns/patgensvc"/>
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel"/>
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common"/>
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-      <xsd:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
-    </xsd:schema>
-  </wsdl:types>
-  <wsdl:message name="IGenerationService_GeneratePatientsWithOptions_InputMessage">
-    <wsdl:part name="parameters" element="tns:GeneratePatientsWithOptions"/>
-  </wsdl:message>
-  <wsdl:message name="IGenerationService_GeneratePatientsWithOptions_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GeneratePatientsWithOptionsResponse"/>
-  </wsdl:message>
-  <wsdl:message name="IGenerationService_GeneratePatients_InputMessage">
-    <wsdl:part name="parameters" element="tns:GeneratePatients"/>
-  </wsdl:message>
-  <wsdl:message name="IGenerationService_GeneratePatients_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GeneratePatientsResponse"/>
-  </wsdl:message>
-  <wsdl:portType name="IGenerationService">
-    <wsdl:operation name="GeneratePatientsWithOptions">
-      <wsdl:input wsaw:Action="GeneratePatientsWithOptions" message="tns:IGenerationService_GeneratePatientsWithOptions_InputMessage"/>
-      <wsdl:output wsaw:Action="http://marc-hi.ca/xmlns/patgensvc/IGenerationService/GeneratePatientsWithOptionsResponse" message="tns:IGenerationService_GeneratePatientsWithOptions_OutputMessage"/>
-    </wsdl:operation>
-    <wsdl:operation name="GeneratePatients">
-      <wsdl:input wsaw:Action="GeneratePatients" message="tns:IGenerationService_GeneratePatients_InputMessage"/>
-      <wsdl:output wsaw:Action="http://marc-hi.ca/xmlns/patgensvc/IGenerationService/GeneratePatientsResponse" message="tns:IGenerationService_GeneratePatients_OutputMessage"/>
-    </wsdl:operation>
-  </wsdl:portType>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd0</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://marc-hi.ca/xmlns/patgensvc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://marc-hi.ca/xmlns/patgensvc">
-  <xs:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel"/>
-  <xs:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
-  <xs:element name="GeneratePatientsWithOptions">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="options" nillable="true" type="q1:DemographicOptions" xmlns:q1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GeneratePatientsWithOptionsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GeneratePatientsWithOptionsResult" nillable="true" type="q2:GenerationResponse" xmlns:q2="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GeneratePatients">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="count" type="xs:int"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GeneratePatientsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GeneratePatientsResult" nillable="true" type="q3:GenerationResponse" xmlns:q3="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd2</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel">
-  <xs:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common"/>
-  <xs:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-  <xs:complexType name="DemographicOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddressOptions"/>
-      <xs:element minOccurs="0" name="DateOfBirthOptions" nillable="true" type="tns:DateOfBirthOptions"/>
-      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="Metadata" nillable="true" type="q1:Metadata" xmlns:q1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common"/>
-      <xs:element minOccurs="0" name="Names" nillable="true" type="tns:ArrayOfNameOptions"/>
-      <xs:element minOccurs="0" name="OtherIdentifiers" nillable="true" type="q2:ArrayOfKeyValueOfstringstring" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-      <xs:element minOccurs="0" name="PersonIdentifier" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="TelecomOptions" nillable="true" type="tns:TelecomOptions"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DemographicOptions" nillable="true" type="tns:DemographicOptions"/>
-  <xs:complexType name="ArrayOfAddressOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressOptions" nillable="true" type="tns:AddressOptions"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAddressOptions" nillable="true" type="tns:ArrayOfAddressOptions"/>
-  <xs:complexType name="AddressOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="StateProvince" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="StreetAddress" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="ZipPostalCode" nillable="true" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="AddressOptions" nillable="true" type="tns:AddressOptions"/>
-  <xs:complexType name="DateOfBirthOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="End" nillable="true" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="Exact" nillable="true" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DateOfBirthOptions" nillable="true" type="tns:DateOfBirthOptions"/>
-  <xs:complexType name="ArrayOfNameOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="NameOptions" nillable="true" type="tns:NameOptions"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfNameOptions" nillable="true" type="tns:ArrayOfNameOptions"/>
-  <xs:complexType name="NameOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="MiddleNames" nillable="true" type="q3:ArrayOfstring" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-      <xs:element minOccurs="0" name="Prefix" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="Suffixes" nillable="true" type="q4:ArrayOfstring" xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="NameOptions" nillable="true" type="tns:NameOptions"/>
-  <xs:complexType name="TelecomOptions">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="EmailAddresses" nillable="true" type="q5:ArrayOfstring" xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-      <xs:element minOccurs="0" name="PhoneNumbers" nillable="true" type="q6:ArrayOfstring" xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TelecomOptions" nillable="true" type="tns:TelecomOptions"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd3</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.Common">
-  <xs:complexType name="Metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AssigningAuthority" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="ReceivingApplication" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="ReceivingFacility" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="SendingApplication" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="SendingFacility" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="UseFhir" type="xs:boolean"/>
-      <xs:element minOccurs="0" name="UseHL7v2" type="xs:boolean"/>
-      <xs:element minOccurs="0" name="UseHL7v3" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Metadata" nillable="true" type="tns:Metadata"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd4</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-  <xs:complexType name="ArrayOfstring">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring"/>
-  <xs:complexType name="ArrayOfKeyValueOfstringstring">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="Key" nillable="true" type="xs:string"/>
-            <xs:element name="Value" nillable="true" type="xs:string"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd5</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/PatientGenerator.Messaging.Model">
-  <xs:import schemaLocation="http://localhost:8000/patientgenerator?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-  <xs:complexType name="GenerationResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="HasErrors" type="xs:boolean"/>
-      <xs:element minOccurs="0" name="Messages" nillable="true" type="q1:ArrayOfstring" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="GenerationResponse" nillable="true" type="tns:GenerationResponse"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8000/patientgenerator?xsd=xsd1</con:url><con:content><![CDATA[<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
-  <xs:element name="anyType" nillable="true" type="xs:anyType"/>
-  <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
-  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
-  <xs:element name="boolean" nillable="true" type="xs:boolean"/>
-  <xs:element name="byte" nillable="true" type="xs:byte"/>
-  <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
-  <xs:element name="decimal" nillable="true" type="xs:decimal"/>
-  <xs:element name="double" nillable="true" type="xs:double"/>
-  <xs:element name="float" nillable="true" type="xs:float"/>
-  <xs:element name="int" nillable="true" type="xs:int"/>
-  <xs:element name="long" nillable="true" type="xs:long"/>
-  <xs:element name="QName" nillable="true" type="xs:QName"/>
-  <xs:element name="short" nillable="true" type="xs:short"/>
-  <xs:element name="string" nillable="true" type="xs:string"/>
-  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
-  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
-  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
-  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
-  <xs:element name="char" nillable="true" type="tns:char"/>
-  <xs:simpleType name="char">
-    <xs:restriction base="xs:int"/>
-  </xs:simpleType>
-  <xs:element name="duration" nillable="true" type="tns:duration"/>
-  <xs:simpleType name="duration">
-    <xs:restriction base="xs:duration">
-      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
-      <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
-      <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="guid" nillable="true" type="tns:guid"/>
-  <xs:simpleType name="guid">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:attribute name="FactoryType" type="xs:QName"/>
-  <xs:attribute name="Id" type="xs:ID"/>
-  <xs:attribute name="Ref" type="xs:IDREF"/>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint></con:endpoints><con:operation id="214b5266-49a6-4cdd-9b2e-434f5534ef00" isOneWay="false" action="GeneratePatients" name="GeneratePatients" bindingOperationName="GeneratePatients" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ef5de93e-a755-46b2-b0cf-57267d533f99" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint></con:endpoints><con:operation id="214b5266-49a6-4cdd-9b2e-434f5534ef00" isOneWay="false" action="GeneratePatients" name="GeneratePatients" bindingOperationName="GeneratePatients" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ef5de93e-a755-46b2-b0cf-57267d533f99" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc">
    <soapenv:Header/>
    <soapenv:Body>
       <pat:GeneratePatients>
-      <pat:count>100</pat:count>
-         </pat:GeneratePatients>
+      </pat:GeneratePatients>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="GeneratePatients"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bca916e8-b879-419d-a907-1e5c90fd9963" isOneWay="false" action="GeneratePatientsWithOptions" name="GeneratePatientsWithOptions" bindingOperationName="GeneratePatientsWithOptions" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6ce9e481-9e13-4228-8c68-316e7a420a71" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
    <soapenv:Header/>
@@ -267,7 +261,7 @@
    <soapenv:Body>\r
       <pat:GeneratePatients>\r
          <!--Optional:-->\r
-         <pat:count>25</pat:count>\r
+         <pat:count>1</pat:count>\r
       </pat:GeneratePatients>\r
    </soapenv:Body>\r
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="GeneratePatients" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="24fa70ca-3ce7-4360-a7d1-a96bf720c583" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GeneratePatientsWithOptions TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="4218acfb-f982-4829-b7c9-cc19ce1798e3" name="GeneratePatientsWithOptions"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IGenerationService</con:interface><con:operation>GeneratePatientsWithOptions</con:operation><con:request name="GeneratePatientsWithOptions" id="46144498-ad67-452c-a191-e762db56d26f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">\r
@@ -276,6 +270,7 @@
       <pat:GeneratePatientsWithOptions>\r
          <!--Optional:-->\r
          <pat:options>\r
+         <pat1:metadata>
             <!--Optional:-->\r
             <pat1:AssigningAuthority>1.3.6.1.4.1.33349.3.1.5.10.102.6</pat1:AssigningAuthority>\r
             
@@ -290,6 +285,7 @@
 			
 			<!----><pat1:SendingApplication>FAKEDEV</pat1:SendingApplication>
             <pat1:SendingFacility>FAKEFAC</pat1:SendingFacility>
+            </pat1:metadata>
             
             <pat1:DateOfBirthOptions>\r
                <!--Optional:-->\r

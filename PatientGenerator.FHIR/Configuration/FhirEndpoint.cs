@@ -46,6 +46,10 @@ namespace PatientGenerator.FHIR.Configuration
 		[XmlAttribute("name")]
 		public string Name { get; set; }
 
+		/// <summary>
+		/// Returns the name and address in a string representation.
+		/// </summary>
+		/// <returns>Returns the name and address in a string representation.</returns>
 		public override string ToString()
 		{
 			return Name + " " + Address;

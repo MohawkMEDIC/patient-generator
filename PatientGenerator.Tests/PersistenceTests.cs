@@ -117,7 +117,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoAddressTest()
+		public void TestNoAddress()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -129,7 +129,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoAddressTestAsync()
+		public async Task TestNoAddressAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -141,7 +141,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoAlternateIdentifiersTest()
+		public void TestNoAlternateIdentifiers()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -153,7 +153,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoAlternateIdentifiersTestAsync()
+		public async Task TestNoAlternateIdentifiersAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -165,7 +165,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoDateOfBirthTest()
+		public void TestNoDateOfBirth()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -177,7 +177,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoDateOfBirthTestAsync()
+		public async Task TestNoDateOfBirthAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -189,7 +189,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoGenderTest()
+		public void TestNoGender()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -201,7 +201,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoGenderTestAsync()
+		public async Task TestNoGenderAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -213,7 +213,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoNameTest()
+		public void TestNoName()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -225,7 +225,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoNameTestAsync()
+		public async Task TestNoNameAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -237,7 +237,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void NoPersonIdentifierTest()
+		public void TestNoPersonIdentifier()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -249,7 +249,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task NoPersonIdentifierTestAsync()
+		public async Task TestNoPersonIdentifierAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -261,7 +261,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void PartialAddressTest()
+		public void TestPartialAddress()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -280,7 +280,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task PartialAddressTestAsync()
+		public async Task TestPartialAddressAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -299,7 +299,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public void ValidMessageTest()
+		public void TestValidMessage()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
@@ -309,7 +309,7 @@ namespace PatientGenerator.Tests
 		}
 
 		[TestMethod]
-		public async Task ValidMessageTestAsync()
+		public async Task TestValidMessageAsync()
 		{
 			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 

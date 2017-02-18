@@ -32,10 +32,10 @@ namespace PatientGenerator.Messaging.Validation
 		/// Validates a message.
 		/// </summary>
 		/// <param name="options">The message to be validated.</param>
-		/// <returns>Returns an IEnumerable<IResultDetail> containing validation errors.</returns>
+		/// <returns>Returns a list of result details containing validation results.</returns>
 		public static IEnumerable<IResultDetail> ValidateMessage(DemographicOptions options)
 		{
-			List<IResultDetail> details = new List<IResultDetail>();
+			var details = new List<IResultDetail>();
 
 			if (string.IsNullOrEmpty(options.Metadata.AssigningAuthority) || string.IsNullOrWhiteSpace(options.Metadata.AssigningAuthority))
 			{
