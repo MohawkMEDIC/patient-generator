@@ -152,7 +152,7 @@ namespace PatientGenerator.HL7v3
 
 			foreach (var otherIdentifier in patient.OtherIdentifiers)
 			{
-				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(otherIdentifier.Key, otherIdentifier.Value));
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(otherIdentifier.AssigningAuthority, otherIdentifier.Value));
 			}
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);

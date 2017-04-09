@@ -32,11 +32,12 @@ namespace PatientGenerator.Core.ComponentModel
 		/// </summary>
 		public DemographicOptions()
 		{
-			Addresses = new List<AddressOptions>();
-			DateOfBirthOptions = new DateOfBirthOptions();
-			Names = new List<NameOptions>();
-			OtherIdentifiers = new Dictionary<string, string>();
-			TelecomOptions = new TelecomOptions();
+            this.Addresses = new List<AddressOptions>();
+            this.DateOfBirthOptions = new DateOfBirthOptions();
+            this.Names = new List<NameOptions>();
+            this.OtherIdentifiers = new List<AlternateIdentifierOptions>();
+            this.RelatedPersons = new List<RelatedPersonOptions>();
+            this.TelecomOptions = new TelecomOptions();
 		}
 
 		/// <summary>
@@ -54,10 +55,15 @@ namespace PatientGenerator.Core.ComponentModel
 		/// </summary>
 		public List<NameOptions> Names { get; set; }
 
-		/// <summary>
-		/// The gender of the patient.
-		/// </summary>
-		public string Gender { get; set; }
+        /// <summary>
+        /// Gets or sets the list of related persons of the patient.
+        /// </summary>
+        public List<RelatedPersonOptions> RelatedPersons { get; set; }
+
+        /// <summary>
+        /// The gender of the patient.
+        /// </summary>
+        public string Gender { get; set; }
 
 		/// <summary>
 		/// Metadata about the patient registration.
@@ -72,7 +78,7 @@ namespace PatientGenerator.Core.ComponentModel
 		/// <summary>
 		/// Any other identifiers or alt ids for the patient.
 		/// </summary>
-		public Dictionary<string, string> OtherIdentifiers { get; set; }
+		public List<AlternateIdentifierOptions> OtherIdentifiers { get; set; }
 
 		/// <summary>
 		/// Telecom options for the patient.

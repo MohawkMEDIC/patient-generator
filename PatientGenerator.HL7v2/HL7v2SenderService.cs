@@ -21,8 +21,10 @@ using NHapi.Base.Model;
 using PatientGenerator.Core;
 using PatientGenerator.Core.Common;
 using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.HL7v2.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,7 +34,9 @@ namespace PatientGenerator.HL7v2
 	{
 		private IServiceProvider context;
 
-		public IServiceProvider Context
+        HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
+
+        public IServiceProvider Context
 		{
 			get
 			{
@@ -48,8 +52,8 @@ namespace PatientGenerator.HL7v2
 		public void Send(DemographicOptions options)
 		{
 			var message = NHapiUtil.GenerateCandidateRegistry(options);
-
-			NHapiUtil.Sendv2Messages(message);
+            
+            NHapiUtil.Sendv2Messages(message, configuration.Endpoints);
 		}
 
 		public void Send(IEnumerable<Patient> patients)
@@ -68,7 +72,7 @@ namespace PatientGenerator.HL7v2
 				}));
 			}
 
-			messages.Select(x => NHapiUtil.Sendv2Messages(x));
+			messages.Select(x => NHapiUtil.Sendv2Messages(x, configuration.Endpoints));
 		}
 
 		public void Send(Patient patient)
@@ -82,7 +86,7 @@ namespace PatientGenerator.HL7v2
 				SendingFacility = "Test"
 			});
 
-			NHapiUtil.Sendv2Messages(message);
+			NHapiUtil.Sendv2Messages(message, configuration.Endpoints);
 		}
 
 		public async Task SendAsync(DemographicOptions options)
