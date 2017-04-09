@@ -18,22 +18,48 @@
  */
 
 using System.Configuration;
+using System.Diagnostics;
 using System.Xml;
 
 namespace PatientGenerator.FHIR.Configuration
 {
 	/// <summary>
-	/// Represents the Fhir configuration section handler.
+	/// Represents the FHIR configuration section handler.
 	/// </summary>
 	public class ConfigurationSectionHandler : IConfigurationSectionHandler
 	{
+		/// <summary>
+		/// The tracer.
+		/// </summary>
+		private readonly TraceSource tracer = new TraceSource("PatientGenerator.FHIR");
+
+		/// <summary>
+		/// Creates a configuration section handler.
+		/// </summary>
+		/// <param name="parent">Parent object.</param>
+		/// <param name="configContext">Configuration context object.</param>
+		/// <param name="section">Section XML node.</param>
+		/// <returns>The created section handler object.</returns>
+		/// <exception cref="ConfigurationErrorsException">Element 'endpoints' not found</exception>
 		public object Create(object parent, object configContext, XmlNode section)
 		{
 			var configurationSection = new FhirConfigurationSection();
 
 			var endpointsNode = section.SelectSingleNode("./*[local-name() = 'endpoints']") as XmlElement;
 
-			var endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']") as XmlNodeList;
+			if (endpointsNode == null)
+			{
+				this.tracer.TraceEvent(TraceEventType.Error, 0, "Element 'endpoints' not found");
+				throw new ConfigurationErrorsException("Element 'endpoints' not found");
+			}
+
+			var endpoints = endpointsNode.SelectNodes("./*[local-name() = 'endpoint']");
+
+			if (endpoints == null)
+			{
+				this.tracer.TraceEvent(TraceEventType.Error, 0, "'endpoints' must have at least one 'endpoint'");
+				throw new ConfigurationErrorsException("'endpoints' must have at least one 'endpoint'");
+			}
 
 			foreach (XmlNode item in endpoints)
 			{
@@ -43,6 +69,7 @@ namespace PatientGenerator.FHIR.Configuration
 					Name = item.Attributes["name"].Value
 				};
 
+				this.tracer.TraceEvent(TraceEventType.Verbose, 0, $"Adding endpoint: {endpoint.Address} {endpoint.Name}");
 				configurationSection.Endpoints.Add(endpoint);
 			}
 

@@ -23,26 +23,20 @@ using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Hl7.Fhir.Serialization;
 
 namespace PatientGenerator.FHIR
 {
+	/// <summary>
+	/// Represents a FHIR sender service.
+	/// </summary>
+	/// <seealso cref="PatientGenerator.Core.IFhirSenderService" />
 	public class FhirSenderService : IFhirSenderService
 	{
-		private IServiceProvider context;
-
-		public IServiceProvider Context
-		{
-			get
-			{
-				return this.context;
-			}
-
-			set
-			{
-				this.context = value;
-			}
-		}
-
+		/// <summary>
+		/// Sends the specified options.
+		/// </summary>
+		/// <param name="options">The options.</param>
 		public void Send(DemographicOptions options)
 		{
 			var patient = FhirUtil.GenerateCandidateRegistry(options);
@@ -50,16 +44,31 @@ namespace PatientGenerator.FHIR
 			FhirUtil.SendFhirMessages(patient);
 		}
 
+		/// <summary>
+		/// Sends the specified patients.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(IEnumerable<Patient> patients)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Sends the specified patient.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(Patient patient)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// send as an asynchronous operation.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>Task.</returns>
 		public async Task SendAsync(DemographicOptions options)
 		{
 			await Task.Factory.StartNew(() =>
@@ -68,11 +77,23 @@ namespace PatientGenerator.FHIR
 			});
 		}
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
+		/// <returns>Task.</returns>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public Task SendAsync(IEnumerable<Patient> patients)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <returns>Task.</returns>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public Task SendAsync(Patient patient)
 		{
 			throw new NotImplementedException();

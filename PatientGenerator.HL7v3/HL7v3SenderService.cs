@@ -26,23 +26,16 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.HL7v3
 {
+	/// <summary>
+	/// Class HL7v3SenderService.
+	/// </summary>
+	/// <seealso cref="PatientGenerator.Core.IHL7v3SenderService" />
 	public class HL7v3SenderService : IHL7v3SenderService
 	{
-		private IServiceProvider context;
-
-		public IServiceProvider Context
-		{
-			get
-			{
-				return this.context;
-			}
-
-			set
-			{
-				this.context = value;
-			}
-		}
-
+		/// <summary>
+		/// Sends the specified options.
+		/// </summary>
+		/// <param name="options">The options.</param>
 		public void Send(DemographicOptions options)
 		{
 			var graphable = EverestUtil.GenerateCandidateRegistry(options);
@@ -50,16 +43,31 @@ namespace PatientGenerator.HL7v3
 			EverestUtil.Sendv3Messages(graphable, "cr");
 		}
 
+		/// <summary>
+		/// Sends the specified patients.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(IEnumerable<Patient> patients)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Sends the specified patient.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(Patient patient)
 		{
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// send as an asynchronous operation.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>Task.</returns>
 		public async Task SendAsync(DemographicOptions options)
 		{
 			await Task.Factory.StartNew(() =>
@@ -68,6 +76,11 @@ namespace PatientGenerator.HL7v3
 			});
 		}
 
+		/// <summary>
+		/// send as an asynchronous operation.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
+		/// <returns>Task.</returns>
 		public async Task SendAsync(IEnumerable<Patient> patients)
 		{
 			await Task.Factory.StartNew(() =>
@@ -76,6 +89,12 @@ namespace PatientGenerator.HL7v3
 			});
 		}
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <returns>Task.</returns>
+		/// <exception cref="System.NotImplementedException"></exception>
 		public Task SendAsync(Patient patient)
 		{
 			throw new NotImplementedException();

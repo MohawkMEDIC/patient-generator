@@ -25,18 +25,48 @@ using System.Threading.Tasks;
 
 namespace PatientGenerator.Core
 {
+	/// <summary>
+	/// Represents a service to send HL7v3 messages.
+	/// </summary>
 	public interface IHL7v3SenderService
 	{
+		/// <summary>
+		/// Sends the specified options.
+		/// </summary>
+		/// <param name="options">The options.</param>
 		void Send(DemographicOptions options);
 
+		/// <summary>
+		/// Sends the specified patients.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
 		void Send(IEnumerable<Patient> patients);
 
+		/// <summary>
+		/// Sends the specified patient.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
 		void Send(Patient patient);
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>Task.</returns>
 		Task SendAsync(DemographicOptions options);
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="patients">The patients.</param>
+		/// <returns>Task.</returns>
 		Task SendAsync(IEnumerable<Patient> patients);
 
+		/// <summary>
+		/// Sends the asynchronous.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <returns>Task.</returns>
 		Task SendAsync(Patient patient);
 	}
 }

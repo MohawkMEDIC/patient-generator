@@ -31,23 +31,27 @@ namespace PatientGenerator
 	internal class Program
 	{
 		/// <summary>
+		/// The trace source.
+		/// </summary>
+		private static TraceSource traceSource = new TraceSource("PatientGenerator");
+
+		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
 		internal static void Main(string[] args)
 		{
 			// Parser
-			ParameterParser<ConsoleParameters> parser = new ParameterParser<ConsoleParameters>();
+			var parser = new ParameterParser<ConsoleParameters>();
 
 			// Trace copyright information
-			Assembly entryAsm = Assembly.GetEntryAssembly();
+			var entryAsm = Assembly.GetEntryAssembly();
 
-			bool hasConsole = true;
+			var hasConsole = true;
 
-			// Dump some info
-			Trace.TraceInformation("Patient Generator Startup : v{0}", entryAsm.GetName().Version);
-			Trace.TraceInformation("Patient Generator Working Directory : {0}", entryAsm.Location);
-			Trace.TraceInformation("Operating System: {0} {1}", Environment.OSVersion.Platform, Environment.OSVersion.VersionString);
-			Trace.TraceInformation("CLI Version: {0}", Environment.Version);
+			traceSource.TraceEvent(TraceEventType.Information, 0, "Patient Generator Startup : v{0}", entryAsm.GetName().Version);
+			traceSource.TraceEvent(TraceEventType.Information, 0, "Patient Generator Working Directory : {0}", entryAsm.Location);
+			traceSource.TraceEvent(TraceEventType.Information, 0, "Operating System: {0} {1}", Environment.OSVersion.Platform, Environment.OSVersion.VersionString);
+			traceSource.TraceEvent(TraceEventType.Information, 0, "CLI Version: {0}", Environment.Version);
 
 			try
 			{

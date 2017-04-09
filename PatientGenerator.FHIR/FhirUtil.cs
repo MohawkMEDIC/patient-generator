@@ -76,7 +76,7 @@ namespace PatientGenerator.FHIR
 				}
 				else
 				{
-					/// DateTime.Now.Year - 1 is for generating people whose birthdays are always 1 year behind the current to avoid people being created with future birthdays
+					// DateTime.Now.Year - 1 is for generating people whose birthdays are always 1 year behind the current to avoid people being created with future birthdays
 					patient.BirthDate = new DateTime(new Random().Next(1900, DateTime.Now.Year - 1), new Random().Next(1, 12), new Random().Next(1, 28)).ToString("yyyy-MM-dd");
 				}
 			}

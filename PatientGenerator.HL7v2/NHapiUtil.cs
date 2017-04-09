@@ -32,13 +32,29 @@ using System.Linq;
 
 namespace PatientGenerator.HL7v2
 {
-    public static class NHapiUtil
+	/// <summary>
+	/// Represents a utility for generating HL7v2 messages using the nHAPI framework.
+	/// </summary>
+	public static class NHapiUtil
     {
-        private static HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
+		/// <summary>
+		/// The configuration.
+		/// </summary>
+		private static HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
 
-        private static IMessage CreateBaseMessage(PatientGenerator.Core.Common.Metadata metadata)
+		/// <summary>
+		/// The trace source.
+		/// </summary>
+		private static readonly TraceSource traceSource = new TraceSource("PatientGenerator.HL7v2");
+
+		/// <summary>
+		/// Creates the base message.
+		/// </summary>
+		/// <param name="metadata">The metadata.</param>
+		/// <returns>IMessage.</returns>
+		private static IMessage CreateBaseMessage(PatientGenerator.Core.Common.Metadata metadata)
         {
-            ADT_A01 message = new ADT_A01();
+            var message = new ADT_A01();
 
             message.MSH.AcceptAcknowledgmentType.Value = "AL";
             message.MSH.DateTimeOfMessage.TimeOfAnEvent.Value = DateTime.Now.ToString("yyyyMMddHHmmss");
@@ -58,11 +74,16 @@ namespace PatientGenerator.HL7v2
             return message;
         }
 
-        public static IMessage GenerateCandidateRegistry(DemographicOptions options)
+		/// <summary>
+		/// Generates the candidate registry.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>IMessage.</returns>
+		public static IMessage GenerateCandidateRegistry(DemographicOptions options)
         {
-            ADT_A01 message = CreateBaseMessage(options.Metadata) as ADT_A01;
+            var message = CreateBaseMessage(options.Metadata) as ADT_A01;
 
-            PID pid = message.PID;
+            var pid = message.PID;
             
             var cx = pid.GetPatientIdentifierList(0);
 
@@ -72,22 +93,19 @@ namespace PatientGenerator.HL7v2
         
             pid.Sex.Value = options.Gender;
 
-            if (options.DateOfBirthOptions != null)
-            {
-                if (options.DateOfBirthOptions.Exact.HasValue)
-                {
-                    pid.DateTimeOfBirth.TimeOfAnEvent.SetShortDate(options.DateOfBirthOptions.Exact.Value);
-                }
-            }
+	        if (options.DateOfBirthOptions?.Exact != null)
+	        {
+		        pid.DateTimeOfBirth.TimeOfAnEvent.SetShortDate(options.DateOfBirthOptions.Exact.Value);
+	        }
 
-            for (int i = 0; i < options.OtherIdentifiers.Count; i++)
+	        for (var i = 0; i < options.OtherIdentifiers.Count; i++)
             {
                 pid.GetAlternatePatientIDPID(i).ID.Value = options.OtherIdentifiers[i].Value;
                 pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalID.Value = options.OtherIdentifiers[i].AssigningAuthority;
                 pid.GetAlternatePatientIDPID(i).AssigningAuthority.UniversalIDType.Value = options.OtherIdentifiers[i].Type;
             }
 
-            for (int i = 0; i < options.Names.Count; i++)
+            for (var i = 0; i < options.Names.Count; i++)
             {
                 pid.GetPatientName(i).GivenName.Value = options.Names.ToArray()[i].FirstName;
                 pid.GetPatientName(i).FamilyLastName.FamilyName.Value = options.Names.ToArray()[i].LastName;
@@ -102,7 +120,7 @@ namespace PatientGenerator.HL7v2
                 }
             }
 
-            for (int i = 0; i < options.Addresses.Count; i++)
+            for (var i = 0; i < options.Addresses.Count; i++)
             {
                 pid.GetPatientAddress(i).StreetAddress.Value = options.Addresses.ToArray()[i].StreetAddress;
                 pid.GetPatientAddress(i).City.Value = options.Addresses.ToArray()[i].City;
@@ -111,7 +129,7 @@ namespace PatientGenerator.HL7v2
                 pid.GetPatientAddress(i).Country.Value = options.Addresses.ToArray()[i].Country;
             }
 
-            for (int i = 0; i < options.TelecomOptions.PhoneNumbers.Count; i++)
+            for (var i = 0; i < options.TelecomOptions.PhoneNumbers.Count; i++)
             {
                 pid.GetPhoneNumberHome(i).AnyText.Value = options.TelecomOptions.PhoneNumbers[i];
             }
@@ -119,11 +137,17 @@ namespace PatientGenerator.HL7v2
             return message;
         }
 
-        public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient, PatientGenerator.Core.Common.Metadata metadata)
+		/// <summary>
+		/// Generates the candidate registry.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <param name="metadata">The metadata.</param>
+		/// <returns>IMessage.</returns>
+		public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient, PatientGenerator.Core.Common.Metadata metadata)
         {
-            ADT_A01 message = CreateBaseMessage(metadata) as ADT_A01;
+            var message = CreateBaseMessage(metadata) as ADT_A01;
 
-            PID pid = message.PID;
+            var pid = message.PID;
 
             var cx = pid.GetPatientIdentifierList(0);
 
@@ -146,67 +170,73 @@ namespace PatientGenerator.HL7v2
             return message;
         }
 
-        public static IEnumerable<IMessage> Sendv2Messages(IMessage message, List<LlpEndpoint> addresses)
+		/// <summary>
+		/// Sendv2s the messages.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		/// <param name="addresses">The addresses.</param>
+		/// <returns>IEnumerable&lt;IMessage&gt;.</returns>
+		public static IEnumerable<IMessage> Sendv2Messages(IMessage message, IEnumerable<LlpEndpoint> addresses)
         {
-            List<IMessage> messages = new List<IMessage>();
+            var messages = new List<IMessage>();
 
             foreach (var endpoint in addresses)
             {
-                MllpMessageSender sender = new MllpMessageSender(new Uri(endpoint.Address));
+                var sender = new MllpMessageSender(new Uri(endpoint.Address));
 
-                PipeParser parser = new PipeParser();
+                var parser = new PipeParser();
 
                 var parsedMessage = parser.Encode(message);
 
-#if DEBUG
-                Trace.TraceInformation("Request: " + Environment.NewLine);
-                Trace.TraceInformation(parsedMessage.ToString());
-#endif
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Request: " + Environment.NewLine);
+	            traceSource.TraceEvent(TraceEventType.Verbose, 0, parsedMessage);
 
-                Trace.TraceInformation("Sending to endpoint: " + endpoint.ToString());
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending to endpoint: " + endpoint);
 
-                IMessage response = sender.SendAndReceive(message);
+                var response = sender.SendAndReceive(message);
 
                 var parsedResponse = parser.Encode(response);
 
-#if DEBUG
-                Trace.TraceInformation("Response: " + Environment.NewLine);
-                Trace.TraceInformation(parsedResponse.ToString());
-#endif
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Response: " + Environment.NewLine);
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, parsedResponse);
+
                 messages.Add(response);
             }
 
             return messages;
         }
 
-        public static IEnumerable<IMessage> Sendv2MessagesBySsl(IMessage message, List<LlpEndpoint> addresses, string thumbprint)
+		/// <summary>
+		/// Sends HL7v2 messages using SSL.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		/// <param name="addresses">The addresses.</param>
+		/// <param name="thumbprint">The thumbprint.</param>
+		/// <returns>Returns a list of sent messages.</returns>
+		public static IEnumerable<IMessage> Sendv2MessagesBySsl(IMessage message, IEnumerable<LlpEndpoint> addresses, string thumbprint)
         {
-            List<IMessage> messages = new List<IMessage>();
+            var messages = new List<IMessage>();
 
             foreach (var endpoint in addresses)
             {
-                //MllpMessageSender sender = new MllpMessageSender(new Uri(endpoint.Address));
-                SslMessageSender sender = new SslMessageSender(new Uri(endpoint.Address));
+                var sender = new SslMessageSender(new Uri(endpoint.Address));
 
-                PipeParser parser = new PipeParser();
+                var parser = new PipeParser();
 
                 var parsedMessage = parser.Encode(message);
 
-#if DEBUG
-                Trace.TraceInformation("Request: " + Environment.NewLine);
-                Trace.TraceInformation(parsedMessage.ToString());
-#endif
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Request: " + Environment.NewLine);
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, parsedMessage);
 
-                Trace.TraceInformation("Sending to endpoint: " + endpoint.ToString());
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending to endpoint: " + endpoint);
                 
-                IMessage response = sender.SendAndReceive(message, thumbprint);
+                var response = sender.SendAndReceive(message, thumbprint);
 
                 var parsedResponse = parser.Encode(response);
 
-#if DEBUG
-                Trace.TraceInformation("Response: " + Environment.NewLine);
-                Trace.TraceInformation(parsedResponse.ToString());
-#endif
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, "Response: " + Environment.NewLine);
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, parsedResponse);
+
                 messages.Add(response);
             }
 

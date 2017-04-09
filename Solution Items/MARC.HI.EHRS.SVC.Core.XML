@@ -1,0 +1,1774 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MARC.HI.EHRS.SVC.Core</name>
+    </assembly>
+    <members>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlScript">
+            <summary>
+            SQL Command 
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlScript.ResourceName">
+            <summary>
+            Gets the resource name
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlScript.AssemblyName">
+            <summary>
+            Gets or sets the assembly name
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlScript.FileName">
+            <summary>
+            Gets or sets s file reference
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Command">
+            <summary>
+            Represents an abstract command to do something against the database
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Command.Condition">
+            <summary>
+            A series of "where" clauses which when all execute to "TRUE" instruct the
+            command text to be executed
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.DbXmlBase">
+            <summary>
+            Base type for DB-XML stuff
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.DbXmlBase.Dbms">
+            <summary>
+            The database management system on which to run the command
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.DbXmlBase.Id">
+            <summary>
+            The identifier of the command (for execute once)
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature.Version">
+            <summary>
+            The version of the feature
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature.Install">
+            <summary>
+            The list of commands used to install the feature
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature.UnInstall">
+            <summary>
+            The list of commands used to install the feature
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlCommand">
+            <summary>
+            SQL Command 
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.DbXml.SqlCommand.Sql">
+            <summary>
+            The body of the SQL
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.LocalConfigurationManager">
+            <summary>
+            Represents a configuration manager that uses local App.config files
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.LocalConfigurationManager.GetSection(System.String)">
+            <summary>
+            Get the specified section
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration">
+            <summary>
+            Represents the host configuration
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.ServiceAssemblies">
+            <summary>
+            Get the modules that are to be loaded 
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.ServiceProviders">
+            <summary>
+            Get the service providers for this application
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.SectionName">
+            <summary>
+            Gets the name of the section the configuration data was loaded
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.DeviceIdentifier">
+            <summary>
+            Gets the identifier (OID) of the current device
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.DeviceName">
+            <summary>
+            Gets the logical name of the device
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.JurisdictionData">
+            <summary>
+            Gets the jurisdiction configuration data
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.HostConfiguration.Custodianship">
+            <summary>
+            Gets the custodial data
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.IAlwaysDeployedConfigurationPanel">
+            <summary>
+            Represents a configuration panel that is always deployed (is not enabled or disabled, but always present)
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel">
+            <summary>
+            Represents a configuration panel for the SVC Core Configuration Tool
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.Name">
+            <summary>
+            Gets or sets the configuration panel name
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.EnableConfiguration">
+            <summary>
+            Enable configuration
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.Panel">
+            <summary>
+            Gets the configuration panel
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.Configure(System.Xml.XmlDocument)">
+            <summary>
+            Configure the panel options
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.UnConfigure(System.Xml.XmlDocument)">
+            <summary>
+            UnConfigure the panel options
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.IsConfigured(System.Xml.XmlDocument)">
+            <summary>
+            Determine if the configuration option is configured
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.IConfigurationPanel.Validate(System.Xml.XmlDocument)">
+            <summary>
+            Validate configuration
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.IDataboundConfigurationPanel.ConnectionString">
+            <summary>
+            Connection string for the databound configuration panel
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipData">
+            <summary>
+            Identifies data related to a custodian
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipData.Name">
+            <summary>
+            Gets or sets the name of the custodian
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipData.Id">
+            <summary>
+            Gets or sets the id of the custodian
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipData.Contact">
+            <summary>
+            Gets or sets the contact information
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipContact">
+            <summary>
+            Custodianship contact 
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipContact.Email">
+            <summary>
+            Represents the name of the contact
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipContact.Name">
+            <summary>
+            Represents the contact name
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.CustodianshipContact.Organization">
+            <summary>
+            Represents the contact organization
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.Jurisdiction">
+            <summary>
+            Identifies a structure that stores information related to a jurisdiction
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Configuration.Jurisdiction.DefaultLanguageCode">
+            <summary>
+            Gets or sets the default language code
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.HostConfigurationSectionHandler">
+            <summary>
+            This configuration section allows developers to add services to the host instance.
+            <para>There are several section parameters that can be added:</para>
+            <example lang="xml">
+            App.Config Entry
+            <code lang="xml">
+               &lt;configSections> 
+                &lt;section type="MARC.HI.EHRS.SVC.Core.HostConfigurationSection, MARC.HI.EHRS.SVC.Core, Version=1.0.0.0" name="MARC.HI.EHRS.SVC.Core"/> 
+               &lt;/configSections> 
+               &lt;MARC.HI.EHRS.SVC.Core>
+                &lt;serviceAssemblies>
+                    &lt;add assembly="MARC.HI.EHRS.Auditing.ATNA, Version=1.0.0.0"/>
+                &lt;/serviceAssemblies>
+               &lt;/MARC.HI.EHRS.SVC.Core>
+            </code>
+            </example>
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.HostConfigurationSectionHandler.Create(System.Object,System.Object,System.Xml.XmlNode)">
+            <summary>
+            Create the handler
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Configuration.IAutoDeployConfigurationPanel">
+            <summary>
+            Represents a configuration panel that can auto-deploy
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Configuration.IAutoDeployConfigurationPanel.PrepareConfigure(System.Xml.XmlDocument,System.Collections.Generic.Dictionary{System.String,System.Collections.Specialized.StringCollection})">
+            <summary>
+            Auto-deployment options
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Exceptions.DomainStateException">
+            <summary>
+            An exception which indicates the domain is not ready
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Exceptions.UnauthorizedRequestException">
+            <summary>
+            Unauthorized access
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.UnauthorizedRequestException.AuthenticateChallenge">
+            <summary>
+            Authenticate challenge
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.UnauthorizedRequestException.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Unauthorized access exception
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException">
+            <summary>
+            Represents a policy violation
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.Policy">
+            <summary>
+            Gets the policy that was violated
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.PolicyId">
+            <summary>
+            Gets the policy id that was violed
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.PolicyDecision">
+            <summary>
+            Gets the policy outcome
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.#ctor(System.String,MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionOutcomeType)">
+            <summary>
+            Creates a new instance of the policy violation
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.#ctor(MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy,MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionOutcomeType)">
+            <summary>
+            Creates a new instance of the policy violation exception
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.PolicyViolationException.Message">
+            <summary>
+            The message
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Exceptions.InvalidStateTransitionException">
+            <summary>
+            Represents an invalid state transition
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.InvalidStateTransitionException.FromState">
+            <summary>
+            Identifies the state that is being exited
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.InvalidStateTransitionException.ToState">
+            <summary>
+            Identifies the state that is being entered
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.InvalidStateTransitionException.#ctor(System.String,System.String)">
+            <summary>
+            Create a new instance of the InvalidStateTransitionException object
+            </summary>
+            <param name="fromState">The state that is being exited</param>
+            <param name="toState">The state that is being entered</param>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Exceptions.IssueException">
+            <summary>
+            Represents an exception that was thrown as a result of violation of 
+            a business constraint
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Exceptions.IssueException.Issue">
+            <summary>
+            Identifies the issue that occured
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.IssueException.#ctor">
+            <summary>
+            Creates a new instance of issueException
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.IssueException.#ctor(MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue)">
+            <summary>
+            Creates a new instance of an IssueException with the specified issue
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Exceptions.IssueException.#ctor(MARC.HI.EHRS.SVC.Core.Issues.IssueType,MARC.HI.EHRS.SVC.Core.Issues.ManagementType,MARC.HI.EHRS.SVC.Core.Issues.IssuePriorityType,MARC.HI.EHRS.SVC.Core.Issues.IssueSeverityType,System.String)">
+            <summary>
+            Issue exception
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Plugins.AssemblyPluginAttribute">
+            <summary>
+            This interface is insert into an assembly manifest via [assembly:PluginAssembly()] 
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Plugins.AssemblyPluginDependencyAttribute">
+            <summary>
+            Indicates a GUID identified dependency on another assembly
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Plugins.AssemblyPluginDependencyAttribute.DependentAssemblyGuid">
+            <summary>
+            The assembly's guid for dependency resolution
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Plugins.AssemblyPluginDependencyAttribute.DependentVersion">
+            <summary>
+            The dependent version of the assembly
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Plugins.AssemblyPluginDependencyAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Create a new dependency attribute
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Data.CodeValue">
+            <summary>
+            Represents a basic codified value
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.CodeValue.#ctor(System.String,System.String)">
+            <summary>
+            Construct a new code
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.CodeValue.Code">
+            <summary>
+            Gets or sets the code of the code value
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.CodeValue.CodeSystem">
+            <summary>
+            Gets or sets the system in which the code value is drawn
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.CodeValue.CodeSystemName">
+            <summary>
+            Gets or sets the human readable name of the code sytsem
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.CodeValue.CodeSystemVersion">
+            <summary>
+            Gets or sets the version of the code system
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.CodeValue.DisplayName">
+            <summary>
+            Gets or sets the display name
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Data.Identifier`1">
+            <summary>
+            Represents an identifier used for storing / retrieving data
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.#ctor">
+            <summary>
+            Creates a new empty identifier
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.#ctor(`0)">
+            <summary>
+            Creates a new identifier with the specified identifier
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.#ctor(`0,`0)">
+            <summary>
+            Creates a new identifier with specified identifier and version
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.#ctor(`0,MARC.HI.EHRS.SVC.Core.Data.OidData)">
+            <summary>
+            Create a new identifier with specified id and AA
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.AssigningAuthority">
+            <summary>
+            Get the assigning authority of the identifier
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.Id">
+            <summary>
+            Represents the identifier of the object
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.Identifier`1.VersionId">
+            <summary>
+            Represents the version of the object
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Data.IIdentified`1">
+            <summary>
+            Represents any model class which is identified
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.IIdentified`1.Id">
+            <summary>
+            Gets the identifier of the IIdentified object
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Data.User">
+            <summary>
+            Represents a user in the service core context
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.User.Name">
+            <summary>
+            Gets or sets the user's name
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Data.OidData">
+            <summary>
+            OID Data
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.OidData.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Name">
+            <summary>
+            The name of the OID
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Oid">
+            <summary>
+            The OID Value
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Description">
+            <summary>
+            The description for the oid
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Mnemonic">
+            <summary>
+            The local mnemonic for the oid
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Attributes">
+            <summary>
+            Extended attributes
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Data.OidData.Ref">
+            <summary>
+            Reference to the OID
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.OidData.ToString">
+            <summary>
+            Represent this as a string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Data.OidData.Clone">
+            <summary>
+            Clone this OID
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.AuthenticatingEventArgs">
+            <summary>
+            Identity event arguments
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.AuthenticatingEventArgs.#ctor(System.String)">
+            <summary>
+            Creates new instance of authenticating event args
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.AuthenticatingEventArgs.UserName">
+            <summary>
+            Gets the name of the user being authenticated
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.AuthenticatingEventArgs.Cancel">
+            <summary>
+            True if the operation should be cancelled
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.AuthenticatedEventArgs">
+            <summary>
+            For events fired after authentication decision has been made
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.AuthenticatedEventArgs.#ctor(System.String,System.Security.Principal.IPrincipal,System.Boolean)">
+            <summary>
+            Creates a new instance of the authenticated event args
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.AuthenticatedEventArgs.UserName">
+            <summary>
+            The identity of the user
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.AuthenticatedEventArgs.Principal">
+            <summary>
+            The principal issued. Null if none was issued
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.AuthenticatedEventArgs.Success">
+            <summary>
+            Whether the authentication was successful
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.SecureAccessEventArgs">
+            <summary>
+            Secure access to data event arguments
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.SecureAccessEventArgs.#ctor(System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a new secured access event args
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.SecureAccessEventArgs.Principal">
+            <summary>
+            Gets the authorization context (claims, users, etc.) associated with the event
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PrePersistenceEventArgs`1">
+            <summary>
+            Represents a generic structure for a pre-persistence event 
+            </summary>
+            <typeparam name="TData">The type of data being persisted</typeparam>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PrePersistenceEventArgs`1.#ctor(`0,System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a new persistence event args instance
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PrePersistenceEventArgs`1.Cancel">
+            <summary>
+            True if the handler deems the persistence event should be cancelled
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PrePersistenceEventArgs`1.Mode">
+            <summary>
+            Sets the mode of deta persistence
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PrePersistenceEventArgs`1.Data">
+            <summary>
+            The data being stored
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PostPersistenceEventArgs`1">
+            <summary>
+            Represents an event argument class used for post-persistence events
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PostPersistenceEventArgs`1.#ctor(`0,System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a new persistence event args instance
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PostPersistenceEventArgs`1.Mode">
+            <summary>
+            Sets the mode of deta persistence
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PostPersistenceEventArgs`1.Data">
+            <summary>
+            The data being stored
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PreRetrievalEventArgs">
+            <summary>
+            Represents event data associated with a data retrieval operation
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PreRetrievalEventArgs.#ctor(System.Object,System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a new pre-retrieval event args object
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PreRetrievalEventArgs.Identifier">
+            <summary>
+            The identifier
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PreRetrievalEventArgs.Cancel">
+            <summary>
+            Allows the handler to cancel the operation
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PostRetrievalEventArgs`1">
+            <summary>
+            A class used to store event information related to post-retrieval events
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PostRetrievalEventArgs`1.#ctor(`0,System.Security.Principal.IPrincipal)">
+            <summary>
+            Post retrieval data
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PostRetrievalEventArgs`1.Data">
+            <summary>
+            Gets the data retrieved
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PreQueryEventArgs`1">
+            <summary>
+            Stores data related to the events and query
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PreQueryEventArgs`1.Query">
+            <summary>
+            The expression tree representing the query parameters
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PreQueryEventArgs`1.Cancel">
+            <summary>
+            True if the callee wishes the caller to cancel the operation
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Event.PostQueryEventArgs`1">
+            <summary>
+            Fired for all post-query events
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PostQueryEventArgs`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Linq.IQueryable{`0},System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a new post query event args
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Event.PostQueryEventArgs`1.Except(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Except results
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PostQueryEventArgs`1.Query">
+            <summary>
+            Gets the actual query used for the event
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Event.PostQueryEventArgs`1.Results">
+            <summary>
+            Gets the results of the query
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IConfigurationManager">
+            <summary>
+            Represents a configuration manager
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IConfigurationManager.GetSection(System.String)">
+            <summary>
+            Get the specified section
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IDbFeatureService">
+            <summary>
+            Represents a service which is responsible for maintaining feature sets installed
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDbFeatureService.IsFeatureInstalled(MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature)">
+            <summary>
+            Determines whether a feature is installed
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDbFeatureService.GetInstalledFeature">
+            <summary>
+            Get the installed features
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDbFeatureService.RegisterFeature(MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature)">
+            <summary>
+            Register that a feature has been installed
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDbFeatureService.DeleteFeature(MARC.HI.EHRS.SVC.Core.Configuration.DbXml.Feature)">
+            <summary>
+            Deletes a feature from the feature store
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService">
+            <summary>
+            Oid Registrar Service - A service that is responsible for storing data related to registered object identifiers
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.Register(System.String,System.String,System.String,System.String)">
+            <summary>
+            Register an identifier type
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.GetOid(System.String)">
+            <summary>
+            Get an OID by name
+            </summary>
+            <param name="oidName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.FindData(System.String)">
+            <summary>
+            Find data based on the OID
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.FindData(System.String,System.String)">
+            <summary>
+            Find data based on attribute name / value
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.FindData(System.Uri)">
+            <summary>
+            Find an OID based on Uri
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.DeleteOid(System.String)">
+            <summary>
+            Delete an OID
+            </summary>
+            <param name="oidName"></param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.Register(MARC.HI.EHRS.SVC.Core.Data.OidData)">
+            <summary>
+            Register an OID
+            </summary>
+            <param name="oidData"></param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.Remove(MARC.HI.EHRS.SVC.Core.Data.OidData)">
+            <summary>
+            Remove an OID from the data
+            </summary>
+            <param name="oidData"></param>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.IOidRegistrarService.ExtendedAttributes">
+            <summary>
+            Get extended attributes supported by this OID registrar
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.TransactionMode">
+            <summary>
+            Data persistence modes
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.TransactionMode.None">
+            <summary>
+            Inherit the persistence mode from a parent context
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.TransactionMode.Rollback">
+            <summary>
+            Debug mode, this means nothing is actually committed to the database
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.TransactionMode.Commit">
+            <summary>
+            Production, everything is for reals
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1">
+            <summary>
+            Interface that defines a data persistence service which is used to 
+            store, query, update and list data
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Insert(`0,System.Security.Principal.IPrincipal,MARC.HI.EHRS.SVC.Core.Services.TransactionMode)">
+            <summary>
+            Store the specified <see cref="T:System.ComponentModel.IContainer"/> into
+            the perminant data store. 
+            </summary>
+            <param name="storageData">The container data to store</param>
+            <returns>The identifiers representing the identifier of the stored container object</returns>
+            <exception cref="T:System.ArgumentException">Thrown when the storage data container is of an unknown type</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when there is not sufficient data known to store the container</exception>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Update(`0,System.Security.Principal.IPrincipal,MARC.HI.EHRS.SVC.Core.Services.TransactionMode)">
+            <summary>
+            Update the specified <see cref="T:System.ComponentModel.IContainer"/> into the
+            perminent data store. 
+            </summary>
+            <remarks>The <paramref name="storageData"/> container should have some form of identification to permit the update process</remarks>
+            <param name="storageData">The data that is to be updated. Should have some form of identification</param>
+            <returns>The </returns>
+            <exception cref="!:System.KeyNotFoundException">Thrown when the persistence service cannot determine the record to update</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the container is of an unknown type</exception>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Obsolete(`0,System.Security.Principal.IPrincipal,MARC.HI.EHRS.SVC.Core.Services.TransactionMode)">
+            <summary>
+            Obsoletes a particular container object
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Get``1(MARC.HI.EHRS.SVC.Core.Data.Identifier{``0},System.Security.Principal.IPrincipal,System.Boolean)">
+            <summary>
+            Get the object represention of the specified container as specified by <paramref name="containerId"/>
+            </summary>
+            <param name="containerId">The versioned domain identifier of the container to retrieve</param>
+            <returns>An IContainer object that represents the stored container</returns>
+            <exception cref="!:System.KeyNotFoundException">Thrown when the <paramref name="containerId"/> is not present in the database</exception>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Count(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Security.Principal.IPrincipal)">
+            <summary>
+            Counts the number of records which would be returned by the specified query
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Query(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Security.Principal.IPrincipal)">
+            <summary>
+            Query the data persistence store for data
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Query(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Nullable{System.Int32},System.Security.Principal.IPrincipal,System.Int32@)">
+            <summary>
+            Query the data persistence store for data
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Inserting">
+            <summary>
+            Fired prior to an insertion into the database
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Inserted">
+            <summary>
+            Fired after an insertion to the database is completed
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Updating">
+            <summary>
+            Fired prior to an update occurring
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Updated">
+            <summary>
+            Fired after an update has completed
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Obsoleting">
+            <summary>
+            Fired prior to a record being obsoleted
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Obsoleted">
+            <summary>
+            Fired after a record has been obsoleted
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Retrieving">
+            <summary>
+            Fired prior to a record being retrieved
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Retrieved">
+            <summary>
+            Fired after a record has been retrieved
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Querying">
+            <summary>
+            Fired prior to a record being queried
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDataPersistenceService`1.Queried">
+            <summary>
+            Fired after a record has been retrieved
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.ILocalizationService">
+            <summary>
+            Represents a localization service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ILocalizationService.GetString(System.String)">
+            <summary>
+            Gets a string from the localization store using the specified identifier
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ILocalizationService.GetStringEx(System.String,System.String)">
+            <summary>
+            Gets a string from the localization store using the specified identifier 
+            and locale
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.MessageState">
+            <summary>
+            Identifies the status of a message
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.MessageState.New">
+            <summary>
+            The message has never been received by the system
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.MessageState.Active">
+            <summary>
+            The message has been received by the system and is in process
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.MessageState.Complete">
+            <summary>
+            The message has been received by the system and processing is complete
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.MessageInfo">
+            <summary>
+            Message information
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Id">
+            <summary>
+            Gets the id of the message
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Response">
+            <summary>
+            Gets the message id that this message responds to or the response of this message.
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Source">
+            <summary>
+            Gets the remote endpoint of the message
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Destination">
+            <summary>
+            Gets the local endpoint of the message
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Timestamp">
+            <summary>
+            Gets the time the message was received
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.Body">
+            <summary>
+            Gets the body of the message
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.MessageInfo.State">
+            <summary>
+            Gets or sets the state of the message
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService">
+            <summary>
+            Identifies a structure for message persistence service implementations
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.GetMessageState(System.String)">
+            <summary>
+            Get the state of a message
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.PersistMessage(System.String,System.IO.Stream)">
+            <summary>
+            Persists the message 
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.PersistMessageInfo(MARC.HI.EHRS.SVC.Core.Services.MessageInfo)">
+            <summary>
+            Persist message extension
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.GetMessageResponseMessage(System.String)">
+            <summary>
+            Get the identifier of the message that represents the response to the current message
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.GetMessage(System.String)">
+            <summary>
+            Get a message
+            </summary>
+            <param name="messageId">Body</param>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.PersistResultMessage(System.String,System.String,System.IO.Stream)">
+            <summary>
+            Persist
+            </summary>
+            <param name="guid"></param>
+            <param name="response"></param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.GetMessageIds(System.DateTime,System.DateTime)">
+            <summary>
+            Get all message ids between the specified time(s)
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.GetMessageInfo(System.String)">
+            <summary>
+            Get message extended attribute
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.Persisting">
+            <summary>
+            Fired prior to persisting
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.Persisted">
+            <summary>
+            Fired after persisting
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.Retrieving">
+            <summary>
+            Fired before message information is persisted
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IMessagePersistenceService.Retrieved">
+            <summary>
+            Fired after message information is retrieved
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService">
+            <summary>
+            Defines a structure for query persistence services
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService.RegisterQuerySet``1(System.String,MARC.HI.EHRS.SVC.Core.Data.Identifier{``0}[],System.Object)">
+            <summary>
+            Register a query set 
+            </summary>
+            <param name="queryId">The unique identifier for the query</param>
+            <param name="results">The results to be stored in the query</param>
+            <param name="tag">A user tag for the query result set. Can be used to determine
+            the type of data being returned</param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService.IsRegistered(System.String)">
+            <summary>
+            Returns true if the query identifier is already registered
+            </summary>
+            <param name="queryId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService.GetQueryResults``1(System.String,System.Int32,System.Int32)">
+            <summary>
+            Get query results from the query set result store
+            </summary>
+            <param name="queryId">The identifier for the query</param>
+            <param name="nRecords">The number of records to pop</param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService.GetQueryTag(System.String)">
+            <summary>
+            Get the query tag value from the result store
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IQueryPersistenceService.QueryResultTotalQuantity(System.String)">
+            <summary>
+            Count the number of remaining query results
+            </summary>
+            <param name="queryId">Unique identifier for the query to count remaining results</param>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IDaemonService">
+            <summary>
+            Represents the base service interface
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Start">
+            <summary>
+            Start the service and any necessary functions
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Stop">
+            <summary>
+            Stop the service and any necessary functions
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.IsRunning">
+            <summary>
+            Returns an indicator whether the service is running
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Starting">
+            <summary>
+            Fired when the daemon service is starting
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Stopping">
+            <summary>
+            Fired when the daemon service is stopping
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Started">
+            <summary>
+            Fired when the daemon service has finished starting
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.IDaemonService.Stopped">
+            <summary>
+            Fired when the daemon service has finished stopping
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.IMessageHandlerService">
+            <summary>
+            Represents a service that handles messages
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.ITerminologyService">
+            <summary>
+            Identifies a service that can validate and/or correct terminology problems
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITerminologyService.Validate(MARC.HI.EHRS.SVC.Core.Data.CodeValue)">
+            <summary>
+            Validate the specified code
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITerminologyService.ValidateEx(System.String,System.String,System.String)">
+            <summary>
+            Validate a code value
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITerminologyService.Translate(MARC.HI.EHRS.SVC.Core.Data.CodeValue,System.String)">
+            <summary>
+            Translate the specified code into a code within the specified
+            target domain
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITerminologyService.FillInDetails(MARC.HI.EHRS.SVC.Core.Data.CodeValue)">
+            <summary>
+            Fill in code details
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.ITimerService">
+            <summary>
+            Represents a service which executes timer jobs
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITimerService.AddJob(System.Object,System.TimeSpan)">
+            <summary>
+            Add a job to the timer
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITimerService.IsJobRegistered(System.Type)">
+            <summary>
+            Returns true if the job object is registered
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ITimerService.GetState">
+            <summary>
+            Gets the execution state
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy">
+            <summary>
+            Represents a policy
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy.Oid">
+            <summary>
+            Gets the unique object identifier for the policy
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy.Name">
+            <summary>
+            Gets the name of the policy
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy.CanOverride">
+            <summary>
+            True whether the policy can be overridden
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicy.IsActive">
+            <summary>
+            True if the policy is actively enforced
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInstance">
+            <summary>
+            Represents a policy instance
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInstance.Policy">
+            <summary>
+            The policy 
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInstance.Rule">
+            <summary>
+            The rule
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInstance.Securable">
+            <summary>
+            The securable
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInformationService">
+            <summary>
+            Represents a policy information service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInformationService.GetPolicies">
+            <summary>
+            Gets a list of all policies
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInformationService.GetActivePolicies(System.Object)">
+            <summary>
+            Get active policies for the specified securable
+            </summary>
+            <param name="securable">The object for which policies should be retrieved. Examples: A role, a user, a document, etc.</param>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyInformationService.GetPolicy(System.String)">
+            <summary>
+            Gets the policy by policy OID
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionOutcomeType">
+            <summary>
+            Outcome of a policy decision
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecision">
+            <summary>
+            Policy decision
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecision.#ctor(System.Object)">
+            <summary>
+            Creates a new policy decision
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecision.Details">
+            <summary>
+            Details of the policy decision
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecision.Securable">
+            <summary>
+            The securable that this policy outcome is made against
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecision.Outcome">
+            <summary>
+            Gets the outcome of the poilcy decision taking into account all triggered policies
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionDetail">
+            <summary>
+            Represents a decision on a single policy element
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionDetail.#ctor(System.String,MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionOutcomeType)">
+            <summary>
+            Creates a new policy decision outcome
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionDetail.PolicyId">
+            <summary>
+            Gets the policy identifier
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Policy.PolicyDecisionDetail.Outcome">
+            <summary>
+            Gets the policy decision outcome
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyDecisionService">
+            <summary>
+            Represents a policy decision service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyDecisionService.GetPolicyDecision(System.Security.Principal.IPrincipal,System.Object)">
+            <summary>
+            Make a simple policy decision for a specific securable
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Policy.IPolicyDecisionService.GetPolicyOutcome(System.Security.Principal.IPrincipal,System.String)">
+            <summary>
+            Get a policy decision for a specific policy
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Security.ITwoFactorSecretGenerator">
+            <summary>
+            Identifies a class which can generate TFA secrets
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.Security.ITwoFactorSecretGenerator.Name">
+            <summary>
+            Gets the name of the TFA generator
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.ITwoFactorSecretGenerator.GenerateTfaSecret">
+            <summary>
+            Generate a TFA secret
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.ITwoFactorSecretGenerator.Validate(System.String)">
+            <summary>
+            Validates the secret 
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService">
+            <summary>
+            Identity provider service
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.Authenticating">
+            <summary>
+            Fired prior to an authentication event
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.Authenticated">
+            <summary>
+            Fired after an authentication decision being made
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.GetIdentity(System.String)">
+            <summary>
+            Retrieves an identity from the object
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.CreateIdentity(System.String,System.String,System.Security.Principal.IPrincipal)">
+            <summary>
+            Create a basic identity in the provider
+            </summary>
+            <param name="userName">The username of the identity</param>
+            <param name="password">The intitial password of the identity</param>
+            <returns>The created identity</returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticate the user creating an identity
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.Authenticate(System.String,System.String,System.String)">
+            <summary>
+            Authenticate the user using two factor authentication
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.ChangePassword(System.String,System.String,System.Security.Principal.IPrincipal)">
+            <summary>
+            Change user password
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.GenerateTfaSecret(System.String)">
+            <summary>
+            Set the user's two factor authentication secret
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.DeleteIdentity(System.String,System.Security.Principal.IPrincipal)">
+            <summary>
+            Delete an identity
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.SetLockout(System.String,System.Boolean,System.Security.Principal.IPrincipal)">
+            <summary>
+            Set lockout
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.AddClaim(System.String,System.Security.Claims.Claim)">
+            <summary>
+            Adds a claim to the specified user account
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IIdentityProviderService.RemoveClaim(System.String,System.String)">
+            <summary>
+            Removes a claim from the specified user account
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Security.IPasswordHashingService">
+            <summary>
+            Password hashing service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IPasswordHashingService.EncodePassword(System.String)">
+            <summary>
+            Encode a password
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService">
+            <summary>
+            Represents a role provider service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.CreateRole(System.String,System.Security.Principal.IPrincipal)">
+            <summary>
+            Creates a role
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.AddUsersToRoles(System.String[],System.String[],System.Security.Principal.IPrincipal)">
+            <summary>
+            Add users to roles
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.RemoveUsersFromRoles(System.String[],System.String[],System.Security.Principal.IPrincipal)">
+            <summary>
+            Remove users from specified roles
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.FindUsersInRole(System.String)">
+            <summary>
+            Find all users in a specified role
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.GetAllRoles">
+            <summary>
+            Get all roles
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.GetAllRoles(System.String)">
+            <summary>
+            Get all roles
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.IsUserInRole(System.String,System.String)">
+            <summary>
+            User user in the specified role
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.Security.IRoleProviderService.IsUserInRole(System.Security.Principal.IPrincipal,System.String)">
+            <summary>
+            Is user in the specified role
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.ServiceInstantiationType">
+            <summary>
+            Service instantiation type
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.ServiceInstantiationType.Singleton">
+            <summary>
+            The service class is constructed once and one instance is shared in the entire application domain
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Services.ServiceInstantiationType.Instance">
+            <summary>
+            The service class is instantiated for each call of GetService()
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Services.ServiceAttribute">
+            <summary>
+            Identifies the manner in which a service is executed
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Services.ServiceAttribute.#ctor(MARC.HI.EHRS.SVC.Core.Services.ServiceInstantiationType)">
+            <summary>
+            Create a new service attibute
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Services.ServiceAttribute.Type">
+            <summary>
+            Service type
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.ApplicationContext">
+            <summary>
+            Provides a context for components. 
+            </summary>
+            <remarks>Allows components to be communicate with each other via a loosely coupled
+            broker system.</remarks>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.ApplicationContext.Current">
+            <summary>
+            Singleton accessor
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.ApplicationContext.Configuration">
+            <summary>
+            Get the host configuration
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.ApplicationContext.ContextId">
+            <summary>
+            Gets the identifier for this context
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.ApplicationContext.IsRunning">
+            <summary>
+            Gets whether the domain is running
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.ApplicationContext.m_configuration">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.ApplicationContext.m_cachedServices">
+            <summary>
+            Cached services
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.#ctor">
+            <summary>
+            Creates a new instance of the host context
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.ApplicationContext.Starting">
+            <summary>
+            Fired when the application context starting
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.ApplicationContext.Started">
+            <summary>
+            Fired after application startup is complete
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.ApplicationContext.Stopping">
+            <summary>
+            Fired wehn the application context commences stop
+            </summary>
+        </member>
+        <member name="E:MARC.HI.EHRS.SVC.Core.ApplicationContext.Stopped">
+            <summary>
+            Fired after the appplication context is stopped
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.Start">
+            <summary>
+            Start the application context
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.Stop">
+            <summary>
+            Stop the application context
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.GetService(System.Type)">
+            <summary>
+            Get a service from this host context
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.GetService``1">
+            <summary>
+            Get strongly typed service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.ThrowIfDisposed">
+            <summary>
+            Throw if disposed
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.AddServiceProvider(System.Type)">
+            <summary>
+            Add service provider type
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.RemoveServiceProvider(System.Type)">
+            <summary>
+            Remove service provider
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ApplicationContext.Dispose">
+            <summary>
+            Dispose
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Issues.IssuePriorityType">
+            <summary>
+            Identifies the priority of an issue
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Issues.IssueSeverityType">
+            <summary>
+            Identifies the severity of an issue
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Issues.ManagementType">
+            <summary>
+            Identifies the type of management that can be used
+            to mitigate the issue
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Issues.IssueType">
+            <summary>
+            Identifies types of issues
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue">
+            <summary>
+            A class representing a business issue
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue.Type">
+            <summary>
+            Rule violation type
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue.Text">
+            <summary>
+            Textual information about the issue
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue.Priority">
+            <summary>
+            Identifies the priority of the issue
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue.MitigatedBy">
+            <summary>
+            Identifies mitigation for this issue
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Issues.DetectedIssue.Severity">
+            <summary>
+            Severity of the issue
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Logging.RollOverTextWriterTraceListener">
+            <summary>
+            Timed Trace listener
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Logging.RollOverTextWriterTraceListener.FileName">
+            <summary>
+            Filename
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.ServiceUtil">
+            <summary>
+            Utility for starting / stopping hosted services
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ServiceUtil.Start(System.Guid)">
+            <summary>
+            Helper function to start the services
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ServiceUtil.Stop">
+            <summary>
+            Stop the service
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.ServiceUtil.CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Assembly resolution
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult">
+            <summary>
+            Identifies the overall result of a terminology resolution
+            </summary>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.ConceptValidationResultDetail">
+            <summary>
+            Validation result detail
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.ConceptValidationResultDetail.IsError">
+            <summary>
+            If TRUE, identifies that the detail line is an error
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.ConceptValidationResultDetail.Message">
+            <summary>
+            A textual message describing the error
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.ConceptValidationResultDetail.Code">
+            <summary>
+            A codified representation of the error
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.m_details">
+            <summary>
+            Identifies a list of details related to the validation of a concept
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.Outcome">
+            <summary>
+            Gets or sets the outcome of validation
+            </summary>
+        </member>
+        <member name="P:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.Details">
+            <summary>
+            Gets a list of validation result details
+            </summary>
+        </member>
+        <member name="M:MARC.HI.EHRS.SVC.Core.Terminology.ConceptValidationResult.AddDetail(System.Boolean,System.String,System.String)">
+            <summary>
+            Add a validatoin detail to the message
+            </summary>
+            <param name="isError">True if the detail is an error</param>
+            <param name="message">The message of the error</param>
+            <param name="code">A codified representation of the error</param>
+        </member>
+        <member name="T:MARC.HI.EHRS.SVC.Core.Terminology.ValidationOutcome">
+            <summary>
+            Identifies the outcome of code validation
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Terminology.ValidationOutcome.Valid">
+            <summary>
+            The code supplied is valid
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Terminology.ValidationOutcome.ValidWithWarning">
+            <summary>
+            The code supplied is valid, however there are warnings
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Terminology.ValidationOutcome.Invalid">
+            <summary>
+            The code supplied was invalid
+            </summary>
+        </member>
+        <member name="F:MARC.HI.EHRS.SVC.Core.Terminology.ValidationOutcome.Error">
+            <summary>
+            An error occurred
+            </summary>
+        </member>
+    </members>
+</doc>

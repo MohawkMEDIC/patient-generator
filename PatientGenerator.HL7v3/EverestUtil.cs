@@ -30,21 +30,31 @@ using MARC.Everest.Xml;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
 namespace PatientGenerator.HL7v3
 {
+	/// <summary>
+	/// Represents a utility for generating HL7v3 messages using the Everest framework.
+	/// </summary>
 	public static class EverestUtil
 	{
+		/// <summary>
+		/// The tracer source.
+		/// </summary>
+		private static readonly TraceSource traceSource = new TraceSource("PatientGenerator.HL7v3");
+
 		/// <summary>
 		/// Generates a HL7v3 PRPA_IN101201CA register patient request.
 		/// </summary>
 		/// <param name="patient">The patient options to be used when creating the demographics for the patient.</param>
 		/// <returns>Returns a PRPA_IN101201CA as an IGraphable.</returns>
+		/// <exception cref="System.InvalidOperationException">Message is not valid v3, cannot send</exception>
 		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
 		{
-			PRPA_IN101201CA registerPatientRequest = new PRPA_IN101201CA(
+			var registerPatientRequest = new PRPA_IN101201CA(
 				Guid.NewGuid(),
 				DateTime.Now,
 				ResponseMode.Immediate,
@@ -64,17 +74,14 @@ namespace PatientGenerator.HL7v3
 				)
 			);
 
-			TS dob = new TS
+			var dob = new TS
 			{
 				NullFlavor = NullFlavor.NoInformation
 			};
 
-			if (patient.DateOfBirthOptions != null)
+			if (patient.DateOfBirthOptions?.Exact != null)
 			{
-				if (patient.DateOfBirthOptions.Exact.HasValue)
-				{
-					dob = new TS(patient.DateOfBirthOptions.Exact.Value, DatePrecision.Day);
-				}
+				dob = new TS(patient.DateOfBirthOptions.Exact.Value, DatePrecision.Day);
 			}
 
 			registerPatientRequest.controlActEvent = PRPA_IN101201CA.CreateControlActEvent(
@@ -146,8 +153,11 @@ namespace PatientGenerator.HL7v3
 
 			if (patient.OtherIdentifiers.Count == 0)
 			{
-				// must have one alternate identifier
-				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N")));
+				var alternateIdentifier = new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N"));
+
+				traceSource.TraceEvent(TraceEventType.Information, 0, $"Patient must have at least one alternate identifier, adding alternate identifier:{alternateIdentifier.Root} {alternateIdentifier.Extension}");
+
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(alternateIdentifier);
 			}
 
 			foreach (var otherIdentifier in patient.OtherIdentifiers)
@@ -157,11 +167,12 @@ namespace PatientGenerator.HL7v3
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 
-#if DEBUG
 			LogGraphable(registerPatientRequest);
-#endif
 
-			bool isValid = registerPatientRequest.Validate();
+			if (!registerPatientRequest.Validate())
+			{
+				throw new InvalidOperationException("Message is not valid v3, cannot send");
+			}
 
 			return registerPatientRequest;
 		}
@@ -170,43 +181,45 @@ namespace PatientGenerator.HL7v3
 		/// Logs an IGraphable message.
 		/// </summary>
 		/// <param name="graphable">The IGraphable message to log.</param>
-		internal static void LogGraphable(IGraphable graphable)
+		private static void LogGraphable(IGraphable graphable)
 		{
 			XmlWriter writer = null;
 
-			XmlIts1Formatter formatter = new XmlIts1Formatter
+			var formatter = new XmlIts1Formatter
 			{
-				ValidateConformance = false
+				ValidateConformance = true,
 			};
 
-			DatatypeFormatter dtf = new DatatypeFormatter();
+			var dtf = new DatatypeFormatter();
 
 			formatter.GraphAides.Add(dtf);
 
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 
-			writer = XmlWriter.Create(sb, new XmlWriterSettings() { Indent = true, OmitXmlDeclaration = true });
+			writer = XmlWriter.Create(sb, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true });
 
-			XmlStateWriter stateWriter = new XmlStateWriter(writer);
+			var stateWriter = new XmlStateWriter(writer);
 
-			var result = formatter.Graph(stateWriter, graphable);
+			formatter.Graph(stateWriter, graphable);
 
 			stateWriter.Flush();
 
-			Trace.TraceInformation(sb.ToString());
+			traceSource.TraceEvent(TraceEventType.Verbose, 0, sb.ToString());
 		}
 
 		/// <summary>
 		/// Send HL7v3 messages to a specified endpoint.
 		/// </summary>
-		/// <param name="epName">The endpoint name.</param>
+		/// <param name="graphable">The graphable.</param>
+		/// <param name="endpointName">Name of the endpoint.</param>
+		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		public static bool Sendv3Messages(IGraphable graphable, string endpointName)
 		{
-			bool retVal = true;
+			var retVal = true;
 
-			WcfClientConnector client = new WcfClientConnector(string.Format("endpointName={0}", endpointName));
+			var client = new WcfClientConnector($"endpointName={endpointName}");
 
-			XmlIts1Formatter formatter = new XmlIts1Formatter
+			var formatter = new XmlIts1Formatter
 			{
 				ValidateConformance = true
 			};
@@ -218,29 +231,27 @@ namespace PatientGenerator.HL7v3
 
 			var sendResult = client.Send(graphable);
 
-#if DEBUG
-			Trace.TraceInformation("Sending HL7v3 message to endpoint: " + client.ConnectionString);
-#endif
+			traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending HL7v3 message to endpoint: " + client.ConnectionString);
 
 			if (sendResult.Code != ResultCode.Accepted && sendResult.Code != ResultCode.AcceptedNonConformant)
 			{
-				Trace.TraceError("Send result: " + Enum.GetName(typeof(ResultCode), sendResult.Code));
+				traceSource.TraceEvent(TraceEventType.Error, 0, "Send result: " + Enum.GetName(typeof(ResultCode), sendResult.Code));
 				retVal = false;
 			}
 
-			var recvResult = client.Receive(sendResult);
+			var receiveResult = client.Receive(sendResult);
 
-			if (recvResult.Code != ResultCode.Accepted && recvResult.Code != ResultCode.AcceptedNonConformant)
+			if (receiveResult.Code != ResultCode.Accepted && receiveResult.Code != ResultCode.AcceptedNonConformant)
 			{
-				Trace.TraceError("Receive result: " + Enum.GetName(typeof(ResultCode), recvResult.Code));
+				traceSource.TraceEvent(TraceEventType.Error, 0, "Receive result: " + Enum.GetName(typeof(ResultCode), receiveResult.Code));
 				retVal = false;
 			}
 
-			var result = recvResult.Structure;
+			var result = receiveResult.Structure;
 
 			if (result == null)
 			{
-				Trace.TraceError("Receive result structure is null");
+				traceSource.TraceEvent(TraceEventType.Error, 0, "Receive result structure is null");
 				retVal = false;
 			}
 
@@ -256,62 +267,17 @@ namespace PatientGenerator.HL7v3
 		/// <returns>Returns a list of addresses for a patient. LIST<AD> </returns>
 		private static LIST<AD> BuildAddresses(DemographicOptions patient)
 		{
-			LIST<AD> addresses = new LIST<AD>();
+			var addresses = new LIST<AD>();
 
 			foreach (var item in patient.Addresses)
 			{
-				ADXP city;
-				ADXP country;
-				ADXP postal;
-				ADXP state;
-				ADXP street;
+				var city = item.City == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(item.City, AddressPartType.City);
+				var country = item.Country == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(item.Country, AddressPartType.Country);
+				var postal = item.ZipPostalCode == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(item.ZipPostalCode, AddressPartType.PostalCode);
+				var state = item.StateProvince == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(item.StateProvince, AddressPartType.State);
+				var street = item.StreetAddress == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(item.StreetAddress, AddressPartType.StreetAddressLine);
 
-				if (item.City == null)
-				{
-					city = new ADXP { NullFlavor = NullFlavor.NoInformation };
-				}
-				else
-				{
-					city = new ADXP(item.City, AddressPartType.City);
-				}
-
-				if (item.Country == null)
-				{
-					country = new ADXP { NullFlavor = NullFlavor.NoInformation };
-				}
-				else
-				{
-					country = new ADXP(item.Country, AddressPartType.Country);
-				}
-
-				if (item.ZipPostalCode == null)
-				{
-					postal = new ADXP { NullFlavor = NullFlavor.NoInformation };
-				}
-				else
-				{
-					postal = new ADXP(item.ZipPostalCode, AddressPartType.PostalCode);
-				}
-
-				if (item.StateProvince == null)
-				{
-					state = new ADXP { NullFlavor = NullFlavor.NoInformation };
-				}
-				else
-				{
-					state = new ADXP(item.StateProvince, AddressPartType.State);
-				}
-
-				if (item.StreetAddress == null)
-				{
-					street = new ADXP { NullFlavor = NullFlavor.NoInformation };
-				}
-				else
-				{
-					street = new ADXP(item.StreetAddress, AddressPartType.StreetAddressLine);
-				}
-
-				addresses.Add(new AD(new ADXP[]
+				addresses.Add(new AD(new[]
 				{
 					city,
 					country,
@@ -331,11 +297,11 @@ namespace PatientGenerator.HL7v3
 		/// <returns>Returns a list of name for a patient. LIST<PN> </returns>
 		private static LIST<PN> BuildNames(DemographicOptions patient)
 		{
-			LIST<PN> personNames = new LIST<PN>();
+			var personNames = new LIST<PN>();
 
 			foreach (var item in patient.Names)
 			{
-				personNames.Add(new PN(EntityNameUse.Legal, new ENXP[]
+				personNames.Add(new PN(EntityNameUse.Legal, new[]
 				{
 					new ENXP(item.FirstName, EntityNamePartType.Given),
 					new ENXP(item.LastName, EntityNamePartType.Family)
@@ -349,10 +315,10 @@ namespace PatientGenerator.HL7v3
 		/// Builds a list of telecoms for a patient.
 		/// </summary>
 		/// <param name="patient">The patient for which to build the telecoms.</param>
-		/// <returns>Returns a list of telecoms for a patient. LIST<TEL> </returns>
+		/// <returns>Returns a list of telecoms for a patient. </returns>
 		private static LIST<TEL> BuildTelecoms(DemographicOptions patient)
 		{
-			LIST<TEL> telecoms = new LIST<TEL>();
+			var telecoms = new LIST<TEL>();
 
 			if (patient.TelecomOptions.EmailAddresses.Count == 0)
 			{
