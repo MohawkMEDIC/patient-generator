@@ -207,7 +207,7 @@ namespace PatientGenerator.FHIR
 
 			fhirPatient.Identifier = new List<Identifier>
 			{
-				new Identifier($"oid:{metadata.AssigningAuthority}", patient.HealthCardNo)
+				new Identifier($"urn:oid:{metadata.AssigningAuthority}", patient.HealthCardNo)
 			};
 
 			fhirPatient.Name = new List<HumanName>
@@ -219,7 +219,8 @@ namespace PatientGenerator.FHIR
 					{
 						patient.FirstName,
 						patient.MiddleName
-					}
+					},
+					Use = HumanName.NameUse.Official
 				}
 			};
 
@@ -231,6 +232,11 @@ namespace PatientGenerator.FHIR
 			return fhirPatient;
 		}
 
+		/// <summary>
+		/// Sends the FHIR messages.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <returns>List&lt;System.Boolean&gt;.</returns>
 		public static List<bool> SendFhirMessages(Patient patient)
 		{
 			var results = new List<bool>();
@@ -239,7 +245,11 @@ namespace PatientGenerator.FHIR
 			{
 				using (var client = new HttpClient())
 				{
-					client.DefaultRequestHeaders.Add("Authorization", new []{ $"Bearer {GetAuthorizationToken()}"});
+					if (endpoint.RequiresAuthorization)
+					{
+						client.DefaultRequestHeaders.Add("Authorization", new[] { $"Bearer {GetAuthorizationToken(endpoint)}" });
+					}
+
 					traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending FHIR message to endpoint " + endpoint);
 
 					var content = new StringContent(FhirSerializer.SerializeResourceToXml(patient));
@@ -262,9 +272,34 @@ namespace PatientGenerator.FHIR
 			return results;
 		}
 
-		private static string GetAuthorizationToken()
+		/// <summary>
+		/// Gets the authorization token.
+		/// </summary>
+		/// <param name="endpoint">The endpoint.</param>
+		/// <returns>Returns a string representing the authorization token.</returns>
+		private static string GetAuthorizationToken(FhirEndpoint endpoint)
 		{
-			throw new NotImplementedException();
+			string accessToken;
+
+			using (var client = new HttpClient())
+			{
+				client.DefaultRequestHeaders.Add("Authorization", "BASIC " + Convert.ToBase64String(Encoding.UTF8.GetBytes(endpoint.AuthorizationConfiguration.ApplicationId + ":" + endpoint.AuthorizationConfiguration.ApplicationSecret)));
+
+				var content = new StringContent($"grant_type=password&username={endpoint.AuthorizationConfiguration.Username}&password={endpoint.AuthorizationConfiguration.Password}&scope={endpoint.AuthorizationConfiguration.Scope}");
+
+				// HACK: have to remove the headers before adding them...
+				content.Headers.Remove("Content-Type");
+				content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
+				var result = client.PostAsync(endpoint.AuthorizationConfiguration.Endpoint, content).Result;
+				var response = JObject.Parse(result.Content.ReadAsStringAsync().Result);
+
+				accessToken = response.GetValue("access_token").ToString();
+				traceSource.TraceEvent(TraceEventType.Verbose, 0, $"Access token: {accessToken}");
+			}
+
+			return accessToken;
+
 		}
 	}
 }

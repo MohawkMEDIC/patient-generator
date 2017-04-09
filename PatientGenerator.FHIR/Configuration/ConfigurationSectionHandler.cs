@@ -17,6 +17,7 @@
  * Date: 2016-2-21
  */
 
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Xml;
@@ -69,7 +70,71 @@ namespace PatientGenerator.FHIR.Configuration
 					Name = item.Attributes["name"].Value
 				};
 
-				this.tracer.TraceEvent(TraceEventType.Verbose, 0, $"Adding endpoint: {endpoint.Address} {endpoint.Name}");
+				endpoint.RequiresAuthorization = bool.Parse(item.Attributes["requiresAuthorization"]?.Value);
+
+				if (endpoint.RequiresAuthorization)
+				{
+					var authorizationElement = item.SelectSingleNode("authorization") as XmlElement;
+
+					if (authorizationElement != null)
+					{
+						var authorizationEndpoint = authorizationElement.Attributes["endpoint"]?.Value;
+
+						if (authorizationEndpoint == null)
+						{
+							throw new ConfigurationErrorsException("The 'endpoint' attribute must exist and must not be null");
+						}
+
+						var applicationId = authorizationElement.Attributes["applicationId"]?.Value;
+
+						if (applicationId == null)
+						{
+							throw new ConfigurationErrorsException("The 'applicationId' attribute must exist and must not be null");
+						}
+
+						var applicationSecret = authorizationElement.Attributes["applicationSecret"]?.Value;
+
+						if (applicationSecret == null)
+						{
+							throw new ConfigurationErrorsException("The 'applicationSecret' attribute must exist and must not be null");
+						}
+
+						var username = authorizationElement.Attributes["username"]?.Value;
+
+						if (username == null)
+						{
+							throw new ConfigurationErrorsException("The 'username' attribute must exist and must not be null");
+						}
+
+						var password = authorizationElement.Attributes["password"]?.Value;
+
+						if (password == null)
+						{
+							throw new ConfigurationErrorsException("The 'password' attribute must exist and must not be null");
+						}
+
+						var scope = authorizationElement.Attributes["scope"]?.Value;
+
+						if (scope == null)
+						{
+							throw new ConfigurationErrorsException("The 'scope' attribute must exist and must not be null");
+						}
+
+						endpoint.AuthorizationConfiguration = new AuthorizationConfiguration(authorizationEndpoint, applicationId, applicationSecret)
+						{
+							Scope = scope,
+							Password = password,
+							Username = username,
+						};
+					}
+					else
+					{
+						throw new ConfigurationErrorsException("Cannot initialize endpoint which requires authorization without an authorization section: Sample: <authorization applicationId='' applicationSecret='' endpoint='' username='' password=''/>");
+					}
+				}
+
+				this.tracer.TraceEvent(TraceEventType.Verbose, 0, $"Adding endpoint: {endpoint}");
+
 				configurationSection.Endpoints.Add(endpoint);
 			}
 

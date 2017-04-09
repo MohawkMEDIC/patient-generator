@@ -22,29 +22,45 @@ using System.Xml.Serialization;
 namespace PatientGenerator.FHIR.Configuration
 {
 	/// <summary>
-	/// Represents a Fhir endpoint.
+	/// Represents a FHIR endpoint.
 	/// </summary>
 	[XmlRoot("endpoint")]
 	public class FhirEndpoint
 	{
 		/// <summary>
-		/// Initializes a new instance of the FhirEndpoint class.
+		/// Initializes a new instance of the <see cref="FhirEndpoint"/> class.
 		/// </summary>
 		public FhirEndpoint()
 		{
 		}
 
 		/// <summary>
-		/// The address of the endpoint.
+		/// Gets or sets the address.
 		/// </summary>
+		/// <value>The address.</value>
 		[XmlAttribute("address")]
 		public string Address { get; set; }
 
 		/// <summary>
-		/// The name of the endpoint.
+		/// Gets or sets the authorization configuration.
 		/// </summary>
+		/// <value>The authorization configuration.</value>
+		[XmlElement("authorization")]
+		public AuthorizationConfiguration AuthorizationConfiguration { get; set; }
+
+		/// <summary>
+		/// Gets or sets the name.
+		/// </summary>
+		/// <value>The name.</value>
 		[XmlAttribute("name")]
 		public string Name { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [requires authorization].
+		/// </summary>
+		/// <value><c>true</c> if [requires authorization]; otherwise, <c>false</c>.</value>
+		[XmlAttribute("requiresAuthorization")]
+		public bool RequiresAuthorization { get; set; }
 
 		/// <summary>
 		/// Returns the name and address in a string representation.
