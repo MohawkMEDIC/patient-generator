@@ -18,7 +18,7 @@
  */
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NHapi.Model.V25.Segment;
+using NHapi.Model.V231.Segment;
 using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2;
 using System;
@@ -139,7 +139,7 @@ namespace PatientGenerator.Tests
 				Assert.IsNull(item.City.Value);
 				Assert.IsNull(item.Country.Value);
 				Assert.IsNull(item.StateOrProvince.Value);
-				Assert.IsNull(item.StreetAddress.StreetOrMailingAddress.Value);
+				Assert.IsNull(item.StreetAddress.Value);
 				Assert.IsNull(item.ZipOrPostalCode.Value);
 			}
 		}
@@ -188,7 +188,7 @@ namespace PatientGenerator.Tests
 			PID pid = (PID)actual.GetStructure("PID");
 
 			Assert.AreEqual("1.3.6.1.4.1.33349.3.1.2.99121.283", pid.GetPatientIdentifierList(0).AssigningAuthority.UniversalID.Value);
-			Assert.IsNull(pid.DateTimeOfBirth.Time.Value);
+			Assert.IsNull(pid.DateTimeOfBirth.TimeOfAnEvent.Value);
 		}
 
 		[TestMethod]
@@ -218,7 +218,7 @@ namespace PatientGenerator.Tests
 			foreach (var item in names)
 			{
 				Assert.IsNull(item.GivenName.Value);
-				Assert.IsNull(item.FamilyName.Surname.Value);
+				Assert.IsNull(item.FamilyLastName.FamilyName.Value);
 			}
 		}
 
@@ -332,9 +332,9 @@ namespace PatientGenerator.Tests
 
 			Assert.AreEqual("Dr.", name.PrefixEgDR.Value);
 			Assert.AreEqual("Sammy", name.GivenName.Value);
-			Assert.AreEqual("J Hall", name.SecondAndFurtherGivenNamesOrInitialsThereof.Value);
-			Assert.AreEqual("Richtofen", name.FamilyName.Surname.Value);
-			Assert.AreEqual("MSc", name.ProfessionalSuffix.Value);
+			Assert.AreEqual("J Hall", name.MiddleInitialOrName.Value);
+			Assert.AreEqual("Richtofen", name.FamilyLastName.FamilyName.Value);
+			Assert.AreEqual("MSc", name.SuffixEgJRorIII.Value);
 		}
 
 		[TestMethod]
@@ -385,7 +385,7 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("Brampton", firstAddress.City.Value);
 			Assert.AreEqual("Canada", firstAddress.Country.Value);
 			Assert.AreEqual("Ontario", firstAddress.StateOrProvince.Value);
-			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.Value);
 			Assert.AreEqual("L6X0C3", firstAddress.ZipOrPostalCode.Value);
 
 			var secondAddress = pid.GetPatientAddress(1);
@@ -393,7 +393,7 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("New York City", secondAddress.City.Value);
 			Assert.AreEqual("United States of America", secondAddress.Country.Value);
 			Assert.AreEqual("New York", secondAddress.StateOrProvince.Value);
-			Assert.AreEqual("250 Madison Ave.", secondAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("250 Madison Ave.", secondAddress.StreetAddress.Value);
 			Assert.AreEqual("07008", secondAddress.ZipOrPostalCode.Value);
 
 			var thirdAddress = pid.GetPatientAddress(2);
@@ -401,7 +401,7 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("Friedberg", thirdAddress.City.Value);
 			Assert.AreEqual("Germany", thirdAddress.Country.Value);
 			Assert.AreEqual("Elbonia", thirdAddress.StateOrProvince.Value);
-			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.Value);
 			Assert.AreEqual("578233", thirdAddress.ZipOrPostalCode.Value);
 		}
 
@@ -440,17 +440,17 @@ namespace PatientGenerator.Tests
 			var firstName = pid.GetPatientName(0);
 
 			Assert.AreEqual("Samantha", firstName.GivenName.Value);
-			Assert.AreEqual("Richtofen", firstName.FamilyName.Surname.Value);
+			Assert.AreEqual("Richtofen", firstName.FamilyLastName.FamilyName.Value);
 
 			var secondName = pid.GetPatientName(1);
 
 			Assert.AreEqual("Sammy", secondName.GivenName.Value);
-			Assert.AreEqual("Richtofen", secondName.FamilyName.Surname.Value);
+			Assert.AreEqual("Richtofen", secondName.FamilyLastName.FamilyName.Value);
 
 			var thirdName = pid.GetPatientName(2);
 
 			Assert.AreEqual("Sally", thirdName.GivenName.Value);
-			Assert.AreEqual("Sam", thirdName.FamilyName.Surname.Value);
+			Assert.AreEqual("Sam", thirdName.FamilyLastName.FamilyName.Value);
 		}
 
 		[TestMethod]
@@ -465,7 +465,7 @@ namespace PatientGenerator.Tests
 
 			var actual = NHapiUtil.GenerateCandidateRegistry(options);
 
-			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
+			//Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
 			MSH msh = (MSH)actual.GetStructure("MSH");
 
@@ -483,13 +483,13 @@ namespace PatientGenerator.Tests
 			var firstName = pid.GetPatientName(0);
 
 			Assert.AreEqual("Samantha", firstName.GivenName.Value);
-			Assert.AreEqual("Richtofen", firstName.FamilyName.Surname.Value);
+			Assert.AreEqual("Richtofen", firstName.FamilyLastName.FamilyName.Value);
 
 			var secondName = pid.GetPatientName(1);
 
 			Assert.AreEqual("Dr.", secondName.PrefixEgDR.Value);
 			Assert.AreEqual("Sammy", secondName.GivenName.Value);
-			Assert.AreEqual("Richtofen", secondName.FamilyName.Surname.Value);
+			Assert.AreEqual("Richtofen", secondName.FamilyLastName.FamilyName.Value);
 		}
 
 		[TestMethod]
@@ -527,8 +527,8 @@ namespace PatientGenerator.Tests
 			var name = pid.GetPatientName(0);
 
 			Assert.AreEqual("Sammy", name.GivenName.Value);
-			Assert.AreEqual("Richtofen", name.FamilyName.Surname.Value);
-			Assert.AreEqual("MSc", name.ProfessionalSuffix.Value);
+			Assert.AreEqual("Richtofen", name.FamilyLastName.FamilyName.Value);
+			Assert.AreEqual("MSc", name.SuffixEgJRorIII.Value);
 		}
 
 		[TestMethod]
@@ -673,7 +673,7 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("Brampton", firstAddress.City.Value);
 			Assert.AreEqual("Canada", firstAddress.Country.Value);
 			Assert.AreEqual("Ontario", firstAddress.StateOrProvince.Value);
-			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("123 Main Street West", firstAddress.StreetAddress.Value);
 			Assert.IsNull(firstAddress.ZipOrPostalCode.Value);
 
 			var secondAddress = pid.GetPatientAddress(1);
@@ -681,7 +681,7 @@ namespace PatientGenerator.Tests
 			Assert.AreEqual("New York City", secondAddress.City.Value);
 			Assert.AreEqual("United States of America", secondAddress.Country.Value);
 			Assert.AreEqual("New York", secondAddress.StateOrProvince.Value);
-			Assert.IsNull(secondAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.IsNull(secondAddress.StreetAddress.Value);
 			Assert.AreEqual("07008", secondAddress.ZipOrPostalCode.Value);
 
 			var thirdAddress = pid.GetPatientAddress(2);
@@ -689,7 +689,7 @@ namespace PatientGenerator.Tests
 			Assert.IsNull(thirdAddress.City.Value);
 			Assert.AreEqual("Germany", thirdAddress.Country.Value);
 			Assert.AreEqual("Elbonia", thirdAddress.StateOrProvince.Value);
-			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.StreetOrMailingAddress.Value);
+			Assert.AreEqual("Grüner Weg 6", thirdAddress.StreetAddress.Value);
 			Assert.AreEqual("578233", thirdAddress.ZipOrPostalCode.Value);
 		}
 	}

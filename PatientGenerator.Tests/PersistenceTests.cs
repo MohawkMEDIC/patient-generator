@@ -116,206 +116,206 @@ namespace PatientGenerator.Tests
 			};
 		}
 
-		[TestMethod]
-		public void TestNoAddress()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoAddress()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Addresses.Clear();
+		//	options.Addresses.Clear();
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoAddressAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoAddressAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Addresses.Clear();
+		//	options.Addresses.Clear();
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestNoAlternateIdentifiers()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoAlternateIdentifiers()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.OtherIdentifiers.Clear();
+		//	options.OtherIdentifiers.Clear();
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoAlternateIdentifiersAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoAlternateIdentifiersAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.OtherIdentifiers.Clear();
+		//	options.OtherIdentifiers.Clear();
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestNoDateOfBirth()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoDateOfBirth()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.DateOfBirthOptions = null;
+		//	options.DateOfBirthOptions = null;
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoDateOfBirthAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoDateOfBirthAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.DateOfBirthOptions = null;
+		//	options.DateOfBirthOptions = null;
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestNoGender()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoGender()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Gender = null;
+		//	options.Gender = null;
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoGenderAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoGenderAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Gender = null;
+		//	options.Gender = null;
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestNoName()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoName()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Names.Clear();
+		//	options.Names.Clear();
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoNameAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoNameAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Names.Clear();
+		//	options.Names.Clear();
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestNoPersonIdentifier()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestNoPersonIdentifier()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.PersonIdentifier = null;
+		//	options.PersonIdentifier = null;
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestNoPersonIdentifierAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestNoPersonIdentifierAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.PersonIdentifier = null;
+		//	options.PersonIdentifier = null;
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestPartialAddress()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestPartialAddress()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Addresses.Clear();
+		//	options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
-			{
-				City = "Miami",
-				Country = "United States of America",
-				StateProvince = "Florida"
-			});
+		//	options.Addresses.Add(new AddressOptions
+		//	{
+		//		City = "Miami",
+		//		Country = "United States of America",
+		//		StateProvince = "Florida"
+		//	});
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestPartialAddressAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestPartialAddressAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			options.Addresses.Clear();
+		//	options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
-			{
-				City = "Miami",
-				Country = "United States of America",
-				StateProvince = "Florida"
-			});
+		//	options.Addresses.Add(new AddressOptions
+		//	{
+		//		City = "Miami",
+		//		Country = "United States of America",
+		//		StateProvince = "Florida"
+		//	});
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public void TestValidMessage()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public void TestValidMessage()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			var result = persistenceHandlerService.Save(options);
+		//	var result = persistenceHandlerService.Save(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 
-		[TestMethod]
-		public async Task TestValidMessageAsync()
-		{
-			PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
+		//[TestMethod]
+		//public async Task TestValidMessageAsync()
+		//{
+		//	PersistenceHandlerService persistenceHandlerService = new PersistenceHandlerService();
 
-			var result = await persistenceHandlerService.SaveAsync(options);
+		//	var result = await persistenceHandlerService.SaveAsync(options);
 
-			Assert.IsTrue(result);
-		}
+		//	Assert.IsTrue(result);
+		//}
 	}
 }
