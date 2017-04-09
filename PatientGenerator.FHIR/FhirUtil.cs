@@ -26,19 +26,40 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using Hl7.Fhir.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace PatientGenerator.FHIR
 {
+	/// <summary>
+	/// Represents a utility for generating FHIR messages using the HL7 FHIR framework.
+	/// </summary>
 	public static class FhirUtil
 	{
-		private static FhirConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.fhir") as FhirConfigurationSection;
+		/// <summary>
+		/// The configuration.
+		/// </summary>
+		private static readonly FhirConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.fhir") as FhirConfigurationSection;
 
+		/// <summary>
+		/// The trace source.
+		/// </summary>
+		private static readonly TraceSource traceSource = new TraceSource("PatientGenerator.FHIR");
+
+		/// <summary>
+		/// Generates the candidate registry.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>Patient.</returns>
 		public static Patient GenerateCandidateRegistry(DemographicOptions options)
 		{
-			Patient patient = new Patient();
-
-			patient.Active = true;
-			patient.Address = new List<Address>();
+			var patient = new Patient
+			{
+				Active = true,
+				Address = new List<Address>()
+			};
 
 			foreach (var address in options.Addresses)
 			{
@@ -63,14 +84,14 @@ namespace PatientGenerator.FHIR
 				}
 				else if (options.DateOfBirthOptions.Start.HasValue && options.DateOfBirthOptions.End.HasValue)
 				{
-					int startYear = options.DateOfBirthOptions.Start.Value.Year;
-					int endYear = options.DateOfBirthOptions.End.Value.Year;
+					var startYear = options.DateOfBirthOptions.Start.Value.Year;
+					var endYear = options.DateOfBirthOptions.End.Value.Year;
 
-					int startMonth = options.DateOfBirthOptions.Start.Value.Month;
-					int endMonth = options.DateOfBirthOptions.End.Value.Month;
+					var startMonth = options.DateOfBirthOptions.Start.Value.Month;
+					var endMonth = options.DateOfBirthOptions.End.Value.Month;
 
-					int startDay = options.DateOfBirthOptions.Start.Value.Day;
-					int endDay = options.DateOfBirthOptions.End.Value.Day;
+					var startDay = options.DateOfBirthOptions.Start.Value.Day;
+					var endDay = options.DateOfBirthOptions.End.Value.Day;
 
 					patient.BirthDate = new DateTime(new Random().Next(startYear, endYear), new Random().Next(startMonth, endMonth), new Random().Next(startDay, endDay)).ToString("yyyy-MM-dd");
 				}
@@ -107,28 +128,22 @@ namespace PatientGenerator.FHIR
 			}
 
 			patient.Identifier = new List<Identifier>();
-
-			foreach (var identifier in options.OtherIdentifiers)
-			{
-				patient.Identifier.Add(new Identifier(identifier.AssigningAuthority, identifier.Value));
-			}
+			patient.Identifier.AddRange(options.OtherIdentifiers.Select(i => new Identifier(i.AssigningAuthority, i.Value)));
 
 			patient.Name = new List<HumanName>();
 
 			foreach (var name in options.Names)
 			{
-				HumanName humanName = new HumanName();
-
-				humanName.Family = new List<string>
+				var humanName = new HumanName
 				{
-					name.LastName
+					Family = name.LastName,
+					Given = new List<string>
+					{
+						name.FirstName
+					}
 				};
 
-				humanName.Given = new List<string>
-				{
-					name.FirstName
-				};
-
+				// HACK: shouldn't use ToList() here
 				humanName.Given.ToList().AddRange(name.MiddleNames);
 
 				patient.Name.Add(humanName);
@@ -136,25 +151,84 @@ namespace PatientGenerator.FHIR
 
 			patient.Telecom = new List<ContactPoint>();
 
-			foreach (var email in options.TelecomOptions.EmailAddresses)
-			{
-				patient.Telecom.Add(new ContactPoint
-				{
-					System = ContactPoint.ContactPointSystem.Email,
-					Value = email
-				});
-			}
-
-			foreach (var phone in options.TelecomOptions.PhoneNumbers)
-			{
-				patient.Telecom.Add(new ContactPoint
-				{
-					System = ContactPoint.ContactPointSystem.Phone,
-					Value = phone
-				});
-			}
+			patient.Telecom.AddRange(options.TelecomOptions.EmailAddresses.Select(e => new ContactPoint(ContactPoint.ContactPointSystem.Email, ContactPoint.ContactPointUse.Mobile, e)));
+			patient.Telecom.AddRange(options.TelecomOptions.PhoneNumbers.Select(p => new ContactPoint(ContactPoint.ContactPointSystem.Phone, ContactPoint.ContactPointUse.Mobile, p)));
 
 			return patient;
+		}
+
+		public static Patient GenerateCandidateRegistry(Core.Common.Patient patient, Core.Common.Metadata metadata)
+		{
+			var fhirPatient = new Patient
+			{
+				Active = true,
+				Address = new List<Address>
+				{
+					new Address
+					{
+						City = patient.City,
+						Country = patient.Country,
+						Line = new List<string>
+						{
+							patient.AddressLine
+						},
+						PostalCode = patient.PostalCode,
+						State = patient.Province,
+						Use = Address.AddressUse.Home
+					}
+				},
+				BirthDate = patient.DateOfBirth.ToString("yyyy-MM-dd"),
+			};
+
+			switch (patient.Gender)
+			{
+				case "F":
+				case "f":
+				case "female":
+				case "Female":
+					fhirPatient.Gender = AdministrativeGender.Female;
+					break;
+				case "M":
+				case "m":
+				case "male":
+				case "Male":
+					fhirPatient.Gender = AdministrativeGender.Male;
+					break;
+				case "O":
+				case "o":
+				case "other":
+				case "Other":
+					fhirPatient.Gender = AdministrativeGender.Other;
+					break;
+				default:
+					fhirPatient.Gender = AdministrativeGender.Unknown;
+					break;
+			}
+
+			fhirPatient.Identifier = new List<Identifier>
+			{
+				new Identifier($"oid:{metadata.AssigningAuthority}", patient.HealthCardNo)
+			};
+
+			fhirPatient.Name = new List<HumanName>
+			{
+				new HumanName
+				{
+					Family = patient.LastName,
+					Given = new List<string>
+					{
+						patient.FirstName,
+						patient.MiddleName
+					}
+				}
+			};
+
+			fhirPatient.Telecom = new List<ContactPoint>
+			{
+				new ContactPoint(ContactPoint.ContactPointSystem.Phone, ContactPoint.ContactPointUse.Mobile, patient.PhoneNo)
+			};
+
+			return fhirPatient;
 		}
 
 		public static List<bool> SendFhirMessages(Patient patient)
@@ -163,26 +237,34 @@ namespace PatientGenerator.FHIR
 
 			foreach (var endpoint in configuration.Endpoints)
 			{
-				var client = new FhirClient(new Uri(endpoint.Address));
-
-#if DEBUG
-				Trace.TraceInformation("Sending FHIR message to endpoint " + endpoint.ToString());
-#endif
-
-				var outcome = client.ValidateCreate(patient);
-
-				if (outcome?.Fatals > 0 || outcome?.Errors > 0)
+				using (var client = new HttpClient())
 				{
-					Trace.TraceWarning("Pre-validation failed for FHIR message");
-					Trace.TraceError($"FHIR Validation Error: {string.Join(", ", outcome.Issue.Select(o => o.Details))}");
+					client.DefaultRequestHeaders.Add("Authorization", new []{ $"Bearer {GetAuthorizationToken()}"});
+					traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending FHIR message to endpoint " + endpoint);
+
+					var content = new StringContent(FhirSerializer.SerializeResourceToXml(patient));
+					content.Headers.Remove("Content-Type");
+					content.Headers.Add("Content-Type", "application/xml+fhir");
+
+					var response = client.PostAsync($"{endpoint.Address}/Patient", content).Result;
+
+					if (response.IsSuccessStatusCode)
+					{
+						traceSource.TraceEvent(TraceEventType.Verbose, 0, $"Message sent successfully, response: {response.Content.ReadAsStringAsync().Result}");
+					}
+					else
+					{
+						traceSource.TraceEvent(TraceEventType.Error, 0, $"Unable to send message, response: {response.Content.ReadAsStringAsync().Result}");
+					}
 				}
-
-				results.Add(outcome == null);
-
-				client.Create<Patient>(patient);
 			}
 
 			return results;
+		}
+
+		private static string GetAuthorizationToken()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

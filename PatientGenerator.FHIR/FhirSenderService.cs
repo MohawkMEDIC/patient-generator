@@ -22,6 +22,7 @@ using PatientGenerator.Core.Common;
 using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hl7.Fhir.Serialization;
 
@@ -48,20 +49,37 @@ namespace PatientGenerator.FHIR
 		/// Sends the specified patients.
 		/// </summary>
 		/// <param name="patients">The patients.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(IEnumerable<Patient> patients)
 		{
-			throw new NotImplementedException();
+			var messages = patients.Select(patient => FhirUtil.GenerateCandidateRegistry(patient, new Metadata
+									{
+										AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
+										ReceivingApplication = "OpenIZ",
+										ReceivingFacility = "OpenIZ",
+										SendingApplication = "Test",
+										SendingFacility = "Test"
+									}))
+									.ToList();
+
+			messages.Select(FhirUtil.SendFhirMessages);
 		}
 
 		/// <summary>
 		/// Sends the specified patient.
 		/// </summary>
 		/// <param name="patient">The patient.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(Patient patient)
 		{
-			throw new NotImplementedException();
+			var message = FhirUtil.GenerateCandidateRegistry(patient, new Metadata
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
+				ReceivingApplication = "OpenIZ",
+				ReceivingFacility = "OpenIZ",
+				SendingApplication = "Test",
+				SendingFacility = "Test"
+			});
+
+			FhirUtil.SendFhirMessages(message);
 		}
 
 		/// <summary>
