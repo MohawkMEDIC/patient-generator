@@ -31,12 +31,12 @@ namespace PatientGenerator.Randomizer
 	/// </summary>
 	/// <seealso cref="Randomizer.RandomizerBase{CommonData}" />
 	/// <seealso cref="IRandomizerService" />
-	public class RandomizerService : RandomizerBase<CommonData>, IRandomizerService
+	public class RandomizerService : RandomizerBase<SeedData>, IRandomizerService
 	{
 		/// <summary>
 		/// The common data instance.
 		/// </summary>
-		private readonly CommonData commonData;
+		private readonly SeedData seedData;
 
 		/// <summary>
 		/// The random instance.
@@ -53,7 +53,7 @@ namespace PatientGenerator.Randomizer
 		/// </summary>
 		public RandomizerService()
 		{
-			commonData = LoadData(ConfigurationManager.AppSettings["CommonFile"]);
+			seedData = LoadData(ConfigurationManager.AppSettings["CommonFile"]);
 		}
 
 		/// <summary>
@@ -62,11 +62,11 @@ namespace PatientGenerator.Randomizer
 		/// <returns>Returns a random patient.</returns>
 		public Patient GetRandomPatient()
 		{
-			var nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
+			var nameGenderPair = seedData.GivenNames[random.Next(seedData.GivenNames.Count)];
 
 			var firstName = nameGenderPair.Name;
-			var middleName = commonData.GivenNames[random.Next(commonData.GivenNames.Count)].Name;
-			var lastName = commonData.FamilyNames[random.Next(commonData.FamilyNames.Count - random.Next(1, commonData.FamilyNames.Count))];
+			var middleName = seedData.GivenNames[random.Next(seedData.GivenNames.Count)].Name;
+			var lastName = seedData.FamilyNames[random.Next(seedData.FamilyNames.Count - random.Next(1, seedData.FamilyNames.Count))];
 
 			string postal = null;
 
@@ -82,8 +82,8 @@ namespace PatientGenerator.Randomizer
 
 			var patient = new Patient
 			{
-				AddressLine = random.Next(400).ToString("##0") + " " + commonData.StreetNames[random.Next(commonData.StreetNames.Count)],
-				City = commonData.Cities[random.Next(commonData.Cities.Count)],
+				AddressLine = random.Next(400).ToString("##0") + " " + seedData.StreetNames[random.Next(seedData.StreetNames.Count)],
+				City = seedData.Cities[random.Next(seedData.Cities.Count)],
 				Country = "Canada",
 				DateOfBirth = new DateTime(random.Next(1930, 2014), random.Next(1, 11), random.Next(1, 28)),
 				Email = (firstName + "." + lastName + random.Next(1000) + "@example.com").ToLower(),

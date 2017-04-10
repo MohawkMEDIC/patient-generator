@@ -25,8 +25,8 @@ namespace PatientGenerator.Randomizer.Common
 	/// <summary>
 	/// Represents common data.
 	/// </summary>
-	[XmlRoot("CommonData")]
-	public class CommonData
+	[XmlRoot(nameof(SeedData))]
+	public class SeedData
 	{
 		/// <summary>
 		/// Gets or sets the cities.
