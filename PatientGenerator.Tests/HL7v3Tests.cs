@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -19,7 +19,7 @@
 
 using MARC.Everest.RMIM.CA.R020402.Interactions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.Core.Model.ComponentModel;
 using PatientGenerator.HL7v3;
 using System;
 using System.Collections.Generic;
@@ -87,7 +87,7 @@ namespace PatientGenerator.Tests
 					Exact = new DateTime(new Random().Next(1900, 2014), new Random().Next(1, 12), new Random().Next(1, 28))
 				},
 				Gender = "M",
-				Metadata = new Core.Common.Metadata
+				Metadata = new Core.Model.Metadata
 				{
 					AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
 					ReceivingApplication = "CRTEST",

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -19,7 +19,6 @@
 
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
-using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.FHIR.Configuration;
 using System;
 using System.Collections.Generic;
@@ -30,6 +29,7 @@ using System.Net.Http;
 using System.Text;
 using Hl7.Fhir.Serialization;
 using Newtonsoft.Json.Linq;
+using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.FHIR
 {
@@ -143,8 +143,10 @@ namespace PatientGenerator.FHIR
 					}
 				};
 
-				// HACK: shouldn't use ToList() here
-				humanName.Given.ToList().AddRange(name.MiddleNames);
+				humanName.Given = new List<string>(name.MiddleNames)
+				{
+					name.FirstName
+				};
 
 				patient.Name.Add(humanName);
 			}
@@ -157,7 +159,7 @@ namespace PatientGenerator.FHIR
 			return patient;
 		}
 
-		public static Patient GenerateCandidateRegistry(Core.Common.Patient patient, Core.Common.Metadata metadata)
+		public static Patient GenerateCandidateRegistry(Core.Model.Common.Patient patient, Core.Model.Metadata metadata)
 		{
 			var fhirPatient = new Patient
 			{
@@ -178,6 +180,62 @@ namespace PatientGenerator.FHIR
 					}
 				},
 				BirthDate = patient.DateOfBirth.ToString("yyyy-MM-dd"),
+				Communication = new List<Patient.CommunicationComponent>
+				{
+					new Patient.CommunicationComponent
+					{
+						Language = new CodeableConcept("urn:ietf:bcp:47", "en", "English"),
+						Preferred = true
+					},
+					new Patient.CommunicationComponent
+					{
+						Language = new CodeableConcept("urn:ietf:bcp:47", "sw", "Swahili")
+					}
+				},
+				Contact = new List<Patient.ContactComponent>
+				{
+					new Patient.ContactComponent
+					{
+						Name = new HumanName
+						{
+							Family = patient.LastName,
+							Given = new List<string>
+							{
+								"Smith",
+								"Mary"
+							},
+							Use = HumanName.NameUse.Official
+						},
+						Relationship = new List<CodeableConcept>
+						{
+							new CodeableConcept("", "MTH", "Mother")
+						}
+					}
+				},
+				Deceased = new FhirDateTime(DateTime.Now),
+				Id = Guid.NewGuid().ToString(),
+				Identifier = new List<Identifier>
+				{
+					new Identifier($"urn:oid:{metadata.AssigningAuthority}", patient.HealthCardNo)
+				},
+				MultipleBirth = new FhirBoolean(true),
+				Name = new List<HumanName>
+				{
+					new HumanName
+					{
+						Family = patient.LastName,
+						Given = new List<string>
+						{
+							patient.FirstName,
+							patient.MiddleName
+						},
+						Use = HumanName.NameUse.Official
+					}
+				},
+				Telecom = new List<ContactPoint>
+				{
+					new ContactPoint(ContactPoint.ContactPointSystem.Phone, ContactPoint.ContactPointUse.Mobile, patient.PhoneNo)
+				}
 			};
 
 			switch (patient.Gender)
@@ -204,30 +262,6 @@ namespace PatientGenerator.FHIR
 					fhirPatient.Gender = AdministrativeGender.Unknown;
 					break;
 			}
-
-			fhirPatient.Identifier = new List<Identifier>
-			{
-				new Identifier($"urn:oid:{metadata.AssigningAuthority}", patient.HealthCardNo)
-			};
-
-			fhirPatient.Name = new List<HumanName>
-			{
-				new HumanName
-				{
-					Family = patient.LastName,
-					Given = new List<string>
-					{
-						patient.FirstName,
-						patient.MiddleName
-					},
-					Use = HumanName.NameUse.Official
-				}
-			};
-
-			fhirPatient.Telecom = new List<ContactPoint>
-			{
-				new ContactPoint(ContactPoint.ContactPointSystem.Phone, ContactPoint.ContactPointUse.Mobile, patient.PhoneNo)
-			};
 
 			return fhirPatient;
 		}

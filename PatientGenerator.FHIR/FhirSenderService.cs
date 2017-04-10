@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -18,8 +18,8 @@
  */
 
 using PatientGenerator.Core;
-using PatientGenerator.Core.Common;
-using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.Core.Model.Common;
+using PatientGenerator.Core.Model.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +51,7 @@ namespace PatientGenerator.FHIR
 		/// <param name="patients">The patients.</param>
 		public void Send(IEnumerable<Patient> patients)
 		{
-			var messages = patients.Select(patient => FhirUtil.GenerateCandidateRegistry(patient, new Metadata
+			var messages = patients.Select(patient => FhirUtil.GenerateCandidateRegistry(patient, new Core.Model.Metadata
 									{
 										AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
 										ReceivingApplication = "OpenIZ",
@@ -70,7 +70,7 @@ namespace PatientGenerator.FHIR
 		/// <param name="patient">The patient.</param>
 		public void Send(Patient patient)
 		{
-			var message = FhirUtil.GenerateCandidateRegistry(patient, new Metadata
+			var message = FhirUtil.GenerateCandidateRegistry(patient, new Core.Model.Metadata
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
 				ReceivingApplication = "OpenIZ",

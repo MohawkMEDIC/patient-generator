@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2017-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -14,10 +14,10 @@
  * the License.
  *
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2017-4-9
  */
 
-namespace PatientGenerator.Core.Common
+namespace PatientGenerator.Core.Model
 {
 	/// <summary>
 	/// Represents metadata about patient registration.
@@ -25,7 +25,7 @@ namespace PatientGenerator.Core.Common
 	public class Metadata
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="PatientGenerator.Core.ComponentModel.Metadata"/> class.
+		/// Initializes a new instance of the <see cref="Metadata"/> class.
 		/// </summary>
 		public Metadata()
 		{

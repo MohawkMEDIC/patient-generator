@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -19,10 +19,24 @@
 
 namespace PatientGenerator.Core.Validation
 {
+	/// <summary>
+	/// Represents a result detail type.
+	/// </summary>
 	public enum ResultDetailType
 	{
+		/// <summary>
+		/// Represents an error result.
+		/// </summary>
 		Error = 0,
+
+		/// <summary>
+		/// Represents a warning result.
+		/// </summary>
 		Warning = 1,
+
+		/// <summary>
+		/// Represents an informational result.
+		/// </summary>
 		Information = 2
 	}
 }

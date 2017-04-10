@@ -80,10 +80,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="PatientGenerator.Persistence.licenseheader" />
+    <None Include="PatientGenerator.licenseheader" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\PatientGenerator.Core.Model\PatientGenerator.Core.Model.csproj">
+      <Project>{9c2d439a-38f1-4d54-8ae3-4192e38ea95d}</Project>
+      <Name>PatientGenerator.Core.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
       <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
       <Name>PatientGenerator.Core</Name>

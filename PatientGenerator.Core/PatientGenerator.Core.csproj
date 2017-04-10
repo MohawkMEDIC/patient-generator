@@ -46,14 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Patient.cs" />
-    <Compile Include="ComponentModel\AddressOptions.cs" />
-    <Compile Include="ComponentModel\AlternateIdentifierOptions.cs" />
-    <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
-    <Compile Include="ComponentModel\DemographicOptions.cs" />
-    <Compile Include="ComponentModel\NameOptions.cs" />
-    <Compile Include="Common\Metadata.cs" />
-    <Compile Include="ComponentModel\RelatedPersonOptions.cs" />
     <Compile Include="IFhirSenderService.cs" />
     <Compile Include="IHL7v2SenderService.cs" />
     <Compile Include="IHL7v3SenderService.cs" />
@@ -61,7 +53,6 @@
     <Compile Include="IRandomizerService.cs" />
     <Compile Include="ModelMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ComponentModel\TelecomOptions.cs" />
     <Compile Include="Validation\ConflictingValueResultDetail.cs" />
     <Compile Include="Validation\IResultDetail.cs" />
     <Compile Include="Validation\MandatoryElementMissingResultDetail.cs" />
@@ -69,7 +60,13 @@
     <Compile Include="Validation\ResultDetailType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PatientGenerator.Core.licenseheader" />
+    <ProjectReference Include="..\PatientGenerator.Core.Model\PatientGenerator.Core.Model.csproj">
+      <Project>{9c2d439a-38f1-4d54-8ae3-4192e38ea95d}</Project>
+      <Name>PatientGenerator.Core.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PatientGenerator.licenseheader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

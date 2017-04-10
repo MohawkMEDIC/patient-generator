@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -21,14 +21,33 @@ using System;
 
 namespace PatientGenerator.Core.Validation
 {
+	/// <summary>
+	/// Represents a result detail.
+	/// </summary>
 	public interface IResultDetail
 	{
+		/// <summary>
+		/// Gets the exception.
+		/// </summary>
+		/// <value>The exception.</value>
 		Exception Exception { get; }
 
+		/// <summary>
+		/// Gets or sets the location.
+		/// </summary>
+		/// <value>The location.</value>
 		string Location { get; set; }
 
+		/// <summary>
+		/// Gets the message.
+		/// </summary>
+		/// <value>The message.</value>
 		string Message { get; }
 
+		/// <summary>
+		/// Gets the type.
+		/// </summary>
+		/// <value>The type.</value>
 		ResultDetailType Type { get; }
 	}
 }

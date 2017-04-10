@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -22,13 +22,13 @@ using NHapi.Base.Parser;
 using NHapi.Model.V231.Datatype;
 using NHapi.Model.V231.Message;
 using NHapi.Model.V231.Segment;
-using PatientGenerator.Core.ComponentModel;
 using PatientGenerator.HL7v2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.HL7v2
 {
@@ -52,7 +52,7 @@ namespace PatientGenerator.HL7v2
 		/// </summary>
 		/// <param name="metadata">The metadata.</param>
 		/// <returns>IMessage.</returns>
-		private static IMessage CreateBaseMessage(PatientGenerator.Core.Common.Metadata metadata)
+		private static IMessage CreateBaseMessage(PatientGenerator.Core.Model.Metadata metadata)
         {
             var message = new ADT_A01();
 
@@ -143,7 +143,7 @@ namespace PatientGenerator.HL7v2
 		/// <param name="patient">The patient.</param>
 		/// <param name="metadata">The metadata.</param>
 		/// <returns>IMessage.</returns>
-		public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Common.Patient patient, PatientGenerator.Core.Common.Metadata metadata)
+		public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Model.Common.Patient patient, PatientGenerator.Core.Model.Metadata metadata)
         {
             var message = CreateBaseMessage(metadata) as ADT_A01;
 

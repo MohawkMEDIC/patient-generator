@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0918EE
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Core.Model", "PatientGenerator.Core.Model\PatientGenerator.Core.Model.csproj", "{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{CA719D41-4349-4EE4-BE68-2553600D230F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA719D41-4349-4EE4-BE68-2553600D230F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA719D41-4349-4EE4-BE68-2553600D230F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

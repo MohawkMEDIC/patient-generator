@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -27,12 +27,12 @@ using MARC.Everest.Interfaces;
 using MARC.Everest.RMIM.CA.R020402.Interactions;
 using MARC.Everest.RMIM.CA.R020402.Vocabulary;
 using MARC.Everest.Xml;
-using PatientGenerator.Core.ComponentModel;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.HL7v3
 {

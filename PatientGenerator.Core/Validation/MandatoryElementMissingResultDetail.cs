@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -21,20 +21,46 @@ using System;
 
 namespace PatientGenerator.Core.Validation
 {
+	/// <summary>
+	/// Represents a result detail indicating a mandatory element is missing.
+	/// </summary>
+	/// <seealso cref="PatientGenerator.Core.Validation.ResultDetail" />
 	public class MandatoryElementMissingResultDetail : ResultDetail
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MandatoryElementMissingResultDetail"/> class.
+		/// </summary>
+		/// <param name="message">The message.</param>
 		public MandatoryElementMissingResultDetail(string message) : base(message)
 		{
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MandatoryElementMissingResultDetail"/> class.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="message">The message.</param>
 		public MandatoryElementMissingResultDetail(ResultDetailType type, string message) : base(type, message)
 		{
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MandatoryElementMissingResultDetail"/> class.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="message">The message.</param>
+		/// <param name="exception">The exception.</param>
 		public MandatoryElementMissingResultDetail(ResultDetailType type, string message, Exception exception) : base(type, message, exception)
 		{
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MandatoryElementMissingResultDetail"/> class.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="message">The message.</param>
+		/// <param name="location">The location.</param>
+		/// <param name="exception">The exception.</param>
 		public MandatoryElementMissingResultDetail(ResultDetailType type, string message, string location, Exception exception) : base(type, message, location, exception)
 		{
 		}

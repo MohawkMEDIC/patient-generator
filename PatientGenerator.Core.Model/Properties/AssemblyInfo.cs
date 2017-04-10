@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
+ * Copyright 2017-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -14,31 +14,24 @@
  * the License.
  *
  * User: Nityan
- * Date: 2016-3-12
+ * Date: 2017-4-9
  */
 
 using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Patient Generator Randomizer Service")]
-[assembly: AssemblyDescription("Patient Generator Randomizer Service")]
+[assembly: AssemblyTitle("Patient Generator Core Classes")]
+[assembly: AssemblyDescription("Patient Generator Core Classes")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mohawk College of Applied Arts and Technology")]
-[assembly: AssemblyProduct("Patient Generator Randomizer Service")]
+[assembly: AssemblyProduct("Patient Generator Core Classes")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ca719d41-4349-4ee4-be68-2553600d230f")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Version information for an assembly consists of the following four values:
 //

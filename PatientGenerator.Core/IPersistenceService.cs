@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -18,15 +18,28 @@
  */
 
 using MARC.HI.EHRS.SVC.Core.Services;
-using PatientGenerator.Core.ComponentModel;
 using System.Threading.Tasks;
+using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.Core
 {
+	/// <summary>
+	/// Represents a persistence service.
+	/// </summary>
 	public interface IPersistenceService
 	{
+		/// <summary>
+		/// Saves the specified options.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
 		bool Save(DemographicOptions options);
 
+		/// <summary>
+		/// Saves the asynchronous.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns>Task&lt;System.Boolean&gt;.</returns>
 		Task<bool> SaveAsync(DemographicOptions options);
 	}
 }

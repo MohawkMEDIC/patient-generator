@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -18,7 +18,7 @@
  */
 
 using PatientGenerator.Core;
-using PatientGenerator.Core.Common;
+using PatientGenerator.Core.Model.Common;
 using PatientGenerator.Randomizer.Common;
 using System;
 using System.Configuration;
@@ -26,30 +26,40 @@ using System.Diagnostics;
 
 namespace PatientGenerator.Randomizer
 {
+	/// <summary>
+	/// Represents a randomizer service.
+	/// </summary>
+	/// <seealso cref="PatientGenerator.Randomizer.RandomizerBase{PatientGenerator.Randomizer.Common.CommonData}" />
+	/// <seealso cref="PatientGenerator.Core.IRandomizerService" />
 	public class RandomizerService : RandomizerBase<CommonData>, IRandomizerService
 	{
-		private Random random = new Random();
-		private CommonData commonData;
-		private IServiceProvider context;
+		/// <summary>
+		/// The random instance.
+		/// </summary>
+		private readonly Random random = new Random();
 
+		/// <summary>
+		/// The common data instance.
+		/// </summary>
+		private readonly CommonData commonData;
+
+		/// <summary>
+		/// The trace source.
+		/// </summary>
+		private readonly TraceSource traceSource = new TraceSource("PatientGenerator.Randomizer");
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RandomizerService"/> class.
+		/// </summary>
 		public RandomizerService()
 		{
 			commonData = LoadData(ConfigurationManager.AppSettings["CommonFile"]);
 		}
 
-		public IServiceProvider Context
-		{
-			get
-			{
-				return this.context;
-			}
-
-			set
-			{
-				this.context = value;
-			}
-		}
-
+		/// <summary>
+		/// Gets the random patient.
+		/// </summary>
+		/// <returns>Returns a random patient.</returns>
 		public Patient GetRandomPatient()
 		{
 			GivenNameGenderPair nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
@@ -88,9 +98,7 @@ namespace PatientGenerator.Randomizer
 				Province = "Ontario"
 			};
 
-#if DEBUG
-			Trace.TraceInformation(patient.FirstName + " " + patient.LastName + " " + patient.DateOfBirth.ToString("yyyy-MM-dd") + " " + patient.HealthCardNo);
-#endif
+			traceSource.TraceEvent(TraceEventType.Verbose, 0, patient.FirstName + " " + patient.LastName + " " + patient.DateOfBirth.ToString("yyyy-MM-dd") + " " + patient.HealthCardNo);
 
 			return patient;
 		}

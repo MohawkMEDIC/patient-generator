@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -14,38 +14,35 @@
  * the License.
  *
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2017-4-9
  */
 
-using System;
+using System.Collections.Generic;
 
-namespace PatientGenerator.Core.ComponentModel
+namespace PatientGenerator.Core.Model.ComponentModel
 {
 	/// <summary>
-	/// Date of birth options for a patient.
+	/// Represents telecom options for a patient.
 	/// </summary>
-	public class DateOfBirthOptions
+	public class TelecomOptions
 	{
 		/// <summary>
-		/// Initializes a new instance of the DateOfBirthOptions class.
+		/// Initializes a new instance of the TelecomOptions class.
 		/// </summary>
-		public DateOfBirthOptions()
+		public TelecomOptions()
 		{
+			this.EmailAddresses = new List<string>();
+			this.PhoneNumbers = new List<string>();
 		}
 
 		/// <summary>
-		/// The end range for the date of birth.
+		/// The email addresses of the patient.
 		/// </summary>
-		public DateTime? End { get; set; }
+		public List<string> EmailAddresses { get; set; }
 
 		/// <summary>
-		/// The start range for the date of birth.
+		/// The phone numbers of the patient.
 		/// </summary>
-		public DateTime? Start { get; set; }
-
-		/// <summary>
-		/// The exact date of birth to use for the patient.
-		/// </summary>
-		public DateTime? Exact { get; set; }
+		public List<string> PhoneNumbers { get; set; }
 	}
 }

@@ -2,16 +2,19 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1EC31F97-BBD0-467E-B6A4-A0750FB61E62}</ProjectGuid>
+    <ProjectGuid>{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatientGenerator.Messaging</RootNamespace>
-    <AssemblyName>PatientGenerator.Messaging</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>PatientGenerator.Core.Model</RootNamespace>
+    <AssemblyName>PatientGenerator.Core.Model</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Debug\PatientGenerator.Core.Model.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,43 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MARC.HI.EHRS.SVC.Core">
-      <HintPath>..\Solution Items\MARC.HI.EHRS.SVC.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Model\GenerationResponse.cs" />
-    <Compile Include="MessageHandlerService.cs" />
-    <Compile Include="MessageReceiver\GenerationService.cs" />
-    <Compile Include="Model\ProgressResponse.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="Common\Patient.cs" />
+    <Compile Include="ComponentModel\AddressOptions.cs" />
+    <Compile Include="ComponentModel\AlternateIdentifierOptions.cs" />
+    <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
+    <Compile Include="ComponentModel\DemographicOptions.cs" />
+    <Compile Include="ComponentModel\NameOptions.cs" />
+    <Compile Include="ComponentModel\RelatedPersonOptions.cs" />
+    <Compile Include="ComponentModel\TelecomOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IGenerationService.cs" />
-    <Compile Include="Validation\ValidationUtil.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PatientGenerator.Core.Model\PatientGenerator.Core.Model.csproj">
-      <Project>{9c2d439a-38f1-4d54-8ae3-4192e38ea95d}</Project>
-      <Name>PatientGenerator.Core.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PatientGenerator.Core\PatientGenerator.Core.csproj">
-      <Project>{189eb28f-d9e3-4786-92fb-9883135fb9ba}</Project>
-      <Name>PatientGenerator.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="PatientGenerator.licenseheader" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

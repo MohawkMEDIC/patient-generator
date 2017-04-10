@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -14,13 +14,12 @@
  * the License.
  *
  * User: Nityan
- * Date: 2016-2-15
+ * Date: 2017-4-9
  */
 
-using PatientGenerator.Core.Common;
 using System.Collections.Generic;
 
-namespace PatientGenerator.Core.ComponentModel
+namespace PatientGenerator.Core.Model.ComponentModel
 {
 	/// <summary>
 	/// Represents demographic options for a patient.
@@ -32,12 +31,12 @@ namespace PatientGenerator.Core.ComponentModel
 		/// </summary>
 		public DemographicOptions()
 		{
-            this.Addresses = new List<AddressOptions>();
-            this.DateOfBirthOptions = new DateOfBirthOptions();
-            this.Names = new List<NameOptions>();
-            this.OtherIdentifiers = new List<AlternateIdentifierOptions>();
-            this.RelatedPersons = new List<RelatedPersonOptions>();
-            this.TelecomOptions = new TelecomOptions();
+			this.Addresses = new List<AddressOptions>();
+			this.DateOfBirthOptions = new DateOfBirthOptions();
+			this.Names = new List<NameOptions>();
+			this.OtherIdentifiers = new List<AlternateIdentifierOptions>();
+			this.RelatedPersons = new List<RelatedPersonOptions>();
+			this.TelecomOptions = new TelecomOptions();
 		}
 
 		/// <summary>
@@ -51,19 +50,9 @@ namespace PatientGenerator.Core.ComponentModel
 		public DateOfBirthOptions DateOfBirthOptions { get; set; }
 
 		/// <summary>
-		/// The names of the patient.
+		/// The gender of the patient.
 		/// </summary>
-		public List<NameOptions> Names { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of related persons of the patient.
-        /// </summary>
-        public List<RelatedPersonOptions> RelatedPersons { get; set; }
-
-        /// <summary>
-        /// The gender of the patient.
-        /// </summary>
-        public string Gender { get; set; }
+		public string Gender { get; set; }
 
 		/// <summary>
 		/// Metadata about the patient registration.
@@ -71,14 +60,24 @@ namespace PatientGenerator.Core.ComponentModel
 		public Metadata Metadata { get; set; }
 
 		/// <summary>
-		/// The primary identifier for the patient.
+		/// The names of the patient.
 		/// </summary>
-		public string PersonIdentifier { get; set; }
+		public List<NameOptions> Names { get; set; }
 
 		/// <summary>
 		/// Any other identifiers or alt ids for the patient.
 		/// </summary>
 		public List<AlternateIdentifierOptions> OtherIdentifiers { get; set; }
+
+		/// <summary>
+		/// The primary identifier for the patient.
+		/// </summary>
+		public string PersonIdentifier { get; set; }
+
+		/// <summary>
+		/// Gets or sets the list of related persons of the patient.
+		/// </summary>
+		public List<RelatedPersonOptions> RelatedPersons { get; set; }
 
 		/// <summary>
 		/// Telecom options for the patient.

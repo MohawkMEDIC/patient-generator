@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2016-2016 Mohawk College of Applied Arts and Technology
+ * Copyright 2016-2017 Mohawk College of Applied Arts and Technology
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you
  * may not use this file except in compliance with the License. You may
@@ -19,14 +19,15 @@
 
 using NHapi.Base.Model;
 using PatientGenerator.Core;
-using PatientGenerator.Core.Common;
-using PatientGenerator.Core.ComponentModel;
+using PatientGenerator.Core.Model.Common;
+using PatientGenerator.Core.Model.ComponentModel;
 using PatientGenerator.HL7v2.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using PatientGenerator.Core.Model;
 
 namespace PatientGenerator.HL7v2
 {
