@@ -53,8 +53,8 @@
       <HintPath>..\packages\Hl7.Fhir.Support.0.4.2-alpha4\lib\net45\Hl7.Fhir.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hl7.FhirPath, Version=0.4.1.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hl7.FhirPath.0.4.1\lib\net45\Hl7.FhirPath.dll</HintPath>
+    <Reference Include="Hl7.FhirPath, Version=0.4.2.0, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hl7.FhirPath.0.4.2-alpha4\lib\net45\Hl7.FhirPath.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MARC.Everest, Version=1.3.0.0, Culture=neutral, PublicKeyToken=ba5b2480018546af, processorArchitecture=MSIL">
