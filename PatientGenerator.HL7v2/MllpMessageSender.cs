@@ -36,11 +36,6 @@ namespace PatientGenerator.HL7v2
 		private Uri m_endpoint = null;
 
 		/// <summary>
-		/// Last server response time
-		/// </summary>
-		public TimeSpan LastResponseTime { get; private set; }
-
-		/// <summary>
 		/// Creates a new message sender
 		/// </summary>
 		/// <param name="endpoint">The endpoint in the form : mllp://ipaddress:port</param>
@@ -48,6 +43,11 @@ namespace PatientGenerator.HL7v2
 		{
 			this.m_endpoint = endpoint;
 		}
+
+		/// <summary>
+		/// Last server response time
+		/// </summary>
+		public TimeSpan LastResponseTime { get; private set; }
 
 		/// <summary>
 		/// Send a message and receive the message

@@ -21,11 +21,22 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.Randomizer.Common
 {
+	/// <summary>
+	/// Represents a given name and gender pair.
+	/// </summary>
 	public class GivenNameGenderPair
 	{
+		/// <summary>
+		/// Gets or sets the gender code.
+		/// </summary>
+		/// <value>The gender code.</value>
 		[XmlAttribute("gender")]
 		public string GenderCode { get; set; }
 
+		/// <summary>
+		/// Gets or sets the name.
+		/// </summary>
+		/// <value>The name.</value>
 		[XmlText]
 		public string Name { get; set; }
 	}

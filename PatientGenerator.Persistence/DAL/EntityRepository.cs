@@ -35,20 +35,19 @@ namespace PatientGenerator.Persistence.DAL
 			this.dbSet = context.Set<T>();
 		}
 
-		public virtual T Create()
-		{
-			return dbSet.Create();
-		}
-
 		public virtual void Add(T entity)
 		{
 			dbSet.Add(entity);
 		}
 
-		public virtual void Update(T entity)
+		public virtual IQueryable<T> AsQueryable()
 		{
-			dbSet.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
+			return dbSet;
+		}
+
+		public virtual T Create()
+		{
+			return dbSet.Create();
 		}
 
 		public virtual void Delete(T entity)
@@ -88,9 +87,10 @@ namespace PatientGenerator.Persistence.DAL
 			return dbSet.Find(id);
 		}
 
-		public virtual IQueryable<T> AsQueryable()
+		public virtual void Update(T entity)
 		{
-			return dbSet;
+			dbSet.Attach(entity);
+			context.Entry(entity).State = EntityState.Modified;
 		}
 	}
 }

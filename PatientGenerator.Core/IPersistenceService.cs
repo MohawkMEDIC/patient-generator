@@ -17,9 +17,8 @@
  * Date: 2016-2-27
  */
 
-using MARC.HI.EHRS.SVC.Core.Services;
-using System.Threading.Tasks;
 using PatientGenerator.Core.Model.ComponentModel;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Core
 {

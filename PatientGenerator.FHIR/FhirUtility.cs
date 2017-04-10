@@ -18,7 +18,9 @@
  */
 
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
+using Hl7.Fhir.Serialization;
+using Newtonsoft.Json.Linq;
+using PatientGenerator.Core.Model.ComponentModel;
 using PatientGenerator.FHIR.Configuration;
 using System;
 using System.Collections.Generic;
@@ -27,16 +29,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using Hl7.Fhir.Serialization;
-using Newtonsoft.Json.Linq;
-using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.FHIR
 {
 	/// <summary>
 	/// Represents a utility for generating FHIR messages using the HL7 FHIR framework.
 	/// </summary>
-	public static class FhirUtil
+	public static class FhirUtility
 	{
 		/// <summary>
 		/// The configuration.
@@ -110,18 +109,21 @@ namespace PatientGenerator.FHIR
 				case "Female":
 					patient.Gender = AdministrativeGender.Female;
 					break;
+
 				case "M":
 				case "m":
 				case "male":
 				case "Male":
 					patient.Gender = AdministrativeGender.Male;
 					break;
+
 				case "O":
 				case "o":
 				case "other":
 				case "Other":
 					patient.Gender = AdministrativeGender.Other;
 					break;
+
 				default:
 					patient.Gender = AdministrativeGender.Unknown;
 					break;
@@ -159,6 +161,12 @@ namespace PatientGenerator.FHIR
 			return patient;
 		}
 
+		/// <summary>
+		/// Generates the candidate registry.
+		/// </summary>
+		/// <param name="patient">The patient.</param>
+		/// <param name="metadata">The metadata.</param>
+		/// <returns>Returns the generated patient from the given patient and the metadata.</returns>
 		public static Patient GenerateCandidateRegistry(Core.Model.Common.Patient patient, Core.Model.Metadata metadata)
 		{
 			var fhirPatient = new Patient
@@ -246,18 +254,21 @@ namespace PatientGenerator.FHIR
 				case "Female":
 					fhirPatient.Gender = AdministrativeGender.Female;
 					break;
+
 				case "M":
 				case "m":
 				case "male":
 				case "Male":
 					fhirPatient.Gender = AdministrativeGender.Male;
 					break;
+
 				case "O":
 				case "o":
 				case "other":
 				case "Other":
 					fhirPatient.Gender = AdministrativeGender.Other;
 					break;
+
 				default:
 					fhirPatient.Gender = AdministrativeGender.Unknown;
 					break;
@@ -333,7 +344,6 @@ namespace PatientGenerator.FHIR
 			}
 
 			return accessToken;
-
 		}
 	}
 }

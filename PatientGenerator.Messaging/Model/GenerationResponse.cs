@@ -35,13 +35,13 @@ namespace PatientGenerator.Messaging.Model
 		}
 
 		/// <summary>
-		/// The messages, if any.
-		/// </summary>
-		public List<string> Messages { get; set; }
-
-		/// <summary>
 		/// When true, a problem occurred when generating patients.
 		/// </summary>
 		public bool HasErrors { get; set; }
+
+		/// <summary>
+		/// The messages, if any.
+		/// </summary>
+		public List<string> Messages { get; set; }
 	}
 }

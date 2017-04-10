@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Debug\PatientGenerator.HL7v2.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -102,7 +103,7 @@
     <Compile Include="Configuration\HL7v2ConfigurationSection.cs" />
     <Compile Include="Configuration\LlpEndpoint.cs" />
     <Compile Include="HL7v2SenderService.cs" />
-    <Compile Include="NHapiUtil.cs" />
+    <Compile Include="NHapiUtility.cs" />
     <Compile Include="MllpMessageSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SslMessageSender.cs" />

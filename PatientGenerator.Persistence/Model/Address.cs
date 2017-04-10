@@ -29,9 +29,8 @@ namespace PatientGenerator.Persistence.Model
 		{
 		}
 
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
+		[Required]
+		public AddressUse AddressUse { get; set; }
 
 		/// <summary>
 		/// The city of the patient's address.
@@ -45,6 +44,15 @@ namespace PatientGenerator.Persistence.Model
 
 		[Required]
 		public DateTime CreationTimestamp { get; set; }
+
+		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+		[ForeignKey("PersonId")]
+		public virtual Person Person { get; set; }
+
+		public int PersonId { get; set; }
 
 		/// <summary>
 		/// The State/Province of the patient's address.
@@ -60,13 +68,5 @@ namespace PatientGenerator.Persistence.Model
 		/// The Zip/Postal Code of the patient's address.
 		/// </summary>
 		public string ZipPostalCode { get; set; }
-
-		[Required]
-		public AddressUse AddressUse { get; set; }
-
-		public int PersonId { get; set; }
-
-		[ForeignKey("PersonId")]
-		public virtual Person Person { get; set; }
 	}
 }

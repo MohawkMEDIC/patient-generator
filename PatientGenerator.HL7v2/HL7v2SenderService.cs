@@ -17,17 +17,15 @@
  * Date: 2016-2-28
  */
 
-using NHapi.Base.Model;
 using PatientGenerator.Core;
+using PatientGenerator.Core.Model;
 using PatientGenerator.Core.Model.Common;
 using PatientGenerator.Core.Model.ComponentModel;
 using PatientGenerator.HL7v2.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using PatientGenerator.Core.Model;
 
 namespace PatientGenerator.HL7v2
 {
@@ -48,9 +46,9 @@ namespace PatientGenerator.HL7v2
 		/// <param name="options">The options.</param>
 		public void Send(DemographicOptions options)
 		{
-			var message = NHapiUtil.GenerateCandidateRegistry(options);
-            
-            NHapiUtil.Sendv2Messages(message, configuration.Endpoints);
+			var message = NHapiUtility.GenerateCandidateRegistry(options);
+
+			NHapiUtility.Sendv2Messages(message, configuration.Endpoints);
 		}
 
 		/// <summary>
@@ -59,17 +57,17 @@ namespace PatientGenerator.HL7v2
 		/// <param name="patients">The patients.</param>
 		public void Send(IEnumerable<Patient> patients)
 		{
-			var messages = patients.Select(patient => NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
-									{
-										AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
-										ReceivingApplication = "OpenIZ",
-										ReceivingFacility = "OpenIZ",
-										SendingApplication = "Test",
-										SendingFacility = "Test"
-									}))
+			var messages = patients.Select(patient => NHapiUtility.GenerateCandidateRegistry(patient, new Metadata
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
+				ReceivingApplication = "OpenIZ",
+				ReceivingFacility = "OpenIZ",
+				SendingApplication = "Test",
+				SendingFacility = "Test"
+			}))
 									.ToList();
 
-			messages.Select(x => NHapiUtil.Sendv2Messages(x, configuration.Endpoints));
+			messages.Select(x => NHapiUtility.Sendv2Messages(x, configuration.Endpoints));
 		}
 
 		/// <summary>
@@ -78,7 +76,7 @@ namespace PatientGenerator.HL7v2
 		/// <param name="patient">The patient.</param>
 		public void Send(Patient patient)
 		{
-			var message = NHapiUtil.GenerateCandidateRegistry(patient, new Metadata
+			var message = NHapiUtility.GenerateCandidateRegistry(patient, new Metadata
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
 				ReceivingApplication = "OpenIZ",
@@ -87,7 +85,7 @@ namespace PatientGenerator.HL7v2
 				SendingFacility = "Test"
 			});
 
-			NHapiUtil.Sendv2Messages(message, configuration.Endpoints);
+			NHapiUtility.Sendv2Messages(message, configuration.Endpoints);
 		}
 
 		/// <summary>

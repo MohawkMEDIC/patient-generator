@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hl7.Fhir.Serialization;
 
 namespace PatientGenerator.FHIR
 {
@@ -40,9 +39,9 @@ namespace PatientGenerator.FHIR
 		/// <param name="options">The options.</param>
 		public void Send(DemographicOptions options)
 		{
-			var patient = FhirUtil.GenerateCandidateRegistry(options);
+			var patient = FhirUtility.GenerateCandidateRegistry(options);
 
-			FhirUtil.SendFhirMessages(patient);
+			FhirUtility.SendFhirMessages(patient);
 		}
 
 		/// <summary>
@@ -51,17 +50,17 @@ namespace PatientGenerator.FHIR
 		/// <param name="patients">The patients.</param>
 		public void Send(IEnumerable<Patient> patients)
 		{
-			var messages = patients.Select(patient => FhirUtil.GenerateCandidateRegistry(patient, new Core.Model.Metadata
-									{
-										AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
-										ReceivingApplication = "OpenIZ",
-										ReceivingFacility = "OpenIZ",
-										SendingApplication = "Test",
-										SendingFacility = "Test"
-									}))
+			var messages = patients.Select(patient => FhirUtility.GenerateCandidateRegistry(patient, new Core.Model.Metadata
+			{
+				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
+				ReceivingApplication = "OpenIZ",
+				ReceivingFacility = "OpenIZ",
+				SendingApplication = "Test",
+				SendingFacility = "Test"
+			}))
 									.ToList();
 
-			messages.Select(FhirUtil.SendFhirMessages);
+			messages.Select(FhirUtility.SendFhirMessages);
 		}
 
 		/// <summary>
@@ -70,7 +69,7 @@ namespace PatientGenerator.FHIR
 		/// <param name="patient">The patient.</param>
 		public void Send(Patient patient)
 		{
-			var message = FhirUtil.GenerateCandidateRegistry(patient, new Core.Model.Metadata
+			var message = FhirUtility.GenerateCandidateRegistry(patient, new Core.Model.Metadata
 			{
 				AssigningAuthority = "1.3.6.1.4.1.33349.3.1.5.102.4.20",
 				ReceivingApplication = "OpenIZ",
@@ -79,7 +78,7 @@ namespace PatientGenerator.FHIR
 				SendingFacility = "Test"
 			});
 
-			FhirUtil.SendFhirMessages(message);
+			FhirUtility.SendFhirMessages(message);
 		}
 
 		/// <summary>

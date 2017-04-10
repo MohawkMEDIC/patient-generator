@@ -29,19 +29,19 @@ namespace PatientGenerator.Randomizer
 	/// <summary>
 	/// Represents a randomizer service.
 	/// </summary>
-	/// <seealso cref="PatientGenerator.Randomizer.RandomizerBase{PatientGenerator.Randomizer.Common.CommonData}" />
-	/// <seealso cref="PatientGenerator.Core.IRandomizerService" />
+	/// <seealso cref="Randomizer.RandomizerBase{CommonData}" />
+	/// <seealso cref="IRandomizerService" />
 	public class RandomizerService : RandomizerBase<CommonData>, IRandomizerService
 	{
-		/// <summary>
-		/// The random instance.
-		/// </summary>
-		private readonly Random random = new Random();
-
 		/// <summary>
 		/// The common data instance.
 		/// </summary>
 		private readonly CommonData commonData;
+
+		/// <summary>
+		/// The random instance.
+		/// </summary>
+		private readonly Random random = new Random();
 
 		/// <summary>
 		/// The trace source.
@@ -62,15 +62,15 @@ namespace PatientGenerator.Randomizer
 		/// <returns>Returns a random patient.</returns>
 		public Patient GetRandomPatient()
 		{
-			GivenNameGenderPair nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
+			var nameGenderPair = commonData.GivenNames[random.Next(commonData.GivenNames.Count)];
 
-			string firstName = nameGenderPair.Name;
-			string middleName = commonData.GivenNames[random.Next(commonData.GivenNames.Count)].Name;
-			string lastName = commonData.FamilyNames[random.Next(commonData.FamilyNames.Count - random.Next(1, commonData.FamilyNames.Count))];
+			var firstName = nameGenderPair.Name;
+			var middleName = commonData.GivenNames[random.Next(commonData.GivenNames.Count)].Name;
+			var lastName = commonData.FamilyNames[random.Next(commonData.FamilyNames.Count - random.Next(1, commonData.FamilyNames.Count))];
 
 			string postal = null;
 
-			for (int i = 0; i < 6; i++)
+			for (var i = 0; i < 6; i++)
 			{
 				if (i % 2 == 0)
 					postal += (char)((byte)'A' + random.Next(20));
@@ -80,7 +80,7 @@ namespace PatientGenerator.Randomizer
 					postal += '-';
 			}
 
-			Patient patient = new Patient
+			var patient = new Patient
 			{
 				AddressLine = random.Next(400).ToString("##0") + " " + commonData.StreetNames[random.Next(commonData.StreetNames.Count)],
 				City = commonData.Cities[random.Next(commonData.Cities.Count)],

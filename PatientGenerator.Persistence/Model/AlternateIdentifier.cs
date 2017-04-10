@@ -39,12 +39,12 @@ namespace PatientGenerator.Persistence.Model
 		[Required]
 		public string Key { get; set; }
 
-		[Required]
-		public string Value { get; set; }
+		[ForeignKey("PersonId")]
+		public virtual Person Person { get; set; }
 
 		public int PersonId { get; set; }
 
-		[ForeignKey("PersonId")]
-		public virtual Person Person { get; set; }
+		[Required]
+		public string Value { get; set; }
 	}
 }

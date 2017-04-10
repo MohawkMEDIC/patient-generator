@@ -29,17 +29,17 @@ namespace PatientGenerator.Persistence.Model
 		{
 		}
 
+		[Required]
+		public DateTime CreationTimestamp { get; set; }
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		[Required]
-		public DateTime CreationTimestamp { get; set; }
-
-		public int PersonId { get; set; }
-
 		[ForeignKey("PersonId")]
 		public virtual Person Person { get; set; }
+
+		public int PersonId { get; set; }
 
 		[Required]
 		public TelecomType TelecomType { get; set; }

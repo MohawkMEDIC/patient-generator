@@ -19,10 +19,8 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PatientGenerator.Core.Model.ComponentModel;
-using PatientGenerator.Persistence.DAL;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PatientGenerator.Tests
 {

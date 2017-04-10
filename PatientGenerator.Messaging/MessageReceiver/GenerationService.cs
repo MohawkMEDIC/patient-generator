@@ -25,7 +25,6 @@ using PatientGenerator.Core.Validation;
 using PatientGenerator.Messaging.Model;
 using PatientGenerator.Messaging.Services;
 using PatientGenerator.Messaging.Validation;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

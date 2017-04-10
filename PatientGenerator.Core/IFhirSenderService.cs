@@ -17,11 +17,10 @@
  * Date: 2016-2-28
  */
 
-using MARC.HI.EHRS.SVC.Core.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using PatientGenerator.Core.Model.Common;
 using PatientGenerator.Core.Model.ComponentModel;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PatientGenerator.Core
 {

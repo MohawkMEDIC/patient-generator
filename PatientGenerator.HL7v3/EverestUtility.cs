@@ -27,19 +27,18 @@ using MARC.Everest.Interfaces;
 using MARC.Everest.RMIM.CA.R020402.Interactions;
 using MARC.Everest.RMIM.CA.R020402.Vocabulary;
 using MARC.Everest.Xml;
+using PatientGenerator.Core.Model.ComponentModel;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Xml;
-using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.HL7v3
 {
 	/// <summary>
 	/// Represents a utility for generating HL7v3 messages using the Everest framework.
 	/// </summary>
-	public static class EverestUtil
+	public static class EverestUtility
 	{
 		/// <summary>
 		/// The tracer source.
@@ -167,7 +166,7 @@ namespace PatientGenerator.HL7v3
 
 			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
 
-			LogGraphable(registerPatientRequest);
+			LogMessage(registerPatientRequest);
 
 			if (!registerPatientRequest.Validate())
 			{
@@ -178,42 +177,12 @@ namespace PatientGenerator.HL7v3
 		}
 
 		/// <summary>
-		/// Logs an IGraphable message.
-		/// </summary>
-		/// <param name="graphable">The IGraphable message to log.</param>
-		private static void LogGraphable(IGraphable graphable)
-		{
-			XmlWriter writer = null;
-
-			var formatter = new XmlIts1Formatter
-			{
-				ValidateConformance = true,
-			};
-
-			var dtf = new DatatypeFormatter();
-
-			formatter.GraphAides.Add(dtf);
-
-			var sb = new StringBuilder();
-
-			writer = XmlWriter.Create(sb, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true });
-
-			var stateWriter = new XmlStateWriter(writer);
-
-			formatter.Graph(stateWriter, graphable);
-
-			stateWriter.Flush();
-
-			traceSource.TraceEvent(TraceEventType.Verbose, 0, sb.ToString());
-		}
-
-		/// <summary>
 		/// Send HL7v3 messages to a specified endpoint.
 		/// </summary>
-		/// <param name="graphable">The graphable.</param>
+		/// <param name="message">The message.</param>
 		/// <param name="endpointName">Name of the endpoint.</param>
-		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-		public static bool Sendv3Messages(IGraphable graphable, string endpointName)
+		/// <returns><c>true</c> If the message sent successfully, <c>false</c> otherwise.</returns>
+		public static bool Sendv3Messages(IGraphable message, string endpointName)
 		{
 			var retVal = true;
 
@@ -229,7 +198,7 @@ namespace PatientGenerator.HL7v3
 
 			client.Open();
 
-			var sendResult = client.Send(graphable);
+			var sendResult = client.Send(message);
 
 			traceSource.TraceEvent(TraceEventType.Verbose, 0, "Sending HL7v3 message to endpoint: " + client.ConnectionString);
 
@@ -264,7 +233,7 @@ namespace PatientGenerator.HL7v3
 		/// Builds a list of addresses for a patient.
 		/// </summary>
 		/// <param name="patient">The patient for which to build the addresses.</param>
-		/// <returns>Returns a list of addresses for a patient. LIST<AD> </returns>
+		/// <returns>Returns a list of addresses for a patient.</returns>
 		private static LIST<AD> BuildAddresses(DemographicOptions patient)
 		{
 			var addresses = new LIST<AD>();
@@ -294,7 +263,7 @@ namespace PatientGenerator.HL7v3
 		/// Builds a list of name for a patient.
 		/// </summary>
 		/// <param name="patient">The patient for which to build the names.</param>
-		/// <returns>Returns a list of name for a patient. LIST<PN> </returns>
+		/// <returns>Returns a list of name for a patient.</returns>
 		private static LIST<PN> BuildNames(DemographicOptions patient)
 		{
 			var personNames = new LIST<PN>();
@@ -315,7 +284,7 @@ namespace PatientGenerator.HL7v3
 		/// Builds a list of telecoms for a patient.
 		/// </summary>
 		/// <param name="patient">The patient for which to build the telecoms.</param>
-		/// <returns>Returns a list of telecoms for a patient. </returns>
+		/// <returns>Returns a list of telecoms for a patient.</returns>
 		private static LIST<TEL> BuildTelecoms(DemographicOptions patient)
 		{
 			var telecoms = new LIST<TEL>();
@@ -343,6 +312,36 @@ namespace PatientGenerator.HL7v3
 			}
 
 			return telecoms;
+		}
+
+		/// <summary>
+		/// Logs the message.
+		/// </summary>
+		/// <param name="message">The message to log.</param>
+		private static void LogMessage(IGraphable message)
+		{
+			XmlWriter writer = null;
+
+			var formatter = new XmlIts1Formatter
+			{
+				ValidateConformance = true,
+			};
+
+			var dtf = new DatatypeFormatter();
+
+			formatter.GraphAides.Add(dtf);
+
+			var sb = new StringBuilder();
+
+			writer = XmlWriter.Create(sb, new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true });
+
+			var stateWriter = new XmlStateWriter(writer);
+
+			formatter.Graph(stateWriter, message);
+
+			stateWriter.Flush();
+
+			traceSource.TraceEvent(TraceEventType.Verbose, 0, sb.ToString());
 		}
 	}
 }

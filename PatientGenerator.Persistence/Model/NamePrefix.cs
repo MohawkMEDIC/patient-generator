@@ -36,11 +36,10 @@ namespace PatientGenerator.Persistence.Model
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		public int NameId { get; set; }
-
 		[ForeignKey("NameId")]
 		public virtual Name Name { get; set; }
 
+		public int NameId { get; set; }
 		public string Value { get; set; }
 	}
 }

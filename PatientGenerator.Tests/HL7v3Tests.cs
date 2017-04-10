@@ -142,7 +142,7 @@ namespace PatientGenerator.Tests
 				LastName = "Homeless",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -169,7 +169,7 @@ namespace PatientGenerator.Tests
 				LastName = "Gretzky",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -198,7 +198,7 @@ namespace PatientGenerator.Tests
 				LastName = "Shortcake",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -219,7 +219,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -239,7 +239,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Gender = "F";
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -260,7 +260,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Gender = "M";
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -281,7 +281,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Gender = "UN";
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -339,7 +339,7 @@ namespace PatientGenerator.Tests
 				LastName = "Quinnville",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -403,7 +403,7 @@ namespace PatientGenerator.Tests
 			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX"));
 			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX"));
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -444,7 +444,7 @@ namespace PatientGenerator.Tests
 				LastName = "Quinnville",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 
@@ -492,7 +492,7 @@ namespace PatientGenerator.Tests
 				LastName = "Quinnville",
 			});
 
-			var actual = EverestUtil.GenerateCandidateRegistry(options);
+			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual, typeof(PRPA_IN101201CA));
 

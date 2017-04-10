@@ -33,26 +33,25 @@ namespace PatientGenerator.Persistence.Model
 		[Required]
 		public DateTime CreationTimestamp { get; set; }
 
+		public virtual ICollection<FirstName> FirstNames { get; set; }
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
-
-		public virtual ICollection<FirstName> FirstNames { get; set; }
 
 		public virtual ICollection<LastName> LastNames { get; set; }
 
 		public virtual ICollection<MiddleName> MiddleNames { get; set; }
 
-		public virtual ICollection<NamePrefix> Prefixes { get; set; }
-
-		public virtual ICollection<NameSuffix> Suffixes { get; set; }
-
 		[Required]
 		public NameUse NameUse { get; set; }
 
-		public int PersonId { get; set; }
-
 		[ForeignKey("PersonId")]
 		public virtual Person Person { get; set; }
+
+		public int PersonId { get; set; }
+		public virtual ICollection<NamePrefix> Prefixes { get; set; }
+
+		public virtual ICollection<NameSuffix> Suffixes { get; set; }
 	}
 }

@@ -22,18 +22,37 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.Randomizer.Common
 {
+	/// <summary>
+	/// Represents common data.
+	/// </summary>
 	[XmlRoot("CommonData")]
 	public class CommonData
 	{
+		/// <summary>
+		/// Gets or sets the cities.
+		/// </summary>
+		/// <value>The cities.</value>
 		[XmlElement("City")]
 		public List<string> Cities { get; set; }
 
+		/// <summary>
+		/// Gets or sets the family names.
+		/// </summary>
+		/// <value>The family names.</value>
 		[XmlElement("FamilyName")]
 		public List<string> FamilyNames { get; set; }
 
+		/// <summary>
+		/// Gets or sets the given names.
+		/// </summary>
+		/// <value>The given names.</value>
 		[XmlElement("GivenName")]
 		public List<GivenNameGenderPair> GivenNames { get; set; }
 
+		/// <summary>
+		/// Gets or sets the street names.
+		/// </summary>
+		/// <value>The street names.</value>
 		[XmlElement("StreetName")]
 		public List<string> StreetNames { get; set; }
 	}

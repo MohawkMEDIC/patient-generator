@@ -21,16 +21,34 @@ using System;
 
 namespace PatientGenerator.Messaging.Model
 {
+	/// <summary>
+	/// Represents a progress response.
+	/// </summary>
 	public class ProgressResponse
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ProgressResponse"/> class.
+		/// </summary>
 		public ProgressResponse()
 		{
 		}
 
-		public DateTime CreationTimestamp { get; set; }
-
+		/// <summary>
+		/// Gets or sets the count.
+		/// </summary>
+		/// <value>The count.</value>
 		public int Count { get; set; }
 
+		/// <summary>
+		/// Gets or sets the creation timestamp.
+		/// </summary>
+		/// <value>The creation timestamp.</value>
+		public DateTime CreationTimestamp { get; set; }
+
+		/// <summary>
+		/// Gets or sets the total.
+		/// </summary>
+		/// <value>The total.</value>
 		public int Total { get; set; }
 	}
 }

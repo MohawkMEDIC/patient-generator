@@ -17,7 +17,6 @@
  * Date: 2016-2-21
  */
 
-using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Xml;

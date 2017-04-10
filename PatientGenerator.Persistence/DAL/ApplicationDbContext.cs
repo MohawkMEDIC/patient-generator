@@ -30,18 +30,9 @@ namespace PatientGenerator.Persistence.DAL
 		{
 		}
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
-			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-			modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-		}
-
 		public DbSet<Address> Addresses { get; set; }
 
 		public DbSet<AlternateIdentifier> AlternateIdentifiers { get; set; }
-
-		public DbSet<Name> Names { get; set; }
 
 		public DbSet<FirstName> FirstNames { get; set; }
 
@@ -51,10 +42,19 @@ namespace PatientGenerator.Persistence.DAL
 
 		public DbSet<NamePrefix> NamePrefixes { get; set; }
 
+		public DbSet<Name> Names { get; set; }
+
 		public DbSet<NameSuffix> NameSuffixes { get; set; }
 
 		public DbSet<Person> Persons { get; set; }
 
 		public DbSet<Telecom> Telecoms { get; set; }
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+			modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+			modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+		}
 	}
 }

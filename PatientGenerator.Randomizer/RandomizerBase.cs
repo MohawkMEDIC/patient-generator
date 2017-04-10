@@ -23,8 +23,18 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.Randomizer
 {
+	/// <summary>
+	/// Represents a base randomizer service.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class RandomizerBase<T> where T : class
 	{
+		/// <summary>
+		/// Loads the data.
+		/// </summary>
+		/// <param name="filename">The filename.</param>
+		/// <returns>Returns the loaded data.</returns>
+		/// <exception cref="System.ArgumentNullException">filename</exception>
 		protected virtual T LoadData(string filename)
 		{
 			if (filename == null)
@@ -34,19 +44,11 @@ namespace PatientGenerator.Randomizer
 
 			var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.GetDirectoryName(filename), Path.GetFileName(filename));
 
-			FileStream fileStream = null;
-
-			try
+			using (var fileStream = File.OpenRead(file))
 			{
-				fileStream = File.OpenRead(file);
-
 				var xsz = new XmlSerializer(typeof(T));
 
 				return xsz.Deserialize(fileStream) as T;
-			}
-			finally
-			{
-				fileStream?.Dispose();
 			}
 		}
 	}

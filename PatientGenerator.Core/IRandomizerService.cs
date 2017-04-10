@@ -17,7 +17,6 @@
  * Date: 2016-3-26
  */
 
-using MARC.HI.EHRS.SVC.Core.Services;
 using PatientGenerator.Core.Model.Common;
 
 namespace PatientGenerator.Core

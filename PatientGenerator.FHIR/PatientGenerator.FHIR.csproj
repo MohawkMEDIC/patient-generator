@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\Debug\PatientGenerator.FHIR.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -108,11 +109,10 @@
     <Compile Include="Configuration\FhirConfigurationSection.cs" />
     <Compile Include="Configuration\FhirEndpoint.cs" />
     <Compile Include="FhirSenderService.cs" />
-    <Compile Include="FhirUtil.cs" />
+    <Compile Include="FhirUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="PatientGenerator.licenseheader" />
   </ItemGroup>

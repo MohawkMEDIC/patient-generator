@@ -26,22 +26,22 @@ namespace PatientGenerator.Persistence.DAL
 	public interface IRepository<T> where T : class
 	{
 		/// <summary>
-		/// Create an entity.
-		/// </summary>
-		/// <returns></returns>
-		T Create();
-
-		/// <summary>
 		/// Add an entity to the repository.
 		/// </summary>
 		/// <param name="entity"></param>
 		void Add(T entity);
 
 		/// <summary>
-		/// Update an existing entity.
+		/// Get the repository as a queryable.
 		/// </summary>
-		/// <param name="entity"></param>
-		void Update(T entity);
+		/// <returns></returns>
+		IQueryable<T> AsQueryable();
+
+		/// <summary>
+		/// Create an entity.
+		/// </summary>
+		/// <returns></returns>
+		T Create();
 
 		/// <summary>
 		/// Delete an entity from the repository.
@@ -71,9 +71,9 @@ namespace PatientGenerator.Persistence.DAL
 		T GetById(object id);
 
 		/// <summary>
-		/// Get the repository as a queryable.
+		/// Update an existing entity.
 		/// </summary>
-		/// <returns></returns>
-		IQueryable<T> AsQueryable();
+		/// <param name="entity"></param>
+		void Update(T entity);
 	}
 }

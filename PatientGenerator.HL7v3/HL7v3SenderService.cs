@@ -38,9 +38,9 @@ namespace PatientGenerator.HL7v3
 		/// <param name="options">The options.</param>
 		public void Send(DemographicOptions options)
 		{
-			var graphable = EverestUtil.GenerateCandidateRegistry(options);
+			var graphable = EverestUtility.GenerateCandidateRegistry(options);
 
-			EverestUtil.Sendv3Messages(graphable, "cr");
+			EverestUtility.Sendv3Messages(graphable, "cr");
 		}
 
 		/// <summary>

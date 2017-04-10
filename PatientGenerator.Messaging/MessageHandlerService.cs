@@ -36,11 +36,6 @@ namespace PatientGenerator.Messaging
 		private ServiceHost serviceHost;
 
 		/// <summary>
-		/// Gets the running state of the message handler.
-		/// </summary>
-		public bool IsRunning => this.serviceHost?.State == System.ServiceModel.CommunicationState.Opened;
-
-		/// <summary>
 		/// Fired when the object is starting up.
 		/// </summary>
 		public event EventHandler Started;
@@ -60,10 +55,32 @@ namespace PatientGenerator.Messaging
 		/// </summary>
 		public event EventHandler Stopping;
 
+		/// <summary>
+		/// Gets the running state of the message handler.
+		/// </summary>
+		public bool IsRunning => this.serviceHost?.State == System.ServiceModel.CommunicationState.Opened;
+
 		#region IDisposable Support
 
 		private bool disposedValue = false; // To detect redundant calls
 
+		// This code added to correctly implement the disposable pattern.
+
+		/// <summary>
+		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+		/// </summary>
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+			Dispose(true);
+			// TODO: uncomment the following line if the finalizer is overridden above.
+			// GC.SuppressFinalize(this);
+		}
+
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources.
+		/// </summary>
+		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
@@ -85,15 +102,6 @@ namespace PatientGenerator.Messaging
 		//   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
 		//   Dispose(false);
 		// }
-
-		// This code added to correctly implement the disposable pattern.
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-			Dispose(true);
-			// TODO: uncomment the following line if the finalizer is overridden above.
-			// GC.SuppressFinalize(this);
-		}
 
 		#endregion IDisposable Support
 

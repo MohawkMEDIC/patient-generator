@@ -23,20 +23,6 @@ using System.Reflection;
 namespace PatientGenerator.Core
 {
 	/// <summary>
-	/// Instructs the ModelMapper to ignore this property.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Property)]
-	public class MappingIgnore : Attribute
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MappingIgnore"/> class.
-		/// </summary>
-		public MappingIgnore()
-		{
-		}
-	}
-
-	/// <summary>
 	/// A helper class to map basic properties between two objects (models).
 	/// </summary>
 	public static class ModelMapper
@@ -101,6 +87,20 @@ namespace PatientGenerator.Core
 			}
 
 			return toModel;
+		}
+	}
+
+	/// <summary>
+	/// Instructs the ModelMapper to ignore this property.
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Property)]
+	public class MappingIgnore : Attribute
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MappingIgnore"/> class.
+		/// </summary>
+		public MappingIgnore()
+		{
 		}
 	}
 }

@@ -115,7 +115,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsNull(actual.Address.Select(x => x.City).FirstOrDefault());
 			Assert.IsNull(actual.Address.Select(x => x.Country).FirstOrDefault());
@@ -129,7 +129,7 @@ namespace PatientGenerator.Tests
 		{
 			options.OtherIdentifiers.Clear();
 
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.AreEqual(0, actual.Identifier.Count);
 		}
@@ -139,7 +139,7 @@ namespace PatientGenerator.Tests
 		{
 			options.DateOfBirthOptions = null;
 
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsNull(actual.BirthDate);
 		}
@@ -147,7 +147,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptyEmail()
 		{
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.AreEqual(0, actual.Telecom.Count);
 		}
@@ -157,7 +157,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Gender = null;
 
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.AreEqual(AdministrativeGender.Unknown, actual.Gender);
 		}
@@ -167,7 +167,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.AreEqual(0, actual.Name.Count);
 		}
@@ -175,7 +175,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestEmptyPhone()
 		{
-			var actual = FhirUtil.GenerateCandidateRegistry(options);
+			var actual = FhirUtility.GenerateCandidateRegistry(options);
 
 			Assert.AreEqual(0, actual.Telecom.Count);
 		}

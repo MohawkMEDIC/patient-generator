@@ -24,10 +24,9 @@ namespace PatientGenerator.Persistence.DAL
 {
 	public class EntityUnitOfWork : IUnitOfWork
 	{
-		private ApplicationDbContext context;
-
 		private IRepository<Address> addressRepository;
 		private IRepository<AlternateIdentifier> alternateIdentifierRepository;
+		private ApplicationDbContext context;
 		private IRepository<Name> nameRepository;
 		private IRepository<Person> personRepository;
 		private IRepository<Telecom> telecomRepository;
@@ -130,6 +129,15 @@ namespace PatientGenerator.Persistence.DAL
 
 		private bool disposedValue = false; // To detect redundant calls
 
+		// This code added to correctly implement the disposable pattern.
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+			Dispose(true);
+			// TODO: uncomment the following line if the finalizer is overridden above.
+			// GC.SuppressFinalize(this);
+		}
+
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
@@ -151,15 +159,6 @@ namespace PatientGenerator.Persistence.DAL
 		//   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
 		//   Dispose(false);
 		// }
-
-		// This code added to correctly implement the disposable pattern.
-		public void Dispose()
-		{
-			// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-			Dispose(true);
-			// TODO: uncomment the following line if the finalizer is overridden above.
-			// GC.SuppressFinalize(this);
-		}
 
 		#endregion IDisposable Support
 	}

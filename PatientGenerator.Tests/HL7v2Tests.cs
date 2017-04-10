@@ -115,7 +115,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -149,7 +149,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.AssigningAuthority = string.Empty;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -172,7 +172,7 @@ namespace PatientGenerator.Tests
 		{
 			options.DateOfBirthOptions = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -196,7 +196,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -227,7 +227,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.ReceivingApplication = string.Empty;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -244,7 +244,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.ReceivingFacility = string.Empty;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -261,7 +261,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.SendingApplication = string.Empty;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -278,7 +278,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.SendingFacility = string.Empty;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -311,7 +311,7 @@ namespace PatientGenerator.Tests
 				}
 			});
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -342,7 +342,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.AssigningAuthority = "this is not a valid oid";
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -363,7 +363,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestMultipleAddresses()
 		{
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -420,7 +420,7 @@ namespace PatientGenerator.Tests
 				LastName = "Sam"
 			});
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -463,7 +463,7 @@ namespace PatientGenerator.Tests
 				LastName = "Richtofen"
 			});
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			//Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -507,7 +507,7 @@ namespace PatientGenerator.Tests
 				}
 			});
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -536,7 +536,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.AssigningAuthority = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -559,7 +559,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.ReceivingApplication = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -576,7 +576,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.ReceivingFacility = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -593,7 +593,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.SendingApplication = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -610,7 +610,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Metadata.SendingFacility = null;
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 
@@ -651,7 +651,7 @@ namespace PatientGenerator.Tests
 				ZipPostalCode = "578233"
 			});
 
-			var actual = NHapiUtil.GenerateCandidateRegistry(options);
+			var actual = NHapiUtility.GenerateCandidateRegistry(options);
 
 			Assert.IsInstanceOfType(actual.GetStructure("MSH"), typeof(MSH));
 

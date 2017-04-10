@@ -22,13 +22,23 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.HL7v2.Configuration
 {
+	/// <summary>
+	/// Represents an HL7v2 configuration section.
+	/// </summary>
 	public class HL7v2ConfigurationSection
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HL7v2ConfigurationSection"/> class.
+		/// </summary>
 		public HL7v2ConfigurationSection()
 		{
 			Endpoints = new List<LlpEndpoint>();
 		}
 
+		/// <summary>
+		/// Gets or sets the endpoints.
+		/// </summary>
+		/// <value>The endpoints.</value>
 		[XmlElement("endpoints")]
 		public List<LlpEndpoint> Endpoints { get; set; }
 	}

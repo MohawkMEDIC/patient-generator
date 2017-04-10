@@ -21,19 +21,37 @@ using System.Xml.Serialization;
 
 namespace PatientGenerator.HL7v2.Configuration
 {
+	/// <summary>
+	/// Reprsents a low level endpoint.
+	/// </summary>
 	[XmlRoot("endpoint")]
 	public class LlpEndpoint
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="LlpEndpoint"/> class.
+		/// </summary>
 		public LlpEndpoint()
 		{
 		}
 
+		/// <summary>
+		/// Gets or sets the address.
+		/// </summary>
+		/// <value>The address.</value>
 		[XmlAttribute("address")]
 		public string Address { get; set; }
 
+		/// <summary>
+		/// Gets or sets the name.
+		/// </summary>
+		/// <value>The name.</value>
 		[XmlAttribute("name")]
 		public string Name { get; set; }
 
+		/// <summary>
+		/// Returns the name and address of the endpoint.
+		/// </summary>
+		/// <returns>Returns the name and address of the endpoint.</returns>
 		public override string ToString()
 		{
 			return Name + " " + Address;
