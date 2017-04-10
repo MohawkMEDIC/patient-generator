@@ -36,7 +36,7 @@ namespace PatientGenerator.HL7v3
 		/// Sends the specified options.
 		/// </summary>
 		/// <param name="options">The options.</param>
-		public void Send(DemographicOptions options)
+		public void Send(Demographic options)
 		{
 			var graphable = EverestUtility.GenerateCandidateRegistry(options);
 
@@ -68,7 +68,7 @@ namespace PatientGenerator.HL7v3
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>Task.</returns>
-		public async Task SendAsync(DemographicOptions options)
+		public async Task SendAsync(Demographic options)
 		{
 			await Task.Factory.StartNew(() =>
 			{

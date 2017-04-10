@@ -40,7 +40,7 @@
     <Compile Include="ComponentModel\Address.cs" />
     <Compile Include="ComponentModel\AlternateIdentifier.cs" />
     <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
-    <Compile Include="ComponentModel\DemographicOptions.cs" />
+    <Compile Include="ComponentModel\Demographic.cs" />
     <Compile Include="ComponentModel\Name.cs" />
     <Compile Include="ComponentModel\RelatedPerson.cs" />
     <Compile Include="ComponentModel\Telecommunication.cs" />

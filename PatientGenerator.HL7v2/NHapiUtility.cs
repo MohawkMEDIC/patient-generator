@@ -50,7 +50,7 @@ namespace PatientGenerator.HL7v2
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>IMessage.</returns>
-		public static IMessage GenerateCandidateRegistry(DemographicOptions options)
+		public static IMessage GenerateCandidateRegistry(Demographic options)
 		{
 			var message = CreateBaseMessage(options.Metadata) as ADT_A01;
 
