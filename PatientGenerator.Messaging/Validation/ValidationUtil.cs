@@ -33,7 +33,7 @@ namespace PatientGenerator.Messaging.Validation
 		/// </summary>
 		/// <param name="options">The message to be validated.</param>
 		/// <returns>Returns a list of result details containing validation results.</returns>
-		public static IEnumerable<IResultDetail> ValidateMessage(DemographicOptions options)
+		public static IEnumerable<IResultDetail> ValidateMessage(Demographic options)
 		{
 			var details = new List<IResultDetail>();
 

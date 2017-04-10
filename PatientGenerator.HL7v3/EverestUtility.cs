@@ -51,7 +51,7 @@ namespace PatientGenerator.HL7v3
 		/// <param name="patient">The patient options to be used when creating the demographics for the patient.</param>
 		/// <returns>Returns a PRPA_IN101201CA as an IGraphable.</returns>
 		/// <exception cref="System.InvalidOperationException">Message is not valid v3, cannot send</exception>
-		public static IGraphable GenerateCandidateRegistry(DemographicOptions patient)
+		public static IGraphable GenerateCandidateRegistry(Demographic patient)
 		{
 			var registerPatientRequest = new PRPA_IN101201CA(
 				Guid.NewGuid(),
@@ -234,7 +234,7 @@ namespace PatientGenerator.HL7v3
 		/// </summary>
 		/// <param name="patient">The patient for which to build the addresses.</param>
 		/// <returns>Returns a list of addresses for a patient.</returns>
-		private static LIST<AD> BuildAddresses(DemographicOptions patient)
+		private static LIST<AD> BuildAddresses(Demographic patient)
 		{
 			var addresses = new LIST<AD>();
 
@@ -264,7 +264,7 @@ namespace PatientGenerator.HL7v3
 		/// </summary>
 		/// <param name="patient">The patient for which to build the names.</param>
 		/// <returns>Returns a list of name for a patient.</returns>
-		private static LIST<PN> BuildNames(DemographicOptions patient)
+		private static LIST<PN> BuildNames(Demographic patient)
 		{
 			var personNames = new LIST<PN>();
 
@@ -285,7 +285,7 @@ namespace PatientGenerator.HL7v3
 		/// </summary>
 		/// <param name="patient">The patient for which to build the telecoms.</param>
 		/// <returns>Returns a list of telecoms for a patient.</returns>
-		private static LIST<TEL> BuildTelecoms(DemographicOptions patient)
+		private static LIST<TEL> BuildTelecoms(Demographic patient)
 		{
 			var telecoms = new LIST<TEL>();
 

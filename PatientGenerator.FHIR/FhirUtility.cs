@@ -52,7 +52,7 @@ namespace PatientGenerator.FHIR
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>Patient.</returns>
-		public static Patient GenerateCandidateRegistry(DemographicOptions options)
+		public static Patient GenerateCandidateRegistry(Demographic options)
 		{
 			var patient = new Patient
 			{

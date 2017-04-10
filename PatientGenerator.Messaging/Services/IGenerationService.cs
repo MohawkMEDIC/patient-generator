@@ -35,7 +35,7 @@ namespace PatientGenerator.Messaging.Services
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
 		[OperationContract(Name = "GeneratePatientsWithOptions", Action = "GeneratePatientsWithOptions")]
-		GenerationResponse GeneratePatients(DemographicOptions options);
+		GenerationResponse GeneratePatients(Demographic options);
 
 		/// <summary>
 		/// Generates patients using a randomized dataset.

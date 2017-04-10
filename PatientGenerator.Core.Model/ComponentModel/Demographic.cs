@@ -24,12 +24,12 @@ namespace PatientGenerator.Core.Model.ComponentModel
 	/// <summary>
 	/// Represents demographic options for a patient.
 	/// </summary>
-	public class DemographicOptions
+	public class Demographic
 	{
 		/// <summary>
 		/// Initializes a new instance of the DemographicOptions class.
 		/// </summary>
-		public DemographicOptions()
+		public Demographic()
 		{
 			this.Addresses = new List<Address>();
 			this.DateOfBirthOptions = new DateOfBirthOptions();

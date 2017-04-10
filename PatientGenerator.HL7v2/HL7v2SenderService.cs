@@ -44,7 +44,7 @@ namespace PatientGenerator.HL7v2
 		/// Sends the specified options.
 		/// </summary>
 		/// <param name="options">The options.</param>
-		public void Send(DemographicOptions options)
+		public void Send(Demographic options)
 		{
 			var message = NHapiUtility.GenerateCandidateRegistry(options);
 
@@ -93,7 +93,7 @@ namespace PatientGenerator.HL7v2
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>Task.</returns>
-		public async Task SendAsync(DemographicOptions options)
+		public async Task SendAsync(Demographic options)
 		{
 			await Task.Factory.StartNew(() =>
 			{

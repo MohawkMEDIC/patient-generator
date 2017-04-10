@@ -33,7 +33,7 @@ namespace PatientGenerator.Core
 		/// Sends the specified options.
 		/// </summary>
 		/// <param name="options">The options.</param>
-		void Send(DemographicOptions options);
+		void Send(Demographic options);
 
 		/// <summary>
 		/// Sends the specified patients.
@@ -52,7 +52,7 @@ namespace PatientGenerator.Core
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>Task.</returns>
-		Task SendAsync(DemographicOptions options);
+		Task SendAsync(Demographic options);
 
 		/// <summary>
 		/// Sends the asynchronous.

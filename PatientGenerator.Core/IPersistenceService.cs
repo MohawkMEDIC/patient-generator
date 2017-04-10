@@ -32,13 +32,13 @@ namespace PatientGenerator.Core
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-		bool Save(DemographicOptions options);
+		bool Save(Demographic options);
 
 		/// <summary>
 		/// Saves the asynchronous.
 		/// </summary>
 		/// <param name="options">The options.</param>
 		/// <returns>Task&lt;System.Boolean&gt;.</returns>
-		Task<bool> SaveAsync(DemographicOptions options);
+		Task<bool> SaveAsync(Demographic options);
 	}
 }

@@ -53,7 +53,7 @@ namespace PatientGenerator.Persistence.DAL
 			}
 		}
 
-		private Person MapPerson(DemographicOptions options)
+		private Person MapPerson(Demographic options)
 		{
 			Person person = new Person();
 
@@ -165,13 +165,13 @@ namespace PatientGenerator.Persistence.DAL
 			return person;
 		}
 
-		public bool Save(DemographicOptions options)
+		public bool Save(Demographic options)
 		{
 			unitOfWork.PersonRepository.Add(this.MapPerson(options));
 			return unitOfWork.Save();
 		}
 
-		public async Task<bool> SaveAsync(DemographicOptions options)
+		public async Task<bool> SaveAsync(Demographic options)
 		{
 			unitOfWork.PersonRepository.Add(this.MapPerson(options));
 			return await unitOfWork.SaveAsync();

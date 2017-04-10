@@ -36,7 +36,7 @@ namespace PatientGenerator.Tests
 		/// <summary>
 		/// The demographic options.
 		/// </summary>
-		private DemographicOptions options;
+		private Demographic options;
 
 		/// <summary>
 		/// Runs cleanup after each test execution.
@@ -53,7 +53,7 @@ namespace PatientGenerator.Tests
 		[TestInitialize]
 		public void Initialize()
 		{
-			options = new DemographicOptions
+			options = new Demographic
 			{
 				Addresses = new List<Address>
 				{

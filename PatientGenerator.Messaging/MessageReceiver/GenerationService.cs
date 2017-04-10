@@ -91,7 +91,7 @@ namespace PatientGenerator.Messaging.MessageReceiver
 		/// </summary>
 		/// <param name="options">The options to use to generate patients.</param>
 		/// <returns>Returns a GenerationResponse.</returns>
-		public GenerationResponse GeneratePatients(DemographicOptions options)
+		public GenerationResponse GeneratePatients(Demographic options)
 		{
 			GenerationResponse response = new GenerationResponse();
 
