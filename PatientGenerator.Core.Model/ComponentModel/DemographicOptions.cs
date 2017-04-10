@@ -31,18 +31,18 @@ namespace PatientGenerator.Core.Model.ComponentModel
 		/// </summary>
 		public DemographicOptions()
 		{
-			this.Addresses = new List<AddressOptions>();
+			this.Addresses = new List<Address>();
 			this.DateOfBirthOptions = new DateOfBirthOptions();
-			this.Names = new List<NameOptions>();
-			this.OtherIdentifiers = new List<AlternateIdentifierOptions>();
-			this.RelatedPersons = new List<RelatedPersonOptions>();
-			this.TelecomOptions = new TelecomOptions();
+			this.Names = new List<Name>();
+			this.OtherIdentifiers = new List<AlternateIdentifier>();
+			this.RelatedPersons = new List<RelatedPerson>();
+			this.TelecomOptions = new Telecommunication();
 		}
 
 		/// <summary>
 		/// The address options for the patient.
 		/// </summary>
-		public List<AddressOptions> Addresses { get; set; }
+		public List<Address> Addresses { get; set; }
 
 		/// <summary>
 		/// The date of birth options for the patient.
@@ -62,12 +62,12 @@ namespace PatientGenerator.Core.Model.ComponentModel
 		/// <summary>
 		/// The names of the patient.
 		/// </summary>
-		public List<NameOptions> Names { get; set; }
+		public List<Name> Names { get; set; }
 
 		/// <summary>
 		/// Any other identifiers or alt ids for the patient.
 		/// </summary>
-		public List<AlternateIdentifierOptions> OtherIdentifiers { get; set; }
+		public List<AlternateIdentifier> OtherIdentifiers { get; set; }
 
 		/// <summary>
 		/// The primary identifier for the patient.
@@ -77,11 +77,11 @@ namespace PatientGenerator.Core.Model.ComponentModel
 		/// <summary>
 		/// Gets or sets the list of related persons of the patient.
 		/// </summary>
-		public List<RelatedPersonOptions> RelatedPersons { get; set; }
+		public List<RelatedPerson> RelatedPersons { get; set; }
 
 		/// <summary>
 		/// Telecom options for the patient.
 		/// </summary>
-		public TelecomOptions TelecomOptions { get; set; }
+		public Telecommunication TelecomOptions { get; set; }
 	}
 }

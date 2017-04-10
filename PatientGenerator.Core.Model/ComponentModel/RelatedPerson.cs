@@ -24,7 +24,7 @@ namespace PatientGenerator.Core.Model.ComponentModel
 	/// <summary>
 	/// Represents related person options.
 	/// </summary>
-	public class RelatedPersonOptions
+	public class RelatedPerson
 	{
 		/// <summary>
 		/// Represents a patient relationship type.
@@ -46,13 +46,13 @@ namespace PatientGenerator.Core.Model.ComponentModel
 		/// Gets or sets the address.
 		/// </summary>
 		/// <value>The address.</value>
-		public List<AddressOptions> Address { get; set; }
+		public List<Address> Address { get; set; }
 
 		/// <summary>
 		/// Gets or sets the names.
 		/// </summary>
 		/// <value>The names.</value>
-		public List<NameOptions> Names { get; set; }
+		public List<Name> Names { get; set; }
 
 		/// <summary>
 		/// Gets or sets the phone.

@@ -22,22 +22,22 @@ namespace PatientGenerator.Core.Model.ComponentModel
 	/// <summary>
 	/// Represents assigning authority options.
 	/// </summary>
-	public class AlternateIdentifierOptions
+	public class AlternateIdentifier
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AlternateIdentifierOptions"/> class.
+		/// Initializes a new instance of the <see cref="AlternateIdentifier"/> class.
 		/// </summary>
-		public AlternateIdentifierOptions()
+		public AlternateIdentifier()
 		{
 			this.Type = "ISO";
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AlternateIdentifierOptions"/> class.
+		/// Initializes a new instance of the <see cref="AlternateIdentifier"/> class.
 		/// </summary>
 		/// <param name="assigningAuthority">The assigning authority. (OID)</param>
 		/// <param name="value">The value of the assigning authority.</param>
-		public AlternateIdentifierOptions(string assigningAuthority, string value) : this()
+		public AlternateIdentifier(string assigningAuthority, string value) : this()
 		{
 			this.AssigningAuthority = assigningAuthority;
 			this.Value = value;

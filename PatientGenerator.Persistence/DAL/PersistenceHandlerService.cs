@@ -59,7 +59,7 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options.Addresses)
 			{
-				Address address = new Address().Map(item);
+				Model.Address address = new Model.Address().Map(item);
 
 				address.CreationTimestamp = DateTime.Now;
 
@@ -72,7 +72,7 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options.OtherIdentifiers)
 			{
-				person.AlternateIdentifiers.Add(new AlternateIdentifier
+				person.AlternateIdentifiers.Add(new Model.AlternateIdentifier
 				{
 					CreationTimestamp = DateTime.Now,
 					Key = item.AssigningAuthority,
@@ -82,7 +82,7 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options.Names)
 			{
-				Name name = new Name
+				Model.Name name = new Model.Name
 				{
 					CreationTimestamp = DateTime.Now,
 					FirstNames = new List<FirstName>
@@ -142,7 +142,7 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options?.TelecomOptions?.EmailAddresses)
 			{
-				person.Telecoms.Add(new Telecom
+				person.Telecoms.Add(new Model.Telecom
 				{
 					CreationTimestamp = DateTime.Now,
 					TelecomType = TelecomType.Email,
@@ -153,7 +153,7 @@ namespace PatientGenerator.Persistence.DAL
 
 			foreach (var item in options?.TelecomOptions?.PhoneNumbers)
 			{
-				person.Telecoms.Add(new Telecom
+				person.Telecoms.Add(new Model.Telecom
 				{
 					CreationTimestamp = DateTime.Now,
 					TelecomType = TelecomType.Phone,

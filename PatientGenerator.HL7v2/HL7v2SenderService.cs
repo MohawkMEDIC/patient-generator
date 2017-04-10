@@ -48,7 +48,7 @@ namespace PatientGenerator.HL7v2
 		{
 			var message = NHapiUtility.GenerateCandidateRegistry(options);
 
-			NHapiUtility.Sendv2Messages(message, configuration.Endpoints);
+			NHapiUtility.Sendv2Messages(message);
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace PatientGenerator.HL7v2
 			}))
 									.ToList();
 
-			messages.Select(x => NHapiUtility.Sendv2Messages(x, configuration.Endpoints));
+			messages.Select(NHapiUtility.Sendv2Messages);
 		}
 
 		/// <summary>
@@ -85,7 +85,7 @@ namespace PatientGenerator.HL7v2
 				SendingFacility = "Test"
 			});
 
-			NHapiUtility.Sendv2Messages(message, configuration.Endpoints);
+			NHapiUtility.Sendv2Messages(message);
 		}
 
 		/// <summary>

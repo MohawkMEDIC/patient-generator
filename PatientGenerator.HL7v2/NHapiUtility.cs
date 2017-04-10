@@ -43,7 +43,7 @@ namespace PatientGenerator.HL7v2
 		/// <summary>
 		/// The configuration.
 		/// </summary>
-		private static HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
+		private static readonly HL7v2ConfigurationSection configuration = ConfigurationManager.GetSection("medic.patientgen.hl7v2") as HL7v2ConfigurationSection;
 
 		/// <summary>
 		/// Generates the candidate registry.
@@ -142,16 +142,15 @@ namespace PatientGenerator.HL7v2
 		}
 
 		/// <summary>
-		/// Sendv2s the messages.
+		/// Sends the HL7v2 messages to a remote endpoint.
 		/// </summary>
 		/// <param name="message">The message.</param>
-		/// <param name="addresses">The addresses.</param>
-		/// <returns>IEnumerable&lt;IMessage&gt;.</returns>
-		public static IEnumerable<IMessage> Sendv2Messages(IMessage message, IEnumerable<LlpEndpoint> addresses)
+		/// <returns>Returns a list of sent HL7v2 messages.</returns>
+		public static IEnumerable<IMessage> Sendv2Messages(IMessage message)
 		{
 			var messages = new List<IMessage>();
 
-			foreach (var endpoint in addresses)
+			foreach (var endpoint in configuration.Endpoints)
 			{
 				var sender = new MllpMessageSender(new Uri(endpoint.Address));
 

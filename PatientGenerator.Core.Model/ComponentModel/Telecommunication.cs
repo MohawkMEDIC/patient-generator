@@ -17,43 +17,32 @@
  * Date: 2017-4-9
  */
 
+using System.Collections.Generic;
+
 namespace PatientGenerator.Core.Model.ComponentModel
 {
 	/// <summary>
-	/// Represents address options for a patient.
+	/// Represents telecom options for a patient.
 	/// </summary>
-	public class AddressOptions
+	public class Telecommunication
 	{
 		/// <summary>
-		/// Initializes a new instance of the AddressOptions class.
+		/// Initializes a new instance of the TelecomOptions class.
 		/// </summary>
-		public AddressOptions()
+		public Telecommunication()
 		{
+			this.EmailAddresses = new List<string>();
+			this.PhoneNumbers = new List<string>();
 		}
 
 		/// <summary>
-		/// The city of the patient's address.
+		/// The email addresses of the patient.
 		/// </summary>
-		public string City { get; set; }
+		public List<string> EmailAddresses { get; set; }
 
 		/// <summary>
-		/// The country of the patient's address.
+		/// The phone numbers of the patient.
 		/// </summary>
-		public string Country { get; set; }
-
-		/// <summary>
-		/// The State/Province of the patient's address.
-		/// </summary>
-		public string StateProvince { get; set; }
-
-		/// <summary>
-		/// The street address of the patient.
-		/// </summary>
-		public string StreetAddress { get; set; }
-
-		/// <summary>
-		/// The Zip/Postal Code of the patient's address.
-		/// </summary>
-		public string ZipPostalCode { get; set; }
+		public List<string> PhoneNumbers { get; set; }
 	}
 }

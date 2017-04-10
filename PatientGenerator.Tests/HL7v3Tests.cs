@@ -55,9 +55,9 @@ namespace PatientGenerator.Tests
 		{
 			options = new DemographicOptions
 			{
-				Addresses = new List<AddressOptions>
+				Addresses = new List<Address>
 				{
-					new AddressOptions
+					new Address
 					{
 						City = "Brampton",
 						Country = "Canada",
@@ -65,7 +65,7 @@ namespace PatientGenerator.Tests
 						StateProvince = "Ontario",
 						ZipPostalCode = "L6X0C3"
 					},
-					new AddressOptions
+					new Address
 					{
 						City = "New York City",
 						Country = "United States of America",
@@ -73,7 +73,7 @@ namespace PatientGenerator.Tests
 						StateProvince = "New York",
 						ZipPostalCode = "07008"
 					},
-					new AddressOptions
+					new Address
 					{
 						City = "Friedberg",
 						Country = "Germany",
@@ -95,9 +95,9 @@ namespace PatientGenerator.Tests
 					SendingApplication = "SEEDER",
 					SendingFacility = "SEEDING"
 				},
-				Names = new List<NameOptions>
+				Names = new List<Name>
 				{
-					new NameOptions
+					new Name
 					{
 						FirstName = "David",
 						LastName = "Nutley",
@@ -115,12 +115,12 @@ namespace PatientGenerator.Tests
 						}
 					}
 				},
-				OtherIdentifiers = new List<AlternateIdentifierOptions>
+				OtherIdentifiers = new List<AlternateIdentifier>
 				{
-					new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.3.12", Guid.NewGuid().ToString("N")),
-					new AlternateIdentifierOptions("1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")),
-					new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.2.99121.9992", new Random(DateTime.Now.Second).Next(100, 10000).ToString()),
-					new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.3.201203.1.0", new Random(DateTime.Now.Millisecond).Next(100, 10000).ToString())
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.3.12", Guid.NewGuid().ToString("N")),
+					new AlternateIdentifier("1.2.840.114350.1.13.99998.8734", Guid.NewGuid().ToString("N")),
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.2.99121.9992", new Random(DateTime.Now.Second).Next(100, 10000).ToString()),
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.3.201203.1.0", new Random(DateTime.Now.Millisecond).Next(100, 10000).ToString())
 				},
 				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
@@ -136,7 +136,7 @@ namespace PatientGenerator.Tests
 
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Harry",
 				LastName = "Homeless",
@@ -163,7 +163,7 @@ namespace PatientGenerator.Tests
 			options.OtherIdentifiers.Clear();
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Walter",
 				LastName = "Gretzky",
@@ -192,7 +192,7 @@ namespace PatientGenerator.Tests
 			options.DateOfBirthOptions = null;
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Strawberry",
 				LastName = "Shortcake",
@@ -302,14 +302,14 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Chicago",
 				Country = "United States of America",
 				StateProvince = "Illinois"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Brampton",
 				Country = "Canada",
@@ -317,14 +317,14 @@ namespace PatientGenerator.Tests
 				StateProvince = "Ontario"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "New York City",
 				Country = "United States of America",
 				StateProvince = "New York"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				Country = "Germany",
 				StreetAddress = "Grüner Weg 6",
@@ -333,7 +333,7 @@ namespace PatientGenerator.Tests
 
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Joel",
 				LastName = "Quinnville",
@@ -393,15 +393,15 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Walter",
 				LastName = "Gretzky",
 			});
 
-			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.100.0", "8385-171-683-CX"));
-			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX"));
-			options.OtherIdentifiers.Add(new AlternateIdentifierOptions("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX"));
+			options.OtherIdentifiers.Add(new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.5.100.0", "8385-171-683-CX"));
+			options.OtherIdentifiers.Add(new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.5.101.1", "1192-571-546-CX"));
+			options.OtherIdentifiers.Add(new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.5.102.2", "2115-060-045-CX"));
 
 			var actual = EverestUtility.GenerateCandidateRegistry(options);
 
@@ -429,7 +429,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Chicago",
 				Country = "United States of America",
@@ -438,7 +438,7 @@ namespace PatientGenerator.Tests
 
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Joel",
 				LastName = "Quinnville",
@@ -469,14 +469,14 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Chicago",
 				Country = "United States of America",
 				StateProvince = "Illinois"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Brampton",
 				Country = "Canada",
@@ -486,7 +486,7 @@ namespace PatientGenerator.Tests
 
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Joel",
 				LastName = "Quinnville",

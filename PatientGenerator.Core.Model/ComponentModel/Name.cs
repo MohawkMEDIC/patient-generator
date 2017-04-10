@@ -22,27 +22,42 @@ using System.Collections.Generic;
 namespace PatientGenerator.Core.Model.ComponentModel
 {
 	/// <summary>
-	/// Represents telecom options for a patient.
+	/// Represents name options for a patient.
 	/// </summary>
-	public class TelecomOptions
+	public class Name
 	{
 		/// <summary>
-		/// Initializes a new instance of the TelecomOptions class.
+		/// Initializes a new instance of the NameOptions class.
 		/// </summary>
-		public TelecomOptions()
+		public Name()
 		{
-			this.EmailAddresses = new List<string>();
-			this.PhoneNumbers = new List<string>();
+			this.MiddleNames = new List<string>();
+			this.Suffixes = new List<string>();
 		}
 
 		/// <summary>
-		/// The email addresses of the patient.
+		/// The first name of the patient.
 		/// </summary>
-		public List<string> EmailAddresses { get; set; }
+		public string FirstName { get; set; }
 
 		/// <summary>
-		/// The phone numbers of the patient.
+		/// The last name of the patient.
 		/// </summary>
-		public List<string> PhoneNumbers { get; set; }
+		public string LastName { get; set; }
+
+		/// <summary>
+		/// The middle names of the patient.
+		/// </summary>
+		public List<string> MiddleNames { get; set; }
+
+		/// <summary>
+		/// The prefix of the patient's name.
+		/// </summary>
+		public string Prefix { get; set; }
+
+		/// <summary>
+		/// The suffixes of the patient's name.
+		/// </summary>
+		public List<string> Suffixes { get; set; }
 	}
 }

@@ -17,47 +17,43 @@
  * Date: 2017-4-9
  */
 
-using System.Collections.Generic;
-
 namespace PatientGenerator.Core.Model.ComponentModel
 {
 	/// <summary>
-	/// Represents name options for a patient.
+	/// Represents address options for a patient.
 	/// </summary>
-	public class NameOptions
+	public class Address
 	{
 		/// <summary>
-		/// Initializes a new instance of the NameOptions class.
+		/// Initializes a new instance of the AddressOptions class.
 		/// </summary>
-		public NameOptions()
+		public Address()
 		{
-			this.MiddleNames = new List<string>();
-			this.Suffixes = new List<string>();
 		}
 
 		/// <summary>
-		/// The first name of the patient.
+		/// The city of the patient's address.
 		/// </summary>
-		public string FirstName { get; set; }
+		public string City { get; set; }
 
 		/// <summary>
-		/// The last name of the patient.
+		/// The country of the patient's address.
 		/// </summary>
-		public string LastName { get; set; }
+		public string Country { get; set; }
 
 		/// <summary>
-		/// The middle names of the patient.
+		/// The State/Province of the patient's address.
 		/// </summary>
-		public List<string> MiddleNames { get; set; }
+		public string StateProvince { get; set; }
 
 		/// <summary>
-		/// The prefix of the patient's name.
+		/// The street address of the patient.
 		/// </summary>
-		public string Prefix { get; set; }
+		public string StreetAddress { get; set; }
 
 		/// <summary>
-		/// The suffixes of the patient's name.
+		/// The Zip/Postal Code of the patient's address.
 		/// </summary>
-		public List<string> Suffixes { get; set; }
+		public string ZipPostalCode { get; set; }
 	}
 }

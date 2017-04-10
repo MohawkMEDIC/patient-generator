@@ -57,12 +57,12 @@ namespace PatientGenerator.FHIR
 			var patient = new Patient
 			{
 				Active = true,
-				Address = new List<Address>()
+				Address = new List<Hl7.Fhir.Model.Address>()
 			};
 
 			foreach (var address in options.Addresses)
 			{
-				patient.Address.Add(new Address
+				patient.Address.Add(new Hl7.Fhir.Model.Address
 				{
 					City = address.City,
 					Country = address.Country,
@@ -172,9 +172,9 @@ namespace PatientGenerator.FHIR
 			var fhirPatient = new Patient
 			{
 				Active = true,
-				Address = new List<Address>
+				Address = new List<Hl7.Fhir.Model.Address>
 				{
-					new Address
+					new Hl7.Fhir.Model.Address
 					{
 						City = patient.City,
 						Country = patient.Country,
@@ -184,7 +184,7 @@ namespace PatientGenerator.FHIR
 						},
 						PostalCode = patient.PostalCode,
 						State = patient.Province,
-						Use = Address.AddressUse.Home
+						Use = Hl7.Fhir.Model.Address.AddressUse.Home
 					}
 				},
 				BirthDate = patient.DateOfBirth.ToString("yyyy-MM-dd"),
@@ -192,12 +192,12 @@ namespace PatientGenerator.FHIR
 				{
 					new Patient.CommunicationComponent
 					{
-						Language = new CodeableConcept("urn:ietf:bcp:47", "en", "English"),
+						Language = new CodeableConcept("urn:ietf:bcp:47", "en", "English", "English"),
 						Preferred = true
 					},
 					new Patient.CommunicationComponent
 					{
-						Language = new CodeableConcept("urn:ietf:bcp:47", "sw", "Swahili")
+						Language = new CodeableConcept("urn:ietf:bcp:47", "sw", "Swahili", "Swahili")
 					}
 				},
 				Contact = new List<Patient.ContactComponent>

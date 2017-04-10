@@ -42,9 +42,9 @@ namespace PatientGenerator.Tests
 		{
 			options = new DemographicOptions
 			{
-				Addresses = new List<AddressOptions>
+				Addresses = new List<Address>
 				{
-					new AddressOptions
+					new Address
 					{
 						City = "Brampton",
 						Country = "Canada",
@@ -52,7 +52,7 @@ namespace PatientGenerator.Tests
 						StateProvince = "Ontario",
 						ZipPostalCode = "L6X0C3"
 					},
-					new AddressOptions
+					new Address
 					{
 						City = "New York City",
 						Country = "United States of America",
@@ -60,7 +60,7 @@ namespace PatientGenerator.Tests
 						StateProvince = "New York",
 						ZipPostalCode = "07008"
 					},
-					new AddressOptions
+					new Address
 					{
 						City = "Friedberg",
 						Country = "Germany",
@@ -83,29 +83,21 @@ namespace PatientGenerator.Tests
 					SendingFacility = "SEEDING",
 					UseHL7v2 = true
 				},
-				Names = new List<NameOptions>
+				Names = new List<Name>
 				{
-					new NameOptions
+					new Name
 					{
 						FirstName = "Samantha",
 						LastName = "Richtofen"
 					}
 				},
-				//OtherIdentifiers = new Dictionary<string, string>
-				//{
-				//	{
-				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.0." + new Random(DateTime.Now.Millisecond).Next(100, 10000), Guid.NewGuid().ToString("N")
-				//	},
-				//	{
-				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.1." + new Random(DateTime.Now.Second).Next(100, 10000), Guid.NewGuid().ToString("N")
-				//	},
-				//	{
-				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.2." + new Random(DateTime.Now.Minute).Next(100, 10000), Guid.NewGuid().ToString("N")
-				//	},
-				//	{
-				//		"1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N")
-				//	}
-				//},
+				OtherIdentifiers = new List<AlternateIdentifier>
+				{
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.2.2016.27.02.0." + new Random(DateTime.Now.Millisecond).Next(100, 10000), Guid.NewGuid().ToString("N")),
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.2.2016.27.02.1." + new Random(DateTime.Now.Second).Next(100, 10000), Guid.NewGuid().ToString("N")),
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.2.2016.27.02.2." + new Random(DateTime.Now.Minute).Next(100, 10000), Guid.NewGuid().ToString("N")),
+					new AlternateIdentifier("1.3.6.1.4.1.33349.3.1.2.2016.27.02.3." + new Random(DateTime.Now.Hour).Next(100, 10000), Guid.NewGuid().ToString("N"))
+				},
 				PersonIdentifier = Guid.NewGuid().ToString("N")
 			};
 		}
@@ -295,7 +287,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				Prefix = "Dr.",
 				FirstName = "Sammy",
@@ -408,13 +400,13 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestMultipleNames()
 		{
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Sammy",
 				LastName = "Richtofen"
 			});
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Sally",
 				LastName = "Sam"
@@ -456,7 +448,7 @@ namespace PatientGenerator.Tests
 		[TestMethod]
 		public void TestNamePrefix()
 		{
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				Prefix = "Dr.",
 				FirstName = "Sammy",
@@ -497,7 +489,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Names.Clear();
 
-			options.Names.Add(new NameOptions
+			options.Names.Add(new Name
 			{
 				FirstName = "Sammy",
 				LastName = "Richtofen",
@@ -627,7 +619,7 @@ namespace PatientGenerator.Tests
 		{
 			options.Addresses.Clear();
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "Brampton",
 				Country = "Canada",
@@ -635,7 +627,7 @@ namespace PatientGenerator.Tests
 				StateProvince = "Ontario"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				City = "New York City",
 				Country = "United States of America",
@@ -643,7 +635,7 @@ namespace PatientGenerator.Tests
 				ZipPostalCode = "07008"
 			});
 
-			options.Addresses.Add(new AddressOptions
+			options.Addresses.Add(new Address
 			{
 				Country = "Germany",
 				StateProvince = "Elbonia",

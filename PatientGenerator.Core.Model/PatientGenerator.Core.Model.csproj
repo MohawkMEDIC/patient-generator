@@ -37,13 +37,13 @@
   <ItemGroup>
     <Compile Include="Metadata.cs" />
     <Compile Include="Common\Patient.cs" />
-    <Compile Include="ComponentModel\AddressOptions.cs" />
-    <Compile Include="ComponentModel\AlternateIdentifierOptions.cs" />
+    <Compile Include="ComponentModel\Address.cs" />
+    <Compile Include="ComponentModel\AlternateIdentifier.cs" />
     <Compile Include="ComponentModel\DateOfBirthOptions.cs" />
     <Compile Include="ComponentModel\DemographicOptions.cs" />
-    <Compile Include="ComponentModel\NameOptions.cs" />
-    <Compile Include="ComponentModel\RelatedPersonOptions.cs" />
-    <Compile Include="ComponentModel\TelecomOptions.cs" />
+    <Compile Include="ComponentModel\Name.cs" />
+    <Compile Include="ComponentModel\RelatedPerson.cs" />
+    <Compile Include="ComponentModel\Telecommunication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
