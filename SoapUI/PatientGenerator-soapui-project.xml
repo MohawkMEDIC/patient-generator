@@ -261,7 +261,7 @@
    <soapenv:Body>\r
       <pat:GeneratePatients>\r
          <!--Optional:-->\r
-         <pat:count>1</pat:count>\r
+         <pat:count>155</pat:count>\r
       </pat:GeneratePatients>\r
    </soapenv:Body>\r
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="GeneratePatients" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="24fa70ca-3ce7-4360-a7d1-a96bf720c583" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GeneratePatientsWithOptions TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="4218acfb-f982-4829-b7c9-cc19ce1798e3" name="GeneratePatientsWithOptions"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BasicHttpBinding_IGenerationService</con:interface><con:operation>GeneratePatientsWithOptions</con:operation><con:request name="GeneratePatientsWithOptions" id="46144498-ad67-452c-a191-e762db56d26f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8000/patientgenerator</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:pat="http://marc-hi.ca/xmlns/patgensvc" xmlns:pat1="http://schemas.datacontract.org/2004/07/PatientGenerator.Core.ComponentModel" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">\r
