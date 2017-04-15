@@ -114,7 +114,7 @@ namespace PatientGenerator.HL7v2
 		/// <param name="patient">The patient.</param>
 		/// <param name="metadata">The metadata.</param>
 		/// <returns>IMessage.</returns>
-		public static IMessage GenerateCandidateRegistry(PatientGenerator.Core.Model.Common.Patient patient, PatientGenerator.Core.Model.Metadata metadata)
+		public static IMessage GenerateCandidateRegistry(Core.Model.Common.Patient patient, PatientGenerator.Core.Model.Metadata metadata)
 		{
 			var message = CreateBaseMessage(metadata) as ADT_A01;
 
@@ -218,7 +218,7 @@ namespace PatientGenerator.HL7v2
 		/// </summary>
 		/// <param name="metadata">The metadata.</param>
 		/// <returns>IMessage.</returns>
-		private static IMessage CreateBaseMessage(PatientGenerator.Core.Model.Metadata metadata)
+		private static IMessage CreateBaseMessage(Core.Model.Metadata metadata)
 		{
 			var message = new ADT_A01();
 

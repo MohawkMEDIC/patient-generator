@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 namespace PatientGenerator.HL7v3
 {
 	/// <summary>
-	/// Class HL7v3SenderService.
+	/// Represents an HL7v3 message sender service.
 	/// </summary>
 	/// <seealso cref="PatientGenerator.Core.IHL7v3SenderService" />
 	public class HL7v3SenderService : IHL7v3SenderService
