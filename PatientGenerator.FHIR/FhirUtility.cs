@@ -96,7 +96,6 @@ namespace PatientGenerator.FHIR
 				}
 				else
 				{
-					// DateTime.Now.Year - 1 is for generating people whose birthdays are always 1 year behind the current to avoid people being created with future birthdays
 					patient.BirthDate = new DateTime(new Random().Next(1900, DateTime.Now.Year - 1), new Random().Next(1, 12), new Random().Next(1, 28)).ToString("yyyy-MM-dd");
 				}
 			}
@@ -328,18 +327,22 @@ namespace PatientGenerator.FHIR
 
 			using (var client = new HttpClient())
 			{
+				traceSource.TraceEvent(TraceEventType.Information, 0, "Starting authorization request");
+
 				client.DefaultRequestHeaders.Add("Authorization", "BASIC " + Convert.ToBase64String(Encoding.UTF8.GetBytes(endpoint.AuthorizationConfiguration.ApplicationId + ":" + endpoint.AuthorizationConfiguration.ApplicationSecret)));
 
 				var content = new StringContent($"grant_type=password&username={endpoint.AuthorizationConfiguration.Username}&password={endpoint.AuthorizationConfiguration.Password}&scope={endpoint.AuthorizationConfiguration.Scope}");
 
-				// HACK: have to remove the headers before adding them...
 				content.Headers.Remove("Content-Type");
 				content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-				var result = client.PostAsync(endpoint.AuthorizationConfiguration.Endpoint, content).Result;
-				var response = JObject.Parse(result.Content.ReadAsStringAsync().Result);
+				var response = client.PostAsync(endpoint.AuthorizationConfiguration.Endpoint, content).Result;
+				var responseContent = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
-				accessToken = response.GetValue("access_token").ToString();
+				traceSource.TraceEvent(TraceEventType.Information, 0, "Ending authorization request");
+
+				accessToken = responseContent.GetValue("access_token").ToString();
+
 				traceSource.TraceEvent(TraceEventType.Verbose, 0, $"Access token: {accessToken}");
 			}
 

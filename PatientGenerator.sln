@@ -32,13 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Messaging"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Randomizer", "PatientGenerator.Randomizer\PatientGenerator.Randomizer.csproj", "{CA719D41-4349-4EE4-BE68-2553600D230F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0918EE4E-CD0E-4769-9842-A95CC480D7CE}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Core.Model", "PatientGenerator.Core.Model\PatientGenerator.Core.Model.csproj", "{9C2D439A-38F1-4D54-8AE3-4192E38EA95D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientGenerator.Persistence", "PatientGenerator.Persistence\PatientGenerator.Persistence.csproj", "{028C97D6-F419-478F-A226-A269516DCE1A}"

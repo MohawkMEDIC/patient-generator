@@ -31,6 +31,11 @@ namespace PatientGenerator.Messaging
 	public class MessageHandlerService : IMessageHandlerService, IDisposable
 	{
 		/// <summary>
+		/// The trace source.
+		/// </summary>
+		private readonly TraceSource traceSource = new TraceSource("PatientGenerator.Messaging");
+
+		/// <summary>
 		/// The ServiceHost for WCF services.
 		/// </summary>
 		private ServiceHost serviceHost;
@@ -111,28 +116,30 @@ namespace PatientGenerator.Messaging
 		/// <returns>Returns true if the service(s) started successfully.</returns>
 		public bool Start()
 		{
-			var status = false;
-
-			serviceHost = new ServiceHost(typeof(GenerationService));
-
 			try
 			{
-				this.Starting?.Invoke(this, EventArgs.Empty);
-				serviceHost.Open();
-				status = true;
+				serviceHost = new ServiceHost(typeof(GenerationService));
 
-				Trace.TraceInformation("Message handler started successfully");
+				this.Starting?.Invoke(this, EventArgs.Empty);
+
+				foreach (var address in serviceHost.BaseAddresses)
+				{
+					traceSource.TraceEvent(TraceEventType.Information, 0, $"Message handler starting on {address}");
+				}
+
+				serviceHost.Open();
 
 				this.Started?.Invoke(this, EventArgs.Empty);
+
+				traceSource.TraceEvent(TraceEventType.Information, 0, "Message handler started successfully");
 			}
 			catch (Exception e)
 			{
-				Trace.TraceError("Unable to start message handler");
-				Trace.TraceError(e.ToString());
-				status = false;
+				this.traceSource.TraceEvent(TraceEventType.Error, 0, $"Unable to start message handler: {e}");
+				throw;
 			}
 
-			return status;
+			return true;
 		}
 
 		/// <summary>
@@ -145,19 +152,21 @@ namespace PatientGenerator.Messaging
 
 			try
 			{
-				this.Stopping?.Invoke(this, EventArgs.Empty);
-				serviceHost.Close();
-				status = true;
+				this.traceSource.TraceEvent(TraceEventType.Information, 0, "Stopping message handler");
 
-				Trace.TraceInformation("Message handler stopped successfully");
+				this.Stopping?.Invoke(this, EventArgs.Empty);
+
+				serviceHost.Close();
 
 				this.Stopped?.Invoke(this, EventArgs.Empty);
+
+				this.traceSource.TraceEvent(TraceEventType.Information, 0, "Message handler stopped successfully");
+
+				status = true;
 			}
 			catch (Exception e)
 			{
-				Trace.TraceError("Unable to stop message handler");
-				Trace.TraceError(e.ToString());
-				status = false;
+				this.traceSource.TraceEvent(TraceEventType.Error, 0, $"Unable to stop message handler: {e}");
 			}
 
 			return status;
