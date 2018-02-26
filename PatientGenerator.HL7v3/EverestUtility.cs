@@ -29,9 +29,11 @@ using MARC.Everest.RMIM.CA.R020402.Vocabulary;
 using MARC.Everest.Xml;
 using PatientGenerator.Core.Model.ComponentModel;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Xml;
+using PatientGenerator.Core.Model.Common;
 
 namespace PatientGenerator.HL7v3
 {
@@ -177,6 +179,142 @@ namespace PatientGenerator.HL7v3
 		}
 
 		/// <summary>
+		/// Generates a HL7v3 PRPA_IN101201CA register patient request.
+		/// </summary>
+		/// <param name="patient">The patient options to be used when creating the demographics for the patient.</param>
+		/// <returns>Returns a PRPA_IN101201CA as an IGraphable.</returns>
+		/// <exception cref="System.InvalidOperationException">Message is not valid v3, cannot send</exception>
+		public static IGraphable GenerateCandidateRegistry(Patient patient)
+		{
+			//AssigningAuthority = "1.3.6.1.4.1.33349.3.1.2.99121.283",
+			//ReceivingApplication = "CRTEST",
+			//ReceivingFacility = "Mohawk College of Applied Arts and Technology",
+			//SendingApplication = "SEEDER",
+			//SendingFacility = "SEEDING"
+
+			var registerPatientRequest = new PRPA_IN101201CA(
+				Guid.NewGuid(),
+				DateTime.Now,
+				ResponseMode.Immediate,
+				PRPA_IN101201CA.GetInteractionId(),
+				PRPA_IN101201CA.GetProfileId(),
+				ProcessingID.Production,
+				AcknowledgementCondition.Always,
+				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Receiver(
+					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device2(
+						new II("1.3.6.1.4.1.33349.3.1.1.20.4", "Mohawk College of Applied Arts and Technology")
+					)
+				),
+				new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Sender(
+					new MARC.Everest.RMIM.CA.R020402.MCCI_MT002200CA.Device1(
+						new II("1.3.6.1.4.1.33349.3.1.2.99121.283", "SEEDING")
+					)
+				)
+			);
+
+			var dob = new TS(patient.DateOfBirth, DatePrecision.Day);
+
+			registerPatientRequest.controlActEvent = PRPA_IN101201CA.CreateControlActEvent(
+				Guid.NewGuid(),
+				PRPA_IN101201CA.GetTriggerEvent(),
+				new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Author(),
+				new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject2<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+					true,
+					new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.RegistrationRequest<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+						new MARC.Everest.RMIM.CA.R020402.MFMI_MT700711CA.Subject4<MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity>(
+							new MARC.Everest.RMIM.CA.R020402.PRPA_MT101001CA.IdentifiedEntity(
+									null,
+									RoleStatus.Active,
+									null,
+									x_VeryBasicConfidentialityKind.Normal,
+									new MARC.Everest.RMIM.CA.R020402.PRPA_MT101002CA.Person(
+										new LIST<PN>
+										{
+											new PN(EntityNameUse.OfficialRecord, new List<ENXP>
+											{
+												new ENXP(patient.FirstName, EntityNamePartType.Given),
+												new ENXP(patient.LastName, EntityNamePartType.Family)
+											})
+										},
+										null,
+										Util.Convert<AdministrativeGender>(patient.Gender),
+										dob,
+										false,
+										null,
+										false,
+										null,
+										BuildAddresses(patient),
+										null,
+										null,
+										new MARC.Everest.RMIM.CA.R020402.PRPA_MT101104CA.LanguageCommunication(new CV<string>("eng", "2.16.840.1.113883.6.121"), true)
+									)
+							)
+						),
+						new MARC.Everest.RMIM.CA.R020402.REPC_MT230003CA.Custodian(
+							new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.AssignedDevice(
+								new II("2.16.840.1.113883.3.239.18.61", Guid.NewGuid().ToString("N")),
+								new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.Repository("KNG"),
+								new MARC.Everest.RMIM.CA.R020402.COCT_MT090310CA.RepositoryJurisdiction("KGHD")
+							)
+						)
+					)
+				)
+			);
+
+			registerPatientRequest.controlActEvent.EffectiveTime = new IVL<TS>(DateTime.Now);
+
+			// Author
+			registerPatientRequest.controlActEvent.Author.Time = new TS(DateTime.Now);
+			registerPatientRequest.controlActEvent.Author.SetAuthorPerson(
+				new MARC.Everest.RMIM.CA.R020402.COCT_MT090102CA.AssignedEntity(
+					new SET<II>(new II("2.16.840.1.113883.3.239.18.1", Guid.NewGuid().ToString("N"))),
+					new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.Person(
+						new PN(
+							EntityNameUse.Legal,
+							new ENXP[] {
+								new ENXP("Fyfe", EntityNamePartType.Family),
+								new ENXP("Justin", EntityNamePartType.Given),
+								new ENXP
+								{
+									Qualifier = new SET<CS<EntityNamePartQualifier>> { new CS<EntityNamePartQualifier>(EntityNamePartQualifier.Prefix) },
+									Value = "Dr."
+								}
+							}
+						),
+						new MARC.Everest.RMIM.CA.R020402.COCT_MT090108CA.HealthCareProvider() { NullFlavor = NullFlavor.NoInformation }
+					)
+				)
+			);
+
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id = new SET<II>();
+
+			if (patient.AlternateIdentifiers.Count == 0)
+			{
+				var alternateIdentifier = new II("1.3.6.1.4.1.33349.3.1.2.99121.283", Guid.NewGuid().ToString("N"));
+
+				traceSource.TraceEvent(TraceEventType.Information, 0, $"Patient must have at least one alternate identifier, adding alternate identifier:{alternateIdentifier.Root} {alternateIdentifier.Extension}");
+
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(alternateIdentifier);
+			}
+
+			foreach (var alternateIdentifier in patient.AlternateIdentifiers)
+			{
+				registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.Id.Add(new II(alternateIdentifier.AssigningAuthority, alternateIdentifier.Value));
+			}
+
+			registerPatientRequest.controlActEvent.Subject.RegistrationRequest.Subject.registeredRole.EffectiveTime = new IVL<TS>(DateTime.Now);
+
+			LogMessage(registerPatientRequest);
+
+			if (!registerPatientRequest.Validate())
+			{
+				throw new InvalidOperationException("Message is not valid v3, cannot send");
+			}
+
+			return registerPatientRequest;
+		}
+
+		/// <summary>
 		/// Send HL7v3 messages to a specified endpoint.
 		/// </summary>
 		/// <param name="message">The message.</param>
@@ -255,6 +393,39 @@ namespace PatientGenerator.HL7v3
 					street
 				}));
 			}
+
+			return addresses;
+		}
+
+		/// <summary>
+		/// Builds a list of addresses for a patient.
+		/// </summary>
+		/// <param name="patient">The patient for which to build the addresses.</param>
+		/// <returns>Returns a list of addresses for a patient.</returns>
+		private static LIST<AD> BuildAddresses(Patient patient)
+		{
+			var addresses = new LIST<AD>();
+
+			var city = patient.City == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(patient.City, AddressPartType.City);
+			var country = patient.Country == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(patient.Country, AddressPartType.Country);
+			var postal = patient.PostalCode == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(patient.PostalCode, AddressPartType.PostalCode);
+			var state = patient.Province == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(patient.Province, AddressPartType.State);
+			var street = patient.AddressLine == null ? new ADXP { NullFlavor = NullFlavor.NoInformation } : new ADXP(patient.AddressLine, AddressPartType.StreetAddressLine);
+
+			var address = new AD(new[]
+			{
+				city,
+				country,
+				postal,
+				state,
+				street
+			})
+			{
+				Use = SET<CS<PostalAddressUse>>.CreateSET(new CS<PostalAddressUse>(PostalAddressUse.HomeAddress))
+			};
+
+
+			addresses.Add(address);
 
 			return addresses;
 		}
@@ -341,7 +512,9 @@ namespace PatientGenerator.HL7v3
 
 			stateWriter.Flush();
 
-			traceSource.TraceEvent(TraceEventType.Verbose, 0, sb.ToString());
+			traceSource.TraceEvent(TraceEventType.Information, 0, sb.ToString());
+
+			Console.WriteLine(sb.ToString());
 		}
 	}
 }

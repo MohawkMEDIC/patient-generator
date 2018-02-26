@@ -18,6 +18,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using PatientGenerator.Core.Model.ComponentModel;
 
 namespace PatientGenerator.Core.Model.Common
 {
@@ -31,6 +33,7 @@ namespace PatientGenerator.Core.Model.Common
 		/// </summary>
 		public Patient()
 		{
+			this.AlternateIdentifiers = new List<AlternateIdentifier>();
 		}
 
 		/// <summary>
@@ -40,10 +43,22 @@ namespace PatientGenerator.Core.Model.Common
 		public string AddressLine { get; set; }
 
 		/// <summary>
+		/// Gets or sets the alternate identifiers.
+		/// </summary>
+		/// <value>The alternate identifiers.</value>
+		public List<AlternateIdentifier> AlternateIdentifiers { get; set; }
+
+		/// <summary>
 		/// Gets or sets the city.
 		/// </summary>
 		/// <value>The city.</value>
 		public string City { get; set; }
+
+		/// <summary>
+		/// Gets or sets the corporate identifier.
+		/// </summary>
+		/// <value>The corporate identifier.</value>
+		public AlternateIdentifier CorporateIdentifier { get; set; }
 
 		/// <summary>
 		/// Gets or sets the country.
@@ -98,6 +113,12 @@ namespace PatientGenerator.Core.Model.Common
 		/// </summary>
 		/// <value>The name of the middle.</value>
 		public string MiddleName { get; set; }
+
+		/// <summary>
+		/// Gets or sets the medical record number.
+		/// </summary>
+		/// <value>The medical record number.</value>
+		public AlternateIdentifier MedicalRecordNumber { get; set; }
 
 		/// <summary>
 		/// Gets or sets the phone no.

@@ -57,10 +57,11 @@ namespace PatientGenerator.HL7v3
 		/// Sends the specified patient.
 		/// </summary>
 		/// <param name="patient">The patient.</param>
-		/// <exception cref="System.NotImplementedException"></exception>
 		public void Send(Patient patient)
 		{
-			throw new NotImplementedException();
+			var graphable = EverestUtility.GenerateCandidateRegistry(patient);
+
+			EverestUtility.Sendv3Messages(graphable, "cr");
 		}
 
 		/// <summary>
